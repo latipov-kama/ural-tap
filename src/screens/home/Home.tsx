@@ -2,6 +2,8 @@ import CoinsTap from "../../components/coins-tap/CoinsTap";
 import point_up from "../../assets/point-up.svg";
 import voltage from "../../assets/voltage.svg";
 import { useEffect, useState } from "react";
+import Button from "../../components/ui/button/Button";
+import Badge from "../../components/ui/badge/Badge";
 
 function Home() {
   const [limit, setLimit] = useState(100);
@@ -32,7 +34,7 @@ function Home() {
           <div>
             <h2 className="">Имя или Никнейм</h2>
             <div className="flex items-center gap-1">
-              <span className="text-sm text-[#B5C2DA]">Уровень 27</span>
+              <span className="text-sm text-secondary">Уровень 27</span>
             </div>
           </div>
         </div>
@@ -42,18 +44,17 @@ function Home() {
       </div>
 
       <CoinsTap onTap={handleTap} isDisabled={taps === 0} />
-
       <div className="mt-8">
         <div className="flex justify-between items-center ">
-          <div className="gradient_bg py-2.5 px-4 rounded-3xl flex items-center">
-            <img src={point_up} alt="pointer" className="w-4 h-4 mr-1.5" />
+          <Badge>
+            <img src={point_up} alt="pointer" className="w-4 h-4" />
             <span className="text-sm text-white">{taps}</span>
             <span className="text-sm text-[#B7B7B7]">/{limit}</span>
-          </div>
-          <button className="gradient_btn py-2.5 px-6 rounded-3xl flex items-center text-sm font-semibold">
-            <img src={voltage} alt="volt" className="w-4 h-4 mr-2" />
+          </Badge>
+          <Button>
+            <img src={voltage} className="w-4 h-4" />
             Улучшить
-          </button>
+          </Button>
         </div>
       </div>
     </div>

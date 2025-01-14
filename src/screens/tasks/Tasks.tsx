@@ -1,4 +1,3 @@
-import React from 'react'
 import TasksList from '../../components/tasks-list/TasksList'
 
 const Tasks = () => {
@@ -8,7 +7,6 @@ const Tasks = () => {
       <p className='text-sm text-secondary'>Выполняй задания и получай больше баллов</p>
 
       <TasksList />
-
     </div>
   )
 }

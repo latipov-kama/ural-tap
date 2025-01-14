@@ -1,13 +1,17 @@
-import { ListTodo, ShoppingBag, Trophy, User, Users } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import points from "../assets/points.svg"
+import tasks from "../assets/tasks.svg"
+import shop from "../assets/shop.svg"
+import friends from "../assets/friends.svg"
+import profile from "../assets/profile.svg"
 
 function Navbar() {
   const navItems = [
-    { to: '/', icon: Trophy, label: 'Баллы' },
-    { to: '/tasks', icon: ListTodo, label: 'Задания' },
-    { to: '/shop', icon: ShoppingBag, label: 'Магазин' },
-    { to: '/friends', icon: Users, label: 'Друзья' },
-    { to: '/profile', icon: User, label: 'Профиль' },
+    { to: '/', icon: points, label: 'Баллы' },
+    { to: '/tasks', icon: tasks, label: 'Задания' },
+    { to: '/shop', icon: shop, label: 'Магазин' },
+    { to: '/friends', icon: friends, label: 'Друзья' },
+    { to: '/profile', icon: profile, label: 'Профиль' },
   ];
 
   return (
@@ -18,11 +22,11 @@ function Navbar() {
             <NavLink
               to={item.to}
               className={({ isActive }) =>
-                `flex flex-col items-center text-xs ${isActive ? 'text-white' : 'text-[#8DA0C6]'
+                `flex flex-col items-center text-xs ${isActive ? 'navlink_active' : 'text-primary'
                 }`
               }
             >
-              <item.icon className="w-6 h-6 mb-3" />
+              <img src={item.icon} alt={item.label} className={`w-7 h-7 mb-3`} />
               {item.label}
             </NavLink>
           </li>
