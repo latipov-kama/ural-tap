@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+
+	color: #ffffff;
+
+	--primary: #8da0c6;
+	--secondary: #b6c2da;
+	--background: #0f1221;
+}
+
+body {
+	margin: 0;
+	min-width: 320px;
+	min-height: 100vh;
+	font-family: "Inter", serif;
+	background-color: var(--background);
+}
+
+h1 {
+	font-size: 3.2em;
+	line-height: 1.1;
+}
+
+.gradient_bg {
+	background: linear-gradient(
+		360deg,
+		rgba(226, 236, 255, 0.045) 0%,
+		rgba(226, 236, 255, 0.15) 100%
+	);
+
+	box-shadow: 0px 10px 40px 0px #0000001f;
+	box-shadow: 0px 1px 0px 0px #e2ecff1f inset;
+}
+
+.gradient_btn {
+	background: linear-gradient(90deg, #6788d5 20%, #937cef 100%);
+}
+
+.bounce-animation {
+	animation: bounce 0.2s ease-out;
+}
+
+@keyframes bounce {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(0.9);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.plus-one {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	overflow: hidden;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	background: linear-gradient(
+			0deg,
+			rgba(30, 40, 91, 0.5),
+			rgba(30, 40, 91, 0.5)
+		),
+		radial-gradient(86.11% 86.11% at 30.56% 87.5%, #ff926c 0%, #f54aa5 100%);
+	color: white;
+
+	position: absolute;
+	font-size: 12px;
+	animation: rise 1s ease-out forwards;
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+}
+
+@keyframes rise {
+	0% {
+		opacity: 1;
+		transform: translate(-50%, -50%);
+	}
+	100% {
+		opacity: 0;
+		transform: translate(-50%, -100px);
+	}
+}
+
+.bg-image {
+	background-image: url(./assets/bg-bottom.png), url(./assets/bg-top.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: bottom left, top right;
+}
