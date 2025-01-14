@@ -3,7 +3,7 @@ import notification from "../../assets/notification.svg";
 import questions from "../../assets/questions.svg";
 import privacy_policy from "../../assets/privacy-policy.svg";
 import book from "../../assets/book.svg";
-import friend from "../../assets/friend.png"
+import friend from "../../assets/friend.svg"
 import { ChevronRight } from "lucide-react";
 import Toggle from "../../components/ui/toggle/Toggle";
 import { useState } from "react";
@@ -51,7 +51,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="mt-7">
+      <div className="py-8">
         <div
           className="flex items-center justify-between py-4 border-t border-[#8DA0C63D]"
           onClick={() => handleToggle()}

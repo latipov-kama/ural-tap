@@ -3,7 +3,7 @@ import Badge from "../../components/ui/badge/Badge";
 import Button from "../../components/ui/button/Button";
 import man_raising_hand from "../../assets/man-raising-hand.svg";
 import sparkles from "../../assets/sparkles.svg"
-import friend from "../../assets/friend.png"
+import friend from "../../assets/friend.svg"
 
 const Friends = () => {
   return (
@@ -31,7 +31,7 @@ const Friends = () => {
         </div>
 
         <div className="py-5">
-          {[0, 1, 2].map((item: number) => (
+          {[0, 1, 2, 3, 4, 5].map((item: number) => (
             <div
               key={item}
               className="gradient_bg flex items-center justify-between gap-3 mt-2 p-4 rounded-2xl"
