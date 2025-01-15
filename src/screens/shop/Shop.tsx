@@ -1,4 +1,3 @@
-import React from 'react'
 import ShopList from '../../components/shop-list/ShopList'
 
 const Shop = () => {

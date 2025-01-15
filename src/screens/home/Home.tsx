@@ -6,7 +6,7 @@ import Button from "../../components/ui/button/Button";
 import Badge from "../../components/ui/badge/Badge";
 
 function Home() {
-  const [limit, setLimit] = useState(100);
+  const [limit] = useState(100);
   const [taps, setTaps] = useState(limit);
 
   useEffect(() => {
