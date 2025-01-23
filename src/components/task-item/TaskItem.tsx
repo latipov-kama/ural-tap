@@ -3,6 +3,8 @@ import sparkles from "../../assets/sparkles.svg"
 import Badge from "../ui/badge/Badge"
 import Button from "../ui/button/Button"
 import { ChevronRight } from "lucide-react"
+import TaskSheet from "../task-sheet/TaskSheet"
+import { useState } from "react"
 
 interface props {
   title: string
@@ -11,6 +13,8 @@ interface props {
 }
 
 const TaskItem: React.FC<props> = ({ title, description, price }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="flex gap-5 w-full p-4 rounded-2xl gradient_bg">
       <div className="w-12 h-12 rounded-full gradient_btn flex items-center justify-center">
@@ -26,12 +30,19 @@ const TaskItem: React.FC<props> = ({ title, description, price }) => {
             <img src={sparkles} alt="sparkles" className="w-6 h-6" />
             {price.toLocaleString()}
           </Badge>
-          <Button>
+          <Button onClick={() => setIsOpen(true)}>
             Выполнить
             <ChevronRight size={20} />
           </Button>
         </div>
       </div>
+
+      <TaskSheet
+        isShow={isOpen}
+        setIsShow={setIsOpen}
+        title={title}
+        description={description}
+        price={price} />
     </div>
   )
 }

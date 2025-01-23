@@ -54,6 +54,17 @@ h1 {
 	background: linear-gradient(90deg, #6788d5 50%, #937cef 120%);
 }
 
+.gradient_sheet {
+	background: linear-gradient(
+			360deg,
+			rgba(226, 236, 255, 0.045) 0%,
+			rgba(226, 236, 255, 0.15) 100%
+		),
+		#232a46;
+	box-shadow: 0px 10px 40px 0px #0000001f;
+	box-shadow: 0px 1px 0px 0px #e2ecff1f inset;
+}
+
 .bounce-animation {
 	animation: bounce 0.2s ease-out;
 }
