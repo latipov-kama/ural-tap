@@ -7,13 +7,14 @@ import friend from "../../assets/friend.svg"
 import { ChevronRight } from "lucide-react";
 import Toggle from "../../components/ui/toggle/Toggle";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const arr = [
     {
       title: "Вопросы и ответы",
       icon: questions,
-      route: "/"
+      route: "/profile/questions"
     },
     {
       title: "Политика конфиденциальности",
@@ -68,8 +69,9 @@ const Profile = () => {
             <Toggle isOn={notificationOn} />
           </div>
         </div>
-        {arr.map((item: { title: string; icon: string }, idx: number) => (
-          <div
+        {arr.map((item: { title: string; icon: string, route: string }, idx: number) => (
+          <Link
+            to={item.route}
             key={idx}
             className="flex items-center justify-between py-4 border-t border-[#8DA0C63D]"
           >
@@ -84,7 +86,7 @@ const Profile = () => {
             <div>
               <ChevronRight color="#8DA0C6" size={25} />
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

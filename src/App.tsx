@@ -7,6 +7,7 @@ import Friends from './screens/friends/Friends'
 import Profile from './screens/profile/Profile'
 import TaskInfo from './screens/tasks/TaskInfo'
 import Boost from './screens/boost/Boost'
+import Questions from './screens/questions/Questions'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/shop/:id" element={<Boost />} />
         <Route path="/friends" element={<Friends />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/questions" element={<Questions />} />
       </Routes>
     </Layout>
   )
