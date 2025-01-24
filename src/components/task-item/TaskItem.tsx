@@ -19,10 +19,6 @@ const TaskItem: React.FC<props> = ({ task }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate()
 
-  const handleOpen = () => {
-
-  }
-
   return (
     <div
       className="flex gap-5 w-full p-4 rounded-2xl gradient_bg"
