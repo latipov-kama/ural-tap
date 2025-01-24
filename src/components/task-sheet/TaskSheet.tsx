@@ -33,7 +33,7 @@ const TaskSheet: React.FC<props> = ({ isShow, setIsShow, price, description, tit
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
-            transition={{ duration: 0.2, ease: "linear" }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
           >
             <div className='h-full flex flex-col items-center justify-between'>
               <div className="w-[72px] h-[72px] rounded-full gradient_btn flex items-center justify-center">
@@ -57,7 +57,10 @@ const TaskSheet: React.FC<props> = ({ isShow, setIsShow, price, description, tit
 
             <button
               className='absolute right-5 top-5'
-              onClick={() => setIsShow(false)}>
+              onClick={(e) => {
+                setIsShow(false)
+                e.stopPropagation()
+              }}>
               <X className='w-6 text-primary' />
             </button>
           </motion.div>
