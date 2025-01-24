@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import repeat from "../../assets/repeat.svg"
 import sparkles from "../../assets/sparkles.svg"
 import voltage from "../../assets/voltage.svg"
@@ -6,10 +7,12 @@ import Button from "../ui/button/Button"
 const ShopList = () => {
   const shop = [
     {
+      id: 1,
       title: "Обнуление счётчика тапов",
       price: 100
     },
     {
+      id: 2,
       title: "Удвоенные баллы от тапов",
       price: 500
     },
@@ -19,7 +22,7 @@ const ShopList = () => {
     <div className='py-8 grid grid-cols-2 gap-3'>
       {
         shop.map((item, idx) => (
-          <div key={idx} className='gradient_bg p-4 flex flex-col items-center rounded-2xl'>
+          <Link to={`${item.id}`} key={idx} className='gradient_bg p-4 flex flex-col items-center rounded-2xl'>
             <div className="gradient_circle w-12 h-12 rounded-full flex items-center justify-center">
               <img src={repeat} alt="repeat" className="w-8 h-8" />
             </div>
@@ -34,7 +37,7 @@ const ShopList = () => {
               <img src={voltage} alt="voltage" className="w-5 h-5" />
               Прокачать
             </Button>
-          </div>
+          </Link>
         ))
       }
     </div >

@@ -6,6 +6,7 @@ import Shop from './screens/shop/Shop'
 import Friends from './screens/friends/Friends'
 import Profile from './screens/profile/Profile'
 import TaskInfo from './screens/tasks/TaskInfo'
+import Boost from './screens/boost/Boost'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/tasks/:id" element={<TaskInfo />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/shop/:id" element={<Boost />} />
         <Route path="/friends" element={<Friends />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
