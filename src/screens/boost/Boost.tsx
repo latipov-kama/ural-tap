@@ -1,4 +1,3 @@
-import React from 'react'
 import { useParams } from 'react-router-dom'
 import Badge from '../../components/ui/badge/Badge'
 import Button from '../../components/ui/button/Button'
@@ -9,6 +8,8 @@ import voltage from "../../assets/voltage.svg"
 
 const Boost = () => {
   const { id } = useParams()
+
+  console.log(id);
 
   return (
     <div className='h-full flex items-center justify-center'>

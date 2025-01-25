@@ -5,7 +5,7 @@ import Button from "../ui/button/Button"
 import { ChevronRight } from "lucide-react"
 import TaskSheet from "../task-sheet/TaskSheet"
 import { useState } from "react"
-import { Link, useNavigate, useNavigation } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 interface props {
   task: {

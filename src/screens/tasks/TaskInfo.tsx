@@ -1,4 +1,3 @@
-import React from 'react'
 import { useParams } from "react-router-dom";
 import taskIcon from "../../assets/task-icon.svg"
 import sparkles from "../../assets/sparkles.svg"
