@@ -11,9 +11,6 @@ function Home() {
   const [taps, setTaps] = useState(limit);
   const score = useScoreStore()
 
-  console.log(score);
-
-
   useEffect(() => {
     const interval = setInterval(() => {
       setTaps((prev) => (prev < limit ? prev + 1 : prev))
