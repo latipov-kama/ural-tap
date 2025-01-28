@@ -4,12 +4,12 @@ import voltage from "../../assets/voltage.svg";
 import { useEffect, useState } from "react";
 import Button from "../../components/ui/button/Button";
 import Badge from "../../components/ui/badge/Badge";
-import { useScoreStore } from "../../stores/score";
+// import { useScoreStore } from "../../stores/score";
 
 function Home() {
   const [limit] = useState(100);
   const [taps, setTaps] = useState(limit);
-  const score = useScoreStore()
+  // const score = useScoreStore()
 
   useEffect(() => {
     const interval = setInterval(() => {

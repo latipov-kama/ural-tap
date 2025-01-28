@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import Navbar from './navbar'
-import { Header } from './header'
+// import { Header } from './header'
 
 function Layout({ children }: { children: ReactNode }) {
   return (

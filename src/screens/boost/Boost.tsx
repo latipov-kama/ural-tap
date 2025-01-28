@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import Badge from '../../components/ui/badge/Badge';
 import Button from '../../components/ui/button/Button';
 import { motion } from 'framer-motion';
@@ -15,7 +15,7 @@ const data = {
 };
 
 const Boost = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
   const [isActive, setIsActive] = useState(false); // состояние активности
 
   const handleClick = () => {
