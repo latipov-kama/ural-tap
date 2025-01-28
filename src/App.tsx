@@ -8,8 +8,31 @@ import Profile from './screens/profile/Profile'
 import TaskInfo from './screens/tasks/TaskInfo'
 import Boost from './screens/boost/Boost'
 import Questions from './screens/questions/Questions'
+import { useEffect } from 'react'
 
 function App() {
+  useEffect(() => {
+    // Проверяем наличие Telegram WebApp
+    if (window.Telegram?.WebApp) {
+      const telegramWebApp = window.Telegram.WebApp;
+
+      // Получаем initData
+      const initData = telegramWebApp.initData;
+      const initDataUnsafe = telegramWebApp.initDataUnsafe; // Разбирает данные автоматически
+
+      console.log('InitData:', initData);
+      console.log('InitDataUnsafe:', initDataUnsafe);
+
+      // Используем данные пользователя
+      if (initDataUnsafe.user) {
+        console.log('User Data:', initDataUnsafe.user);
+      }
+    } else {
+      console.error('Telegram WebApp не обнаружен');
+    }
+    alert('test')
+  }, []);
+
   return (
     <Layout>
       <Routes>

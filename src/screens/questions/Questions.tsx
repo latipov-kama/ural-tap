@@ -28,7 +28,7 @@ const Questions = () => {
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1, marginTop: "12px" }}
-                  exit={{ height: 0, opacity: 0 }}
+                  exit={{ height: 0, opacity: 0, marginTop: "0" }}
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                   className="overflow-hidden"
                 >
