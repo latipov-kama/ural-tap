@@ -4,11 +4,13 @@ import voltage from "../../assets/voltage.svg";
 import { useEffect, useState } from "react";
 import Button from "../../components/ui/button/Button";
 import Badge from "../../components/ui/badge/Badge";
+import { useTelegramAuth } from "../../hooks/useTelegramUser";
 // import { useScoreStore } from "../../stores/score";
 
 function Home() {
   const [limit] = useState(100);
   const [taps, setTaps] = useState(limit);
+  const user = useTelegramAuth()
   // const score = useScoreStore()
 
   useEffect(() => {
@@ -34,7 +36,10 @@ function Home() {
             <span className="text-xl">👤</span>
           </div>
           <div>
-            <h2 className="">Имя или Никнейм</h2>
+            <h2 className="">
+              {user && user.first_name}
+              Имя или Никнейм
+            </h2>
             <div className="flex items-center gap-1">
               <span className="text-sm text-secondary">Уровень 27</span>
             </div>
