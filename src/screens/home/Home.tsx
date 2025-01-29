@@ -37,7 +37,17 @@ function Home() {
           </div>
           <div>
             <h2 className="">
-              {user && user.first_name}
+              {user && (
+                <>
+                  <div>{user.first_name}</div>
+                  <div>{user.last_name}</div>
+                  <div>{user.id}</div>
+                  <div>{user.photo_url}</div>
+                  <div>{user.username}</div>
+                  <div>{user.auth_date}</div>
+                  <div>{user.hash}</div>
+                </>
+              )}
               Имя или Никнейм
             </h2>
             <div className="flex items-center gap-1">
