@@ -11,6 +11,7 @@ function Home() {
   const [limit] = useState(100);
   const [taps, setTaps] = useState(limit);
   const user = useTelegramAuth()
+
   // const score = useScoreStore()
 
   useEffect(() => {
@@ -37,21 +38,10 @@ function Home() {
           </div>
           <div>
             <h2 className="">
-              {user && (
-                <>
-                  <div>{user.first_name}</div>
-                  <div>{user.last_name}</div>
-                  <div>{user.id}</div>
-                  <div>{user.photo_url}</div>
-                  <div>{user.username}</div>
-                  <div>{user.auth_date}</div>
-                  <div>{user.hash}</div>
-                </>
-              )}
-              Имя или Никнейм
+              {user.first_name}
             </h2>
             <div className="flex items-center gap-1">
-              <span className="text-sm text-secondary">Уровень 27</span>
+              <span className="text-sm text-secondary">Уровень {user.level}</span>
             </div>
           </div>
         </div>

@@ -34,3 +34,21 @@ export interface IBoost {
   userId?: number
 }
 
+export interface TelegramInitData {
+  user?: TelegramUser;
+  auth_date: number;
+  hash: string;
+}
+
+export interface TelegramUser {
+  id: number;
+  first_name: string;
+  last_name?: string;
+  username?: string;
+  photo_url?: string;
+  auth_date: number;
+  hash: string;
+  level: number
+  tapsLimit: number
+  coins: number
+}
