@@ -3,21 +3,19 @@ import coinImg from "../../assets/coin.svg";
 import sparkles from "../../assets/sparkles.svg";
 
 type CoinsTapProps = {
+  coins: number
   onTap: (tapCount: number) => void;
   isDisabled: boolean;
 };
 
-const CoinsTap: React.FC<CoinsTapProps> = ({ onTap, isDisabled }) => {
-  const [coinsCount, setCoinsCount] = useState(1000);
+const CoinsTap: React.FC<CoinsTapProps> = ({ coins, onTap, isDisabled }) => {
   const coinRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleTap = (event: React.TouchEvent<HTMLDivElement>) => {
     if (isDisabled) return;
 
-    const tapCount = event.touches.length;
-
-    setCoinsCount((prev) => prev + tapCount);
+    const tapCount = 5;
     onTap(tapCount);
 
     if (coinRef.current) {
@@ -48,7 +46,7 @@ const CoinsTap: React.FC<CoinsTapProps> = ({ onTap, isDisabled }) => {
     <div className="mt-8">
       <div className="flex items-center gap-3 justify-center mb-4">
         <img src={sparkles} alt="sparkles" />
-        <p className="text-3xl font-semibold">{coinsCount}</p>
+        <p className="text-3xl font-semibold">{coins}</p>
       </div>
       <div
         className={`w-56 h-56 mx-auto relative ${isDisabled ? "pointer-events-none opacity-50" : ""
