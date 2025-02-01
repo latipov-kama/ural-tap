@@ -31,8 +31,8 @@ export const useTelegramAuth = () => {
           auth_date: tgData.auth_date,
           hash: tgData.hash,
           level: 1,  // Placeholder for now; we'll compute level below
-          tapsLimit: 100,
-          coins: 500  // Placeholder for now; we will set this from the Telegram data
+          tapsLimit: 500,
+          coins: 100  // Placeholder for now; we will set this from the Telegram data
         };
 
         setUser(userData);
