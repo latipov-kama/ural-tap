@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import coinImg from "../../assets/coin.svg";
 import sparkles from "../../assets/sparkles.svg";
 
