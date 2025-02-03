@@ -45,17 +45,17 @@ const Profile = () => {
 
   return (
     <div className="p-5 py-8 h-full">
+      {user && (
+        <p className="p-2 rounded-md text-sm mt-4">
+          {JSON.stringify(user, null, 2)}
+        </p>
+      )}
       <div className="flex flex-col items-center justify-center">
         <div className="w-16 h-16 rounded-full overflow-clip">
           <img src={friend} alt="friend" className="w-full h-full object-cover" />
         </div>
         <h2 className="mt-3 text-lg font-medium">Имя или Никнейм</h2>
         <p className="text-secondary mt-1 text-sm">Уровень 27</p>
-        {user && (
-          <pre className="p-2 rounded-md text-sm mt-4">
-            {JSON.stringify(user, null, 2)}
-          </pre>
-        )}
 
         <div className="max-w-72 w-full h-1.5 mt-3 bg-[#E2ECFF35] rounded-3xl overflow-hidden">
           <div className="h-full w-3/5 rounded-full bg-gradient-to-r from-[#937CEF] to-[#FFC846]"></div>
