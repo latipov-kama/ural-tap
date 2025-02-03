@@ -6,7 +6,7 @@ import book from "../../assets/book.svg";
 import friend from "../../assets/friend.svg"
 import { ChevronRight } from "lucide-react";
 import Toggle from "../../components/ui/toggle/Toggle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Profile = () => {
@@ -28,6 +28,16 @@ const Profile = () => {
     },
   ];
   const [notificationOn, setNotificationOn] = useState(false);
+  const [user, setUser] = useState<object>({ name: "Alex" });
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.Telegram?.WebApp) {
+      const tgData = window.Telegram.WebApp.initDataUnsafe;
+
+      setUser(tgData)
+      console.log(tgData);
+    }
+  }, [])
 
   const handleToggle = () => {
     setNotificationOn(!notificationOn);
@@ -41,6 +51,11 @@ const Profile = () => {
         </div>
         <h2 className="mt-3 text-lg font-medium">Имя или Никнейм</h2>
         <p className="text-secondary mt-1 text-sm">Уровень 27</p>
+        {user && (
+          <pre className="p-2 rounded-md text-sm mt-4">
+            {JSON.stringify(user, null, 2)}
+          </pre>
+        )}
 
         <div className="max-w-72 w-full h-1.5 mt-3 bg-[#E2ECFF35] rounded-3xl overflow-hidden">
           <div className="h-full w-3/5 rounded-full bg-gradient-to-r from-[#937CEF] to-[#FFC846]"></div>
