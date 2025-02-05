@@ -6,8 +6,11 @@ import book from "../../assets/book.svg";
 import friend from "../../assets/friend.svg"
 import { ChevronRight } from "lucide-react";
 import Toggle from "../../components/ui/toggle/Toggle";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTelegramAuth } from "../../hooks/useTelegramUser";
+import { useScoreStore } from "../../stores/score";
+import LevelProgress from "../../components/level-progress/LevelProgress";
 
 const Profile = () => {
   const arr = [
@@ -27,17 +30,10 @@ const Profile = () => {
       route: "/"
     },
   ];
+  const user = useTelegramAuth();
+  const { coins, level, levels } = useScoreStore();
   const [notificationOn, setNotificationOn] = useState(false);
-  const [user, setUser] = useState<object>({ name: "Alex" });
 
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.Telegram?.WebApp) {
-      const tgData = window.Telegram.WebApp.initDataUnsafe;
-
-      setUser(tgData)
-      console.log(tgData);
-    }
-  }, [])
 
   const handleToggle = () => {
     setNotificationOn(!notificationOn);
@@ -45,25 +41,20 @@ const Profile = () => {
 
   return (
     <div className="p-5 py-8 h-full">
-      {user && (
-        <p className="p-2 rounded-md text-sm mt-4">
-          {JSON.stringify(user, null, 2)}
-        </p>
-      )}
       <div className="flex flex-col items-center justify-center">
         <div className="w-16 h-16 rounded-full overflow-clip">
           <img src={friend} alt="friend" className="w-full h-full object-cover" />
         </div>
-        <h2 className="mt-3 text-lg font-medium">Имя или Никнейм</h2>
-        <p className="text-secondary mt-1 text-sm">Уровень 27</p>
+        <h2 className="mt-3 text-lg font-medium">{user.first_name}</h2>
+        <p className="text-secondary mt-1 text-sm">Уровень {level}</p>
 
-        <div className="max-w-72 w-full h-1.5 mt-3 bg-[#E2ECFF35] rounded-3xl overflow-hidden">
-          <div className="h-full w-3/5 rounded-full bg-gradient-to-r from-[#937CEF] to-[#FFC846]"></div>
+        <div className="max-w-72 w-full mt-3">
+          <LevelProgress coins={coins} level={level} levels={levels} />
         </div>
 
         <div className="flex items-center gap-4 mt-6">
           <img src={sparkles} alt="sparkles" className="" />
-          <p className="text-3xl font-semibold">1 240 400</p>
+          <p className="text-3xl font-semibold">{coins.toLocaleString()}</p>
         </div>
       </div>
 

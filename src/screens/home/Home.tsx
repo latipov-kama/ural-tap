@@ -6,11 +6,10 @@ import Button from "../../components/ui/button/Button";
 import Badge from "../../components/ui/badge/Badge";
 import { useTelegramAuth } from "../../hooks/useTelegramUser";
 import { useScoreStore } from "../../stores/score";
+import LevelProgress from "../../components/level-progress/LevelProgress";
 
 function Home() {
   const user = useTelegramAuth();
-
-  // Access Zustand store to get coins and level
   const { coins, level, addCoins, levels } = useScoreStore();
 
   const [limit] = useState(500);
@@ -30,14 +29,6 @@ function Home() {
     addCoins(tapCount); // Add coins based on the tap count (10 coins per tap)
   };
 
-  // Calculate progress for the current level
-  const getLevelProgress = () => {
-    const levelThreshold = levels[level - 1];
-    const nextLevelThreshold = levels[level] || Infinity; // If at last level, set next threshold to Infinity
-    const progress = (coins - levelThreshold) / (nextLevelThreshold - levelThreshold);
-    return Math.min(progress * 100, 100); // Ensure it doesn't exceed 100%
-  };
-
   return (
     <div className="p-5 py-8 h-full flex flex-col justify-between">
       <div className="px-4 pt-4 rounded-xl gradient_bg">
@@ -55,10 +46,7 @@ function Home() {
           </div>
         </div>
         <div className="w-full h-1.5 mt-3 bg-[#E2ECFF35] rounded-3xl overflow-hidden">
-          <div
-            className="h-full rounded-full bg-gradient-to-r from-[#937CEF] to-[#FFC846]"
-            style={{ width: `${getLevelProgress()}%` }} // Progress to the next level based on current level's threshold
-          ></div>
+          <LevelProgress coins={coins} level={level} levels={levels} />
         </div>
       </div>
 

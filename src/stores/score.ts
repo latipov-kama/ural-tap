@@ -28,8 +28,6 @@ export const useScoreStore = create<ScoreState>((set) => ({
         return level;
       }, 1); // Начинаем с уровня 1
 
-      console.log(newCoins);
-
       return {
         coins: newCoins,
         level: newLevel,
