@@ -34,7 +34,6 @@ const Profile = () => {
   const { coins, level, levels } = useScoreStore();
   const [notificationOn, setNotificationOn] = useState(false);
 
-
   const handleToggle = () => {
     setNotificationOn(!notificationOn);
   };

@@ -38,6 +38,7 @@ export interface TelegramInitData {
   user?: TelegramUser;
   auth_date: number;
   hash: string;
+  signature: string
 }
 
 export interface TelegramUser {
@@ -46,9 +47,14 @@ export interface TelegramUser {
   last_name?: string;
   username?: string;
   photo_url?: string;
-  auth_date: number;
-  hash: string;
-  level: number
-  tapsLimit: number
-  coins: number
+  auth_date?: number;
+  added_to_attachment_menu?: boolean
+  allows_write_to_pm?: boolean
+  is_bot?: boolean
+  is_premium?: boolean
+  language_code?: string
+  // hash: string;
+  // level: number
+  // tapsLimit: number
+  // coins: number
 }
