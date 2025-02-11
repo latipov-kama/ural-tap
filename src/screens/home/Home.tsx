@@ -6,25 +6,25 @@ import Button from "../../components/ui/button/Button";
 import Badge from "../../components/ui/badge/Badge";
 import { useScoreStore } from "../../stores/score";
 import LevelProgress from "../../components/level-progress/LevelProgress";
-import { authUser } from "../../services/auth/auth";
+import { sendAuthData } from "../../services/auth/auth";
 import { TelegramInitData } from "../../types";
 
-// const MOCK_USER: TelegramInitData = {
-//   user: {
-//     id: 909990269,
-//     first_name: "Kama",
-//     last_name: "",
-//     username: "latipov_kama",
-//     language_code: "ru",
-//     allows_write_to_pm: true,
-//     photo_url:
-//       "",
+// const data = {
+//   "user": {
+//     "id": 909990269,
+//     "first_name": "Kamran",
+//     "last_name": "",
+//     "username": "latipov_kama",
+//     "language_code": "ru",
+//     "allows_write_to_pm": true,
+//     "photo_url": "https://t.me/i/userpic/320/Jgo_S36x4Mww1tqsAYlTU4q-Eh4U4NjScTy0jANiS8Q.svg"
 //   },
-//   auth_date: 1738578480,
-//   signature:
-//     "yexIMgh2Z7zG_jaSxBhCpUbGEy8SgihWAvTaWn6ay6X-7O0C6Iut5FhGXRoRTFd885JQILrkm8g62-4VwKbUBw",
-//   hash: "35dcd936e488bb2a16ab71e2d4d3d0426747a4d67cf2096377f0310a045dcf92",
-// };
+//   "chat_instance": "8180690052102929318",
+//   "chat_type": "sender",
+//   "auth_date": "1738578480",
+//   "signature": "yexIMgh2Z7zG_jaSxBhCpUbGEy8SgihWAvTaWn6ay6X-7O0C6Iut5FhGXRoRTFd885JQILrkm8g62-4VwKbUBw",
+//   "hash": "35dcd936e488bb2a16ab71e2d4d3d0426747a4d67cf2096377f0310a045dcf92"
+// }
 
 function Home() {
   const { coins, level, addCoins, levels } = useScoreStore();
@@ -40,31 +40,8 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.Telegram?.WebApp) {
-      const tgData = window.Telegram.WebApp.initDataUnsafe as TelegramInitData;
-
-      alert(tgData)
-
-      if (tgData) {
-        // setUser(tgData.user);
-        authUser(tgData)
-          .then((res) => alert(res.data))
-          .catch(() => alert("Auth error"));
-      }
-      //  else {
-      //   authUser(MOCK_USER)
-      //     .then((res) => console.log("Mock Auth success:", res))
-      //     .catch((error) => console.error("Mock Auth error:", error));
-      // }
-    }
-    // else {
-    //   setUser(MOCK_USER.user);
-    //   authUser(MOCK_USER)
-    //     .then((res) => console.log("Mock Auth success:", res))
-    //     .catch((error) => console.error("Mock Auth error:", error));
-    // }
+    sendAuthData()
   }, []);
-
 
   const handleTap = (tapCount: number) => {
     setTaps((prev) => Math.max(0, prev - tapCount));
