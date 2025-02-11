@@ -6,7 +6,7 @@ import Button from "../../components/ui/button/Button";
 import Badge from "../../components/ui/badge/Badge";
 import { useScoreStore } from "../../stores/score";
 import LevelProgress from "../../components/level-progress/LevelProgress";
-import { authUser } from "../../services/auth/auth";
+// import { authUser } from "../../services/auth/auth";
 import { TelegramInitData } from "../../types";
 
 const MOCK_USER: TelegramInitData = {
