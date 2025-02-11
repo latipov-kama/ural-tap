@@ -29,7 +29,7 @@ import { TelegramInitData } from "../../types";
 function Home() {
   const { coins, level, addCoins, levels } = useScoreStore();
   const [taps, setTaps] = useState(500);
-  const [user, setUser] = useState<TelegramInitData["user"] | null>(null);
+  const [user] = useState<TelegramInitData["user"] | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
