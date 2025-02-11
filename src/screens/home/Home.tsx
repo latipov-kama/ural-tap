@@ -43,19 +43,23 @@ function Home() {
     if (typeof window !== "undefined" && window.Telegram?.WebApp) {
       const tgData = window.Telegram.WebApp.initDataUnsafe as TelegramInitData;
 
-      if (tgData && tgData.user) {
-        authUser(tgData)
-          .then((res) => alert(res))
-          .catch((error) => console.error("Auth error:", error));
-      } else {
-        authUser(MOCK_USER)
-          .then((res) => console.log("Mock Auth success:", res))
-          .catch((error) => console.error("Mock Auth error:", error));
-      }
-    } else {
-      authUser(MOCK_USER)
-        .then((res) => console.log("Mock Auth success:", res))
-        .catch((error) => console.error("Mock Auth error:", error));
+      alert(tgData)
+
+    //   if (tgData && tgData.user) {
+    //     setUser(tgData.user);
+    //     authUser(tgData)
+    //       .then((res) => console.log("Auth success:", res))
+    //       .catch((error) => console.error("Auth error:", error));
+    //   } else {
+    //     authUser(MOCK_USER)
+    //       .then((res) => console.log("Mock Auth success:", res))
+    //       .catch((error) => console.error("Mock Auth error:", error));
+    //   }
+    // } else {
+    //   setUser(MOCK_USER.user);
+    //   authUser(MOCK_USER)
+    //     .then((res) => console.log("Mock Auth success:", res))
+    //     .catch((error) => console.error("Mock Auth error:", error));
     }
   }, []);
 
