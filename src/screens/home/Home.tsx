@@ -28,7 +28,7 @@ import { TelegramInitData } from "../../types";
 function Home() {
   const { coins, level, addCoins, levels } = useScoreStore();
   const [taps, setTaps] = useState(500);
-  const [user, setUser] = useState<TelegramInitData["user"] | null>(null);
+  const [user] = useState<TelegramInitData["user"] | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -44,21 +44,21 @@ function Home() {
 
       alert(tgData)
 
-    //   if (tgData && tgData.user) {
-    //     setUser(tgData.user);
-    //     authUser(tgData)
-    //       .then((res) => console.log("Auth success:", res))
-    //       .catch((error) => console.error("Auth error:", error));
-    //   } else {
-    //     authUser(MOCK_USER)
-    //       .then((res) => console.log("Mock Auth success:", res))
-    //       .catch((error) => console.error("Mock Auth error:", error));
-    //   }
-    // } else {
-    //   setUser(MOCK_USER.user);
-    //   authUser(MOCK_USER)
-    //     .then((res) => console.log("Mock Auth success:", res))
-    //     .catch((error) => console.error("Mock Auth error:", error));
+      //   if (tgData && tgData.user) {
+      //     setUser(tgData.user);
+      //     authUser(tgData)
+      //       .then((res) => console.log("Auth success:", res))
+      //       .catch((error) => console.error("Auth error:", error));
+      //   } else {
+      //     authUser(MOCK_USER)
+      //       .then((res) => console.log("Mock Auth success:", res))
+      //       .catch((error) => console.error("Mock Auth error:", error));
+      //   }
+      // } else {
+      //   setUser(MOCK_USER.user);
+      //   authUser(MOCK_USER)
+      //     .then((res) => console.log("Mock Auth success:", res))
+      //     .catch((error) => console.error("Mock Auth error:", error));
     }
   }, []);
 
