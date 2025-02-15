@@ -6,13 +6,17 @@ import Button from "../../components/ui/button/Button";
 import Badge from "../../components/ui/badge/Badge";
 import { useScoreStore } from "../../stores/score";
 import LevelProgress from "../../components/level-progress/LevelProgress";
-import { sendAuthData } from "../../services/auth/auth";
+// import { sendAuthData } from "../../services/auth/auth";
 import { TelegramInitData } from "../../types";
+import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 function Home() {
   const { coins, level, addCoins, levels } = useScoreStore();
   const [taps, setTaps] = useState(500);
   const [user] = useState<TelegramInitData["user"] | null>(null);
+  const { initDataRaw } = retrieveLaunchParams();
+
+  console.log(initDataRaw);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -20,10 +24,6 @@ function Home() {
     }, 500);
 
     return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    sendAuthData()
   }, []);
 
   const handleTap = (tapCount: number) => {
@@ -47,7 +47,7 @@ function Home() {
             )}
           </div>
           <div>
-            <h2>{user?.first_name ?? "Гость"}</h2>
+            <h2>{user?.first_name ?? "Гость"} test</h2>
             <div className="flex items-center gap-1">
               <span className="text-sm text-secondary">Уровень {level}</span>
             </div>
@@ -57,7 +57,7 @@ function Home() {
           <LevelProgress coins={coins} level={level} levels={levels} />
         </div>
       </div>
-
+      {initDataRaw}
       <CoinsTap onTap={handleTap} coins={coins} isDisabled={taps === 0} />
 
       <div className="mt-8">

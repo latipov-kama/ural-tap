@@ -1,21 +1,20 @@
 import axios from "axios";
 
 const test = {
-  user: {
-    added_to_attachment_menu: false,
-    allows_write_to_pm: false,
-    first_name: "user-first-name",
-    id: 422,
-    is_bot: true,
-    is_premium: false,
-    language_code: "en",
-    last_name: "user-last-name",
-    photo_url: "user-photo",
-    username: "user-username",
+  "user": {
+    "id": 909990269,
+    "first_name": "Kamran",
+    "last_name": "",
+    "username": "latipov_kama",
+    "language_code": "ru",
+    "allows_write_to_pm": true,
+    "photo_url": "https://t.me/i/userpic/320/Jgo_S36x4Mww1tqsAYlTU4q-Eh4U4NjScTy0jANiS8Q.svg"
   },
-  auth_date: "1739220101",
-  signature: "",
-  hash: "ae79eca87f4580895f1b508f0944e5cff01d6b89c9d2a18a0a790439c7075323",
+  "chat_instance": "8180690052102929318",
+  "chat_type": "sender",
+  "auth_date": "1738578480",
+  "signature": "yexIMgh2Z7zG_jaSxBhCpUbGEy8SgihWAvTaWn6ay6X-7O0C6Iut5FhGXRoRTFd885JQILrkm8g62-4VwKbUBw",
+  "hash": "35dcd936e488bb2a16ab71e2d4d3d0426747a4d67cf2096377f0310a045dcf92"
 };
 
 export const sendAuthData = async () => {
