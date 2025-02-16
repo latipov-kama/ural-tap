@@ -1,3 +1,4 @@
+import { User } from "../types/user";
 import makeRequest from "./api";
 
 export const sendAuthData = async (initDataRaw: string) => {
@@ -12,7 +13,7 @@ export const sendAuthData = async (initDataRaw: string) => {
 
 export const fetchUserData = async (userId: number) => {
   try {
-    const response = await makeRequest.get(`/users/${userId}`)
+    const response = await makeRequest.get<User>(`/users/${userId}`)
     return response.data
   } catch (error) {
     console.log("Ошибка авторизации:", error);
