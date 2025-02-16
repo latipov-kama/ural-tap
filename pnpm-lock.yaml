@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@tanstack/react-query':
+    specifier: ^5.66.2
+    version: 5.66.2(react@19.0.0)
   '@telegram-apps/sdk':
     specifier: ^2.11.3
     version: 2.11.3
@@ -810,6 +813,19 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@tanstack/query-core@5.66.2:
+    resolution: {integrity: sha512-GL/Rx7rIUxyYgJPWSpFjz09lizvAAZut2RueuRXnedAJzJMI+NxpwKA6dojJ9gc26RdUviH5pvSvEiYXo8vSTg==}
+    dev: false
+
+  /@tanstack/react-query@5.66.2(react@19.0.0):
+    resolution: {integrity: sha512-8Dl/Aqn5VGMmxIld4n7DiWqUzif24UFdeDn1ShL9RXAy+o1gdXXGQtAdfT5QEZCWivE6EnRWFXYeO4DDQQoM7w==}
+    peerDependencies:
+      react: ^18 || ^19
+    dependencies:
+      '@tanstack/query-core': 5.66.2
+      react: 19.0.0
+    dev: false
 
   /@telegram-apps/bridge@1.9.2:
     resolution: {integrity: sha512-SJLcNWLXhbbZr9MiqFH/g2ceuitSJKMxUIZysK4zUNyTUNuonrQG80Q/yrO+XiNbKUj8WdDNM86NBARhuyyinQ==}

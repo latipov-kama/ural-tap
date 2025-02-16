@@ -8,8 +8,15 @@ import Profile from './screens/profile/Profile'
 import TaskInfo from './screens/tasks/TaskInfo'
 import Boost from './screens/boost/Boost'
 import Questions from './screens/questions/Questions'
+import { useAuthStore } from './stores/auth'
+import { useEffect } from 'react'
 
 function App() {
+  const { initAuth } = useAuthStore()
+
+  useEffect(() => {
+    initAuth()
+  }, []);
 
   return (
     <Layout>

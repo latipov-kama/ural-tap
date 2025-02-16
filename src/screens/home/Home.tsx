@@ -6,17 +6,12 @@ import Button from "../../components/ui/button/Button";
 import Badge from "../../components/ui/badge/Badge";
 import { useScoreStore } from "../../stores/score";
 import LevelProgress from "../../components/level-progress/LevelProgress";
-// import { sendAuthData } from "../../services/auth/auth";
 import { TelegramInitData } from "../../types";
-import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 function Home() {
   const { coins, level, addCoins, levels } = useScoreStore();
   const [taps, setTaps] = useState(500);
   const [user] = useState<TelegramInitData["user"] | null>(null);
-  const { initDataRaw } = retrieveLaunchParams();
-
-  console.log(initDataRaw);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -57,7 +52,6 @@ function Home() {
           <LevelProgress coins={coins} level={level} levels={levels} />
         </div>
       </div>
-      {initDataRaw}
       <CoinsTap onTap={handleTap} coins={coins} isDisabled={taps === 0} />
 
       <div className="mt-8">
