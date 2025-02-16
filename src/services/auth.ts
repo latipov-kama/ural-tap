@@ -4,6 +4,8 @@ import makeRequest from "./api";
 export const sendAuthData = async (initDataRaw: string, referralCode: string | null) => {
   try {
     const url = referralCode ? `/auth/login?start=${encodeURIComponent(referralCode)}` : "/auth/login";
+    console.log(url);
+
 
     const response = await makeRequest.post(url, { data: initDataRaw });
     return response.data;
