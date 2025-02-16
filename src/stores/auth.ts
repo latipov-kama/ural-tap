@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { fetchUserData, sendAuthData } from "../services/auth";
-import { User } from "../types";
+import { User } from "@telegram-apps/sdk";
 // import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 interface AuthState {

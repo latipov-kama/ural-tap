@@ -6,15 +6,15 @@ import Button from "../../components/ui/button/Button";
 import Badge from "../../components/ui/badge/Badge";
 import { useScoreStore } from "../../stores/score";
 import LevelProgress from "../../components/level-progress/LevelProgress";
-import { TelegramInitData } from "../../types";
 import { retrieveLaunchParams } from "@telegram-apps/sdk";
+import { useTelegramAuth } from "../../hooks/useTelegramUser";
 // import { useAuthStore } from "../../stores/auth";
 
 function Home() {
   const { balance, level, addCoins, levels } = useScoreStore();
   const [taps, setTaps] = useState(500);
-  const [user] = useState<TelegramInitData["user"] | null>(null);
   const { initData } = retrieveLaunchParams();
+  const { user } = useTelegramAuth()
   // const { user: userData } = useAuthStore()
 
   useEffect(() => {
@@ -36,9 +36,9 @@ function Home() {
         <div className="flex items-center gap-4">
           {JSON.stringify(initData)}
           <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[#6788D5] to-[#937CEF]">
-            {user?.photo_url ? (
+            {user?.photoUrl ? (
               <img
-                src={user.photo_url}
+                src={user.photoUrl}
                 alt="Avatar"
                 className="w-full h-full rounded-full object-cover"
               />
@@ -47,7 +47,7 @@ function Home() {
             )}
           </div>
           <div>
-            <h2>{user?.first_name ?? "Гость"} test</h2>
+            <h2>{user?.firstName ?? "Гость"} test</h2>
             <div className="flex items-center gap-1">
               <span className="text-sm text-secondary">Уровень {level}</span>
             </div>
