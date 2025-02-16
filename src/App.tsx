@@ -16,13 +16,6 @@ function App() {
 
   useEffect(() => {
     initAuth()
-    const tg = window.Telegram.WebApp;
-
-    // Получаем start_param (реферальный код)
-    const startParam = tg.initDataUnsafe.start_param;
-
-    alert(startParam)
-    // init()
   }, []);
 
   return (
