@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 interface ScoreState {
-  coins: number;
+  balance: number;
   level: number;
   levels: number[];
   addCoins: (amount: number) => void;
@@ -12,27 +12,20 @@ const baseLevelScore = 100;
 const levels = new Array(10).fill(0).map((_, i) => baseLevelScore * Math.pow(2, i));
 
 export const useScoreStore = create<ScoreState>((set) => ({
-  coins: 100, // Начальное количество монет, 100 по умолчанию
-  level: 1, // Начальный уровень, 1 по умолчанию
-  levels, // Define levels array
-
+  balance: 100, // Начальный баланс
+  level: 1,
+  levels,
   addCoins: (amount) =>
     set((state) => {
-      const newCoins = state.coins + amount;
+      const newBalance = state.balance + amount;
 
-      // Определяем новый уровень: находим первый уровень, для которого количество монет больше или равно
-      const newLevel = state.levels.reduce((level, score, index) => {
-        if (newCoins >= score) {
-          return index + 1;
-        }
-        return level;
-      }, 1); // Начинаем с уровня 1
+      const newLevel = levels.findIndex((score) => newBalance < score) + 1 || levels.length;
 
       return {
-        coins: newCoins,
+        balance: newBalance,
         level: newLevel,
       };
     }),
 
-  reset: () => set({ coins: 100, level: 1 }), // Сбросим на начальные значения
+  reset: () => set({ balance: 100, level: 1 }), // Сброс к начальному значению
 }));

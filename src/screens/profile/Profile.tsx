@@ -31,7 +31,7 @@ const Profile = () => {
     },
   ];
   // const user = useTelegramAuth();
-  const { coins, level, levels } = useScoreStore();
+  const { balance, level, levels } = useScoreStore();
   const [notificationOn, setNotificationOn] = useState(false);
 
   const handleToggle = () => {
@@ -48,12 +48,12 @@ const Profile = () => {
         <p className="text-secondary mt-1 text-sm">Уровень {level}</p>
 
         <div className="max-w-72 w-full mt-3">
-          <LevelProgress coins={coins} level={level} levels={levels} />
+          <LevelProgress coins={balance} level={level} levels={levels} />
         </div>
 
         <div className="flex items-center gap-4 mt-6">
           <img src={sparkles} alt="sparkles" className="" />
-          <p className="text-3xl font-semibold">{coins.toLocaleString()}</p>
+          <p className="text-3xl font-semibold">{balance.toLocaleString()}</p>
         </div>
       </div>
 

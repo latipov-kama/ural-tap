@@ -7,16 +7,15 @@ import Badge from "../../components/ui/badge/Badge";
 import { useScoreStore } from "../../stores/score";
 import LevelProgress from "../../components/level-progress/LevelProgress";
 import { TelegramInitData } from "../../types";
-import { useAuthStore } from "../../stores/auth";
 import { retrieveLaunchParams } from "@telegram-apps/sdk";
+// import { useAuthStore } from "../../stores/auth";
 
 function Home() {
-  const { coins, level, addCoins, levels } = useScoreStore();
+  const { balance, level, addCoins, levels } = useScoreStore();
   const [taps, setTaps] = useState(500);
   const [user] = useState<TelegramInitData["user"] | null>(null);
-  const { user: userData, isAuthenticated, userId } = useAuthStore()
-  const { initDataRaw } = retrieveLaunchParams();
-
+  const { initData } = retrieveLaunchParams();
+  // const { user: userData } = useAuthStore()
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -34,13 +33,8 @@ function Home() {
   return (
     <div className="p-5 py-8 h-full flex flex-col justify-between">
       <div className="px-4 pt-4 rounded-xl gradient_bg">
-        {initDataRaw}
         <div className="flex items-center gap-4">
-          {isAuthenticated && user ? (
-            <div>{userData?.firstName}</div>
-          ) : "none"}
-          {userData?.username}
-          {userId}
+          {JSON.stringify(initData)}
           <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[#6788D5] to-[#937CEF]">
             {user?.photo_url ? (
               <img
@@ -60,10 +54,10 @@ function Home() {
           </div>
         </div>
         <div className="w-full h-1.5 mt-3 bg-[#E2ECFF35] rounded-3xl overflow-hidden">
-          <LevelProgress coins={coins} level={level} levels={levels} />
+          <LevelProgress coins={balance} level={level} levels={levels} />
         </div>
       </div>
-      <CoinsTap onTap={handleTap} coins={coins} isDisabled={taps === 0} />
+      <CoinsTap onTap={handleTap} coins={balance} isDisabled={taps === 0} />
 
       <div className="mt-8">
         <div className="flex justify-between items-center">

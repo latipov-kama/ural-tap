@@ -66,6 +66,6 @@ export interface User {
   telegramId: number,
   balance: number,
   referralCode: string,
-  createdAt: string,
-  updatedAt: string,
+  createdAt?: string,
+  updatedAt?: string,
 }
