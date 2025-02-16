@@ -3,14 +3,13 @@ import notification from "../../assets/notification.svg";
 import questions from "../../assets/questions.svg";
 import privacy_policy from "../../assets/privacy-policy.svg";
 import book from "../../assets/book.svg";
-import friend from "../../assets/friend.svg"
 import { ChevronRight } from "lucide-react";
 import Toggle from "../../components/ui/toggle/Toggle";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-// import { useTelegramAuth } from "../../hooks/useTelegramUser";
 import { useScoreStore } from "../../stores/score";
 import LevelProgress from "../../components/level-progress/LevelProgress";
+import { useTelegramAuth } from "../../hooks/useTelegramUser";
 
 const Profile = () => {
   const arr = [
@@ -30,7 +29,7 @@ const Profile = () => {
       route: "/"
     },
   ];
-  // const user = useTelegramAuth();
+  const { user } = useTelegramAuth()
   const { balance, level, levels } = useScoreStore();
   const [notificationOn, setNotificationOn] = useState(false);
 
@@ -42,9 +41,9 @@ const Profile = () => {
     <div className="p-5 py-8 h-full">
       <div className="flex flex-col items-center justify-center">
         <div className="w-16 h-16 rounded-full overflow-clip">
-          <img src={friend} alt="friend" className="w-full h-full object-cover" />
+          <img src={user.photoUrl} alt="friend" className="w-full h-full object-cover" />
         </div>
-        {/* <h2 className="mt-3 text-lg font-medium">{user.first_name}</h2> */}
+        <h2 className="mt-3 text-lg font-medium">{user.firstName}</h2>
         <p className="text-secondary mt-1 text-sm">Уровень {level}</p>
 
         <div className="max-w-72 w-full mt-3">

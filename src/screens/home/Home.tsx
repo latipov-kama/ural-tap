@@ -6,16 +6,12 @@ import Button from "../../components/ui/button/Button";
 import Badge from "../../components/ui/badge/Badge";
 import { useScoreStore } from "../../stores/score";
 import LevelProgress from "../../components/level-progress/LevelProgress";
-// import { retrieveLaunchParams } from "@telegram-apps/sdk";
 import { useTelegramAuth } from "../../hooks/useTelegramUser";
-// import { useAuthStore } from "../../stores/auth";
 
 function Home() {
   const { balance, level, addCoins, levels } = useScoreStore();
   const [taps, setTaps] = useState(500);
-  // const { initData } = retrieveLaunchParams();
   const { user } = useTelegramAuth()
-  // const { user: userData } = useAuthStore()
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -46,7 +42,7 @@ function Home() {
             )}
           </div>
           <div>
-            <h2>{user?.firstName ?? "Гость"} test</h2>
+            <h2>{user?.firstName}</h2>
             <div className="flex items-center gap-1">
               <span className="text-sm text-secondary">Уровень {level}</span>
             </div>
