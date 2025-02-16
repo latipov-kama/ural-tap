@@ -8,7 +8,7 @@ export const sendAuthData = async (initDataRaw: string, referralCode: string | n
     const response = await makeRequest.post(url, { data: initDataRaw });
     return response.data;
   } catch (error) {
-    alert("Ошибка авторизации:");
+    alert("Ошибка авторизации");
     throw error;
   }
 };

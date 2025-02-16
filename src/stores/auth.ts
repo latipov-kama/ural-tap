@@ -21,7 +21,6 @@ export const useAuthStore = create<AuthState>((set) => ({
 
       // Получаем параметры запуска из Telegram
       const { initDataRaw, startParam } = retrieveLaunchParams();
-
       alert(JSON.stringify(startParam));
 
       if (startParam) {
