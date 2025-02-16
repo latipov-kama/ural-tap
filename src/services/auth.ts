@@ -1,7 +1,7 @@
 import { User } from "../types/user";
 import makeRequest from "./api";
 
-export const sendAuthData = async (initDataRaw: string, referralCode: string | null) => {
+export const sendAuthData = async (initDataRaw: string) => {
   try {
     // const url = referralCode ? `/auth/login?start=${encodeURIComponent(referralCode)}` : "/auth/login";
     const url = "/auth/login?start=1398fd22-441d-4636-ae3e-4f8f8e8e1f50";
