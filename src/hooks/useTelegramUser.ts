@@ -4,7 +4,7 @@ import { retrieveLaunchParams, User } from "@telegram-apps/sdk";
 export const TG_USER_DATA = {
   user: {
     allowsWriteToPm: true,
-    firstName: "Kamran",
+    firstName: "Kama",
     id: 909990269,
     languageCode: "ru",
     lastName: "",
