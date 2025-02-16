@@ -8,12 +8,15 @@ import { useScoreStore } from "../../stores/score";
 import LevelProgress from "../../components/level-progress/LevelProgress";
 import { TelegramInitData } from "../../types";
 import { useAuthStore } from "../../stores/auth";
+import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 function Home() {
   const { coins, level, addCoins, levels } = useScoreStore();
   const [taps, setTaps] = useState(500);
   const [user] = useState<TelegramInitData["user"] | null>(null);
   const { user: userData, isAuthenticated, userId } = useAuthStore()
+  const { initDataRaw } = retrieveLaunchParams();
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -31,6 +34,7 @@ function Home() {
   return (
     <div className="p-5 py-8 h-full flex flex-col justify-between">
       <div className="px-4 pt-4 rounded-xl gradient_bg">
+        {initDataRaw}
         <div className="flex items-center gap-4">
           {isAuthenticated && user ? (
             <div>{userData?.firstName}</div>
