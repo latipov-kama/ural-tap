@@ -4,12 +4,12 @@ import { retrieveLaunchParams, User } from "@telegram-apps/sdk";
 export const TG_USER_DATA = {
   user: {
     allowsWriteToPm: true,
-    firstName: "Kama",
+    firstName: "User",
     id: 909990269,
     languageCode: "ru",
     lastName: "",
     photoUrl: "https://t.me/i/userpic/320/Jgo_S36x4Mww1tqsAYlTU4q-Eh4U4NjScTy0jANiS8Q.svg",
-    username: "latipov_kama",
+    username: "user_name",
   },
   authDate: "2025-02-16T14:33:59.000Z",
   chatInstance: "-1537647949971518884",

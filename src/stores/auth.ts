@@ -21,7 +21,6 @@ export const useAuthStore = create<AuthState>((set) => ({
 
       // Получаем параметры запуска из Telegram
       const { initDataRaw, startParam } = retrieveLaunchParams();
-      alert(JSON.stringify(startParam));
 
       if (startParam) {
         referralCode = startParam;
@@ -29,7 +28,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
       // Получаем initDataRaw из Telegram SDK
       if (!initDataRaw) {
-        console.warn("initDataRaw не найдено, авторизация невозможна");
+        alert("initDataRaw не найдено, авторизация невозможна");
         return;
       }
 
