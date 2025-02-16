@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { retrieveLaunchParams } from "@telegram-apps/sdk";
-import { sendAuthData } from "../services/auth";
+// import { sendAuthData } from "../services/auth";
 
 interface AuthState {
   userId: number | null;
@@ -16,11 +16,12 @@ export const useAuthStore = create<AuthState>((set) => ({
       const { initDataRaw } = retrieveLaunchParams();
       if (!initDataRaw) return;
 
-      const response = await sendAuthData(initDataRaw);
-      if (response?.userId) {
-        set({ userId: response.userId, isAuthenticated: true });
-      }
-      alert(response?.userId)
+      alert(initDataRaw)
+      // const response = await sendAuthData(initDataRaw);
+      // if (response?.userId) {
+      //   set({ userId: response.userId, isAuthenticated: true });
+      // }
+      // alert(response?.userId)
     } catch (error) {
       console.error("Ошибка авторизации", error);
     }
