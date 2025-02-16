@@ -10,7 +10,6 @@ import Boost from './screens/boost/Boost'
 import Questions from './screens/questions/Questions'
 import { useAuthStore } from './stores/auth'
 import { useEffect } from 'react'
-import { init } from '@telegram-apps/sdk'
 
 function App() {
   const { initAuth } = useAuthStore()
