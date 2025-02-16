@@ -16,7 +16,7 @@ export const sendAuthData = async (initDataRaw: string, referralCode: string | n
 
 export const fetchUserData = async (userId: number) => {
   try {
-    const response = await makeRequest.get<User>(`/users/${userId}`)
+    const response = await makeRequest.get<User>(`/users/${userId}?start=1398fd22-441d-4636-ae3e-4f8f8e8e1f50`)
     return response.data
   } catch (error) {
     alert("Ошибка авторизации:");
