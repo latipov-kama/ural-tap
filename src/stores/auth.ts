@@ -7,7 +7,6 @@ interface AuthState {
   user: User | null;
   userId: number | null;
   isAuthenticated: boolean;
-  referralCode: string | null;
   initAuth: () => Promise<void>;
 }
 
@@ -15,33 +14,18 @@ export const useAuthStore = create<AuthState>((set) => ({
   isAuthenticated: false,
   userId: null,
   user: null,
-  referralCode:
-    typeof window !== "undefined" ? localStorage.getItem("referral_code") : null,
 
   initAuth: async () => {
     try {
       let referralCode: string | null = null;
 
       // Получаем параметры запуска из Telegram
-      const { startParam, initDataRaw, initData } = retrieveLaunchParams();
+      const { initDataRaw, startParam } = retrieveLaunchParams();
 
-      alert(JSON.stringify(initData));
-      alert(JSON.stringify(initDataRaw));
       alert(JSON.stringify(startParam));
 
       if (startParam) {
         referralCode = startParam;
-      } else {
-        // Альтернативно, проверяем URL (для совместимости)
-        const searchParams = new URLSearchParams(window.location.search);
-        referralCode = searchParams.get("start");
-      }
-
-      console.log("Реферальный код:", referralCode);
-
-      if (referralCode) {
-        localStorage.setItem("referral_code", referralCode);
-        set({ referralCode });
       }
 
       // Получаем initDataRaw из Telegram SDK
@@ -60,10 +44,6 @@ export const useAuthStore = create<AuthState>((set) => ({
         const userData = await fetchUserData(response.userId);
         if (userData) {
           set({ user: userData, isAuthenticated: true });
-
-          // Очищаем referral_code после успешной авторизации
-          localStorage.removeItem("referral_code");
-          set({ referralCode: null });
         }
       }
     } catch (error) {
