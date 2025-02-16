@@ -10,7 +10,7 @@ export const sendAuthData = async (initDataRaw: string, referralCode: string | n
     const response = await makeRequest.post(url, { data: initDataRaw });
     return response.data;
   } catch (error) {
-    console.log("Ошибка авторизации:", error);
+    alert("Ошибка авторизации:");
     throw error;
   }
 };
@@ -20,7 +20,7 @@ export const fetchUserData = async (userId: number) => {
     const response = await makeRequest.get<User>(`/users/${userId}`)
     return response.data
   } catch (error) {
-    console.log("Ошибка авторизации:", error);
+    alert("Ошибка авторизации:");
     throw error;
   }
 }

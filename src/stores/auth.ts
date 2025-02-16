@@ -47,7 +47,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         }
       }
     } catch (error) {
-      console.error("Ошибка авторизации", error);
+      alert("Ошибка авторизации");
     }
   },
 }));
