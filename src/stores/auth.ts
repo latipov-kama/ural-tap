@@ -28,6 +28,9 @@ export const useAuthStore = create<AuthState>((set) => ({
       const searchParams = new URLSearchParams(window.location.search);
       const referralCode = searchParams.get("start");
 
+      console.log(window.location);
+
+
       if (referralCode) {
         localStorage.setItem("referral_code", referralCode);
         set({ referralCode });
