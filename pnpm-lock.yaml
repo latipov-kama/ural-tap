@@ -52,6 +52,9 @@ devDependencies:
   '@types/react-dom':
     specifier: ^18.3.5
     version: 18.3.5(@types/react@18.3.18)
+  '@types/telegram-web-app':
+    specifier: ^7.10.1
+    version: 7.10.1
   '@vitejs/plugin-react':
     specifier: ^4.3.4
     version: 4.3.4(vite@6.0.7)
@@ -949,6 +952,10 @@ packages:
     dependencies:
       '@types/prop-types': 15.7.14
       csstype: 3.1.3
+
+  /@types/telegram-web-app@7.10.1:
+    resolution: {integrity: sha512-GKL659G6lnHRAt3Dt7L1Fa0dwvc+ZZQtJcYrJVJGwjvsbi/Rcp1qKs9pFwb34/KC04+J+TlQj4D7yKo10sBSEw==}
+    dev: true
 
   /@types/window-or-global@1.0.6:
     resolution: {integrity: sha512-Or0OTbvpUvx0qMHN3C2GZH0neJ5tmT4ST/LVej1iHcLltEaGaS6J1CvPPer83BgRCxTVX6NZDVlDinZdg9IbwQ==}
