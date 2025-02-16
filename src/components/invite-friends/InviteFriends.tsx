@@ -8,11 +8,8 @@ interface props {
   userId: number
 }
 
-const InviteFriends: React.FC<props> = ({ referralCode, userId }) => {
+const InviteFriends: React.FC<props> = ({ userId }) => {
   const { data: referralLink } = useReferralLink(userId);
-
-  console.log(referralCode);
-  console.log(referralLink);
 
   const handleCopy = async () => {
     if (!referralLink) return
