@@ -16,13 +16,12 @@ function App() {
 
   useEffect(() => {
     initAuth()
-    const initData = new URLSearchParams(window.Telegram.WebApp.initData);
-    const ref = initData.get("ref");
+    const tg = window.Telegram.WebApp;
 
-    alert(window.location.href)
-    alert(ref);
-    alert(initData);
+    // Получаем start_param (реферальный код)
+    const startParam = tg.initDataUnsafe.start_param;
 
+    alert(startParam)
     // init()
   }, []);
 
