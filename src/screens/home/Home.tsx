@@ -13,7 +13,7 @@ function Home() {
   const { coins, level, addCoins, levels } = useScoreStore();
   const [taps, setTaps] = useState(500);
   const [user] = useState<TelegramInitData["user"] | null>(null);
-  const { user: userData, isAuthenticated } = useAuthStore()
+  const { user: userData, isAuthenticated, userId } = useAuthStore()
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -35,6 +35,8 @@ function Home() {
           {isAuthenticated && user ? (
             <div>{userData?.firstName}</div>
           ) : "none"}
+          {userData?.username}
+          {userId}
           <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[#6788D5] to-[#937CEF]">
             {user?.photo_url ? (
               <img

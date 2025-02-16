@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useAuthStore } from "../stores/auth";
 
 const makeRequest = axios.create({
   // baseURL: import.meta.env.VITE_SERVER_URL,
@@ -8,12 +9,16 @@ const makeRequest = axios.create({
   }
 })
 
-// apiClient.interceptors.request.use((config) => {
-//   const id = localStorage.getItem("id");
-//   if (id) {
-//     config.headers.Authorization = `${id}`;
-//   }
-//   return config;
-// });
+// Добавляем interceptor для автоматической передачи userId
+makeRequest.interceptors.request.use(
+  (config) => {
+    const userId = useAuthStore.getState().userId;
+    if (userId) {
+      config.headers["Authorization"] = `Bearer ${userId}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 export default makeRequest
