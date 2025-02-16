@@ -16,15 +16,15 @@ function App() {
   const { initAuth } = useAuthStore()
 
   useEffect(() => {
+    initAuth()
     const initData = new URLSearchParams(window.Telegram.WebApp.initData);
     const ref = initData.get("ref");
-    if (ref) {
-      alert(ref)
-      alert(initData)
-    }
 
-    initAuth()
-    init()
+    alert(window.location.href)
+    alert(ref);
+    alert(initData);
+
+    // init()
   }, []);
 
   return (

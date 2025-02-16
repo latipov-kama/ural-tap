@@ -19,11 +19,8 @@ export const useAuthStore = create<AuthState>((set) => ({
   referralCode: typeof window !== "undefined" ? localStorage.getItem("referral_code") : null,
   initAuth: async () => {
     try {
-      const { initDataRaw, initData } = retrieveLaunchParams();
+      const { initDataRaw } = retrieveLaunchParams();
       if (!initDataRaw) return;
-
-      alert(JSON.stringify(initDataRaw))
-      alert(JSON.stringify(initData))
 
       const searchParams = new URLSearchParams(window.location.search)
       const referralCode = searchParams.get("start")
