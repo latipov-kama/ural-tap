@@ -7,14 +7,13 @@ import Badge from "../../components/ui/badge/Badge";
 import { useScoreStore } from "../../stores/score";
 import LevelProgress from "../../components/level-progress/LevelProgress";
 import { TelegramInitData } from "../../types";
-import { retrieveLaunchParams } from "@telegram-apps/sdk";
+import { useAuthStore } from "../../stores/auth";
 
 function Home() {
   const { coins, level, addCoins, levels } = useScoreStore();
   const [taps, setTaps] = useState(500);
   const [user] = useState<TelegramInitData["user"] | null>(null);
-  const { initDataRaw } = retrieveLaunchParams();
-
+  const { user: userData, isAuthenticated } = useAuthStore()
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,7 +32,9 @@ function Home() {
     <div className="p-5 py-8 h-full flex flex-col justify-between">
       <div className="px-4 pt-4 rounded-xl gradient_bg">
         <div className="flex items-center gap-4">
-          {initDataRaw}
+          {isAuthenticated && user ? (
+            <div>{userData?.firstName}</div>
+          ) : "none"}
           <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[#6788D5] to-[#937CEF]">
             {user?.photo_url ? (
               <img

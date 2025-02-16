@@ -58,3 +58,14 @@ export interface TelegramUser {
   // tapsLimit: number
   // coins: number
 }
+
+export interface User {
+  id: number,
+  username: string,
+  firstName?: string,
+  telegramId: number,
+  balance: number,
+  referralCode: string,
+  createdAt: string,
+  updatedAt: string,
+}
