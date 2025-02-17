@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { User } from "@telegram-apps/sdk";
+import { retrieveLaunchParams, User } from "@telegram-apps/sdk";
 
 export const TG_USER_DATA = {
   user: {
@@ -20,15 +20,15 @@ export const TG_USER_DATA = {
 
 export const useTelegramAuth = () => {
   const [user, setUser] = useState<User>(TG_USER_DATA.user);
-  // const { initData } = retrieveLaunchParams();
+  const { initData } = retrieveLaunchParams();
 
   useEffect(() => {
-    // if (initData?.user) {
-    //   setUser(initData.user);
-    // }
+    if (initData?.user) {
+      setUser(initData.user);
+    }
     setUser(TG_USER_DATA.user); // Используем мок-данные, если нет данных из Telegram
-  }, []);
-  // }, [initData]);
+    // }, []);
+  }, [initData]);
 
   return { user };
 };
