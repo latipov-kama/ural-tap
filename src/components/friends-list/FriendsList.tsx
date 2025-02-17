@@ -10,8 +10,6 @@ interface props {
 const FriendsList: React.FC<props> = ({ userId }) => {
   const { data } = useReferrals(userId)
 
-  console.log(data);
-
   return (
     <div className="mt-10">
       <div className="">

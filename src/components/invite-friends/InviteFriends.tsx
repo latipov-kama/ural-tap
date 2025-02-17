@@ -21,9 +21,19 @@ const InviteFriends: React.FC<props> = ({ userId }) => {
     }
   }
 
+  const handleInvite = () => {
+    if (!referralLink) return;
+
+    if (window.Telegram?.WebApp) {
+      window.Telegram.WebApp.openTelegramLink(referralLink);
+    } else {
+      window.open(referralLink, "_blank");
+    }
+  };
+
   return (
     <div className="flex items-center gap-3 mt-6">
-      <Button>
+      <Button onClick={handleInvite}>
         Пригласить друзей
         <img src={man_raising_hand} alt="hand" className="w-6 h-6" />
       </Button>
