@@ -25,8 +25,9 @@ export const useTelegramAuth = () => {
   useEffect(() => {
     if (initData?.user) {
       setUser(initData.user);
+    } else {
+      setUser(TG_USER_DATA.user); // Используем мок-данные, если нет данных из Telegram
     }
-    setUser(TG_USER_DATA.user); // Используем мок-данные, если нет данных из Telegram
     // }, []);
   }, [initData]);
 
