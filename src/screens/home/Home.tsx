@@ -6,12 +6,14 @@ import Button from "../../components/ui/button/Button";
 import Badge from "../../components/ui/badge/Badge";
 import { useScoreStore } from "../../stores/score";
 import LevelProgress from "../../components/level-progress/LevelProgress";
-import { useTelegramAuth } from "../../hooks/useTelegramUser";
+// import { useTelegramAuth } from "../../hooks/useTelegramUser";
+import { useAuthStore } from "../../stores/auth";
 
 function Home() {
   const { balance, level, addCoins, levels } = useScoreStore();
   const [taps, setTaps] = useState(500);
-  const { user } = useTelegramAuth()
+  // const { user } = useTelegramAuth()
+  const { user } = useAuthStore()
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -31,15 +33,15 @@ function Home() {
       <div className="px-4 pt-4 rounded-xl gradient_bg">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[#6788D5] to-[#937CEF]">
-            {user?.photoUrl ? (
+            {/* {user?.photoUrl ? (
               <img
-                src={user.photoUrl}
+                src={""}
                 alt="Avatar"
                 className="w-full h-full rounded-full object-cover"
               />
-            ) : (
-              <span className="text-xl">👤</span>
-            )}
+            ) : ( */}
+            <span className="text-xl">👤</span>
+            {/* )} */}
           </div>
           <div>
             <h2>{user?.firstName}</h2>
