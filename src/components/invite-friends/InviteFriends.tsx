@@ -24,10 +24,12 @@ const InviteFriends: React.FC<props> = ({ userId }) => {
   const handleInvite = () => {
     if (!referralLink) return;
 
+    const inviteLink = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent("Присоединяйся!")}`;
+
     if (window.Telegram?.WebApp) {
-      window.Telegram.WebApp.openTelegramLink(referralLink);
+      window.Telegram.WebApp.openTelegramLink(inviteLink);
     } else {
-      window.open(referralLink, "_blank");
+      window.open(inviteLink, "_blank");
     }
   };
 
