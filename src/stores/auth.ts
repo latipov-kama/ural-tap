@@ -19,11 +19,9 @@ export const useAuthStore = create<AuthState>((set) => ({
     try {
       let referralCode: string | null = null;
 
-      // 1️⃣ Получаем параметры Telegram SDK
       const { initDataRaw, startParam } = retrieveLaunchParams();
       console.log("Запуск Mini App:", { initDataRaw, startParam });
 
-      // 2️⃣ Проверяем startParam
       if (startParam) {
         referralCode = startParam;
       } else {
