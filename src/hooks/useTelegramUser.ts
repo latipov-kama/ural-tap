@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { retrieveLaunchParams, User } from "@telegram-apps/sdk";
+import { User } from "@telegram-apps/sdk";
 
 export const TG_USER_DATA = {
   user: {
