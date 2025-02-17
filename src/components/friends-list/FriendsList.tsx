@@ -10,6 +10,8 @@ interface props {
 const FriendsList: React.FC<props> = ({ userId }) => {
   const { data } = useReferrals(userId)
 
+  console.log(data);
+
   return (
     <div className="mt-10">
       <div className="">
@@ -21,7 +23,7 @@ const FriendsList: React.FC<props> = ({ userId }) => {
       <div className="py-5">
         {data?.map((item) => (
           <div
-            key={item.invitee.firstname}
+            key={item.invitee.firstName}
             className="gradient_bg flex items-center justify-between gap-3 mt-2 p-4 rounded-2xl"
           >
             <div className="flex items-center gap-2">
@@ -30,14 +32,14 @@ const FriendsList: React.FC<props> = ({ userId }) => {
               </div>
               <div className="">
                 <p className="text-sm text-[#B6C2DA]">
-                  {item.invitee.firstname}
+                  {item.invitee.firstName}
                 </p>
               </div>
             </div>
 
             <Badge className="text-sm">
               <img src={sparkles} alt="sparkles" className="w-5 h-5" />
-              250
+              {item.rewardEarned}
             </Badge>
           </div>
         ))}

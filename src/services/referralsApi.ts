@@ -6,7 +6,7 @@ interface IReferral {
   inviteeId: number
   invitee: {
     id: 54,
-    firstname: string
+    firstName: string
   }
   rewardEarned: 0
 }
