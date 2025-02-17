@@ -1,11 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import makeRequest from "../../services/api";
-
-const fetchReferralLink = async (userId: number) => {
-  if (!userId) throw new Error("User ID отсутствует");
-  const response = await makeRequest.get<{ link: string }>(`/referrals/referral-link?${userId}`);
-  return response.data.link;
-};
+import { fetchReferralLink, fetchReferrals } from "../../services/referralsApi";
 
 export const useReferralLink = (userId?: number) => {
   return useQuery({
@@ -14,3 +8,10 @@ export const useReferralLink = (userId?: number) => {
     enabled: !!userId
   });
 };
+
+export const useReferrals = (userId: number) => {
+  return useQuery({
+    queryKey: ["referrals", userId],
+    queryFn: () => fetchReferrals(userId)
+  })
+} 

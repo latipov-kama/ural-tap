@@ -1,8 +1,15 @@
 import Badge from "../../components/ui/badge/Badge";
 import sparkles from "../../assets/sparkles.svg"
 import friend from "../../assets/friend.svg"
+import { useReferrals } from "../../hooks/query/referrals";
 
-const FriendsList = () => {
+interface props {
+  userId: number
+}
+
+const FriendsList: React.FC<props> = ({ userId }) => {
+  const { data } = useReferrals(userId)
+
   return (
     <div className="mt-10">
       <div className="">
@@ -12,9 +19,9 @@ const FriendsList = () => {
       </div>
 
       <div className="py-5">
-        {[0, 1, 2, 3, 4, 5].map((item: number) => (
+        {data?.map((item) => (
           <div
-            key={item}
+            key={item.invitee.firstname}
             className="gradient_bg flex items-center justify-between gap-3 mt-2 p-4 rounded-2xl"
           >
             <div className="flex items-center gap-2">
@@ -23,7 +30,7 @@ const FriendsList = () => {
               </div>
               <div className="">
                 <p className="text-sm text-[#B6C2DA]">
-                  @nickname_of_friend_1
+                  {item.invitee.firstname}
                 </p>
               </div>
             </div>

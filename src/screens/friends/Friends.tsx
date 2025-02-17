@@ -13,7 +13,7 @@ const Friends = () => {
         Ты и твой друг получите бонус в виде дополнительных баллов
       </p>
       <InviteFriends referralCode={user?.referralCode ?? ""} userId={user?.id ?? 0} />
-      <FriendsList />
+      <FriendsList userId={user?.id ?? 0} />
     </div>
   );
 };
