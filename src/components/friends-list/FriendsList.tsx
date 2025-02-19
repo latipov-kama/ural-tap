@@ -14,7 +14,7 @@ const FriendsList: React.FC<props> = ({ userId }) => {
     <div className="mt-10">
       <div className="">
         <h2 className="text-lg font-medium">
-          Друзья <span className="text-[#8D7DEB]">(3)</span>
+          Друзья <span className="text-[#8D7DEB]">{data?.length ?? 0}</span>
         </h2>
       </div>
 
