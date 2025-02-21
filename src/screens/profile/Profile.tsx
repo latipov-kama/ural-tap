@@ -9,7 +9,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useScoreStore } from "../../stores/score";
 import LevelProgress from "../../components/level-progress/LevelProgress";
-import { useTelegramAuth } from "../../hooks/useTelegramUser";
+import { useAuthStore } from "../../stores/auth";
+import profile from "../../assets/friend.svg"
 
 const Profile = () => {
   const arr = [
@@ -29,7 +30,8 @@ const Profile = () => {
       route: "/"
     },
   ];
-  const { user } = useTelegramAuth()
+  // const { user } = useTelegramAuth()
+  const { user } = useAuthStore()
   const { balance, level, levels } = useScoreStore();
   const [notificationOn, setNotificationOn] = useState(false);
 
@@ -41,9 +43,9 @@ const Profile = () => {
     <div className="p-5 py-8 h-full">
       <div className="flex flex-col items-center justify-center">
         <div className="w-16 h-16 rounded-full overflow-clip">
-          <img src={user.photoUrl} alt="friend" className="w-full h-full object-cover" />
+          <img src={profile} alt="friend" className="w-full h-full object-cover" />
         </div>
-        <h2 className="mt-3 text-lg font-medium">{user.firstName}</h2>
+        <h2 className="mt-3 text-lg font-medium">{user?.firstName}</h2>
         <p className="text-secondary mt-1 text-sm">Уровень {level}</p>
 
         <div className="max-w-72 w-full mt-3">
