@@ -4,6 +4,7 @@ interface ScoreState {
   balance: number;
   pendingTaps: number;
   level: number;
+  levels: number[]
   addTaps: (taps: number) => void;
   updateBalance: (balance: number) => void;
   resetPendingTaps: () => void;
@@ -18,7 +19,6 @@ export const useScoreStore = create<ScoreState>((set) => ({
   pendingTaps: 0,
   level: 1,
   levels,
-
   addTaps: (taps) =>
     set((state) => ({
       balance: state.balance + taps, // Увеличиваем баланс в UI
