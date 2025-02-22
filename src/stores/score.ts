@@ -2,33 +2,39 @@ import { create } from "zustand";
 
 interface ScoreState {
   balance: number;
+  pendingTaps: number;
   level: number;
-  levels: number[];
-  setBalance: (balance: number) => void;
-  addCoins: (amount: number) => void;
-  reset: () => void;
+  addTaps: (taps: number) => void;
+  updateBalance: (balance: number) => void;
+  resetPendingTaps: () => void;
+  // applyPendingTaps: () => void;
 }
 
 const baseLevelScore = 0;
-const levels = new Array(10).fill(0).map((_, i) => 100 * Math.pow(2, i));
+const levels = Array.from({ length: 10 }, (_, i) => 100 * 2 ** i);
 
 export const useScoreStore = create<ScoreState>((set) => ({
   balance: baseLevelScore,
+  pendingTaps: 0,
   level: 1,
   levels,
 
-  setBalance: (balance) =>
-    set(() => {
-      const newLevel = levels.findIndex((score) => balance < score) + 1 || levels.length;
-      return { balance, level: newLevel };
-    }),
+  addTaps: (taps) =>
+    set((state) => ({
+      balance: state.balance + taps, // Увеличиваем баланс в UI
+      pendingTaps: state.pendingTaps + taps, // Накапливаем для отправки
+      level: levels.findIndex((score) => state.balance < score) + 1 || levels.length,
+    })),
 
-  addCoins: (amount) =>
-    set((state) => {
-      const newBalance = state.balance + amount;
-      const newLevel = levels.findIndex((score) => newBalance < score) + 1 || levels.length;
-      return { balance: newBalance, level: newLevel };
-    }),
+  updateBalance: (balance) =>
+    set(() => ({
+      balance,
+      level: levels.findIndex((score) => balance < score) + 1 || levels.length,
+    })),
+  resetPendingTaps: () => set({ pendingTaps: 0 }),
 
-  reset: () => set({ balance: baseLevelScore, level: 1 }),
+  // applyPendingTaps: () =>
+  //   set((state) => ({
+  //     pendingTaps: 0, // После отправки обнуляем pendingTaps
+  //   })),
 }));

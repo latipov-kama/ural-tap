@@ -10,29 +10,30 @@ import { useUpdateBalance } from "../../hooks/query/taps";
 
 function Home() {
   const { user } = useAuthStore();
-  const { balance, setBalance, addCoins } = useScoreStore();
-  const { mutate: updateBalance } = useUpdateBalance();
+  const { balance, pendingTaps, addTaps, updateBalance, resetPendingTaps } = useScoreStore();
+  const { mutate: updateBalanceMutation } = useUpdateBalance();
+  const [debouncedTaps] = useDebounce(pendingTaps, 1500); // Отправляем пачкой раз в 1.5 сек
 
   const interpolatedTaps = useInterpolatedTaps(53);
 
-  const [debouncedBalance] = useDebounce(balance, 1000);
-
   useEffect(() => {
     if (user?.balance !== undefined) {
-      setBalance(user.balance);
+      updateBalance(user.balance);
     }
-  }, [user?.balance, setBalance]);
+  }, [user?.balance, updateBalance]);
 
   useEffect(() => {
-    if (user && debouncedBalance !== user.balance) {
-      updateBalance({ userId: user.id, balance: debouncedBalance });
+    if (user && debouncedTaps > 0) {
+      updateBalanceMutation(
+        { userId: user.id, balance: pendingTaps },
+        { onSuccess: resetPendingTaps }
+      );
     }
-  }, [debouncedBalance, updateBalance, user]);
-  console.log(balance);
+  }, [debouncedTaps, updateBalanceMutation, user, pendingTaps, resetPendingTaps]);
 
-  const handleTap = (tapCount: number) => {
-    if (interpolatedTaps >= tapCount) {
-      addCoins(tapCount);
+  const handleTap = () => {
+    if (interpolatedTaps >= 5) {
+      addTaps(5);
     }
   };
 

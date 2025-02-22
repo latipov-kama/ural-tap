@@ -14,14 +14,8 @@ interface UpdateParams {
 }
 
 export const useUpdateBalance = () => {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: ({ userId, balance }: UpdateParams) => updateBalance(userId, balance),
-    onSuccess: (_, { userId }) => {
-      console.log('updated');
-      queryClient.invalidateQueries({ queryKey: ["balance", userId] });
-    },
     onError: (error) => {
       console.error("Ошибка обновления баланса:", error);
     },
