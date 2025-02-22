@@ -7,12 +7,14 @@ import TapsIndicator from "../../components/taps-indicator/TapsIndicator";
 import { useInterpolatedTaps } from "../../hooks/useInterpolatedTaps";
 import { useDebounce } from "use-debounce";
 import { useUpdateBalance } from "../../hooks/query/taps";
+import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 function Home() {
   const { user } = useAuthStore();
   const { balance, pendingTaps, addTaps, updateBalance, resetPendingTaps } = useScoreStore();
   const { mutate: updateBalanceMutation } = useUpdateBalance();
-  const [debouncedTaps] = useDebounce(pendingTaps, 1500); // Отправляем пачкой раз в 1.5 сек
+  const [debouncedTaps] = useDebounce(pendingTaps, 1500);
+  const { initDataRaw } = retrieveLaunchParams()
 
   const interpolatedTaps = useInterpolatedTaps(53);
 
@@ -39,6 +41,7 @@ function Home() {
 
   return (
     <div className="p-5 py-8 h-full flex flex-col justify-between">
+      {initDataRaw}
       {user && (
         <>
           <HomeProfile firstName={user.firstName} />
