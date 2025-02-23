@@ -1,10 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { fetchTaps, updateBalance } from "../../services/tapsApi"
+import { fetchTaps, updateBalance, updateEnergy } from "../../services/tapsApi"
 
 export const useTapsQuery = (userId: number) => {
   return useQuery({
     queryKey: ["taps", userId],
-    queryFn: () => fetchTaps(userId)
+    queryFn: () => fetchTaps(userId),
+    enabled: !!userId,
   })
 }
 
@@ -19,5 +20,11 @@ export const useUpdateBalance = () => {
     onError: (error) => {
       console.error("Ошибка обновления баланса:", error);
     },
+  })
+}
+
+export const useUpdateEnergy = () => {
+  return useMutation({
+    mutationFn: async ({ userId, amount }: { userId: number, amount: number }) => updateEnergy(userId, amount),
   })
 }
