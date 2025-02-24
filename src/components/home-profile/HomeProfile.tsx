@@ -20,7 +20,7 @@ const HomeProfile: React.FC<props> = ({ firstName }) => {
                 alt="Avatar"
                 className="w-full h-full rounded-full object-cover"
               />
-            ) : ( */}
+            ) : ( */} 
           <span className="text-xl">👤</span>
           {/* )} */}
         </div>

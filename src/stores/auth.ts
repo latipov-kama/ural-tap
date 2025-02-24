@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { fetchUserData, sendAuthData } from "../services/auth";
+import { fetchUserData, sendAuthData } from "../services/authApi";
 import { User } from "../types/user";
-import { retrieveLaunchParams } from "@telegram-apps/sdk";
+// import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 interface AuthState {
   user: User | null;
@@ -17,21 +17,19 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   initAuth: async () => {
     try {
-      let referralCode: string | null = null;
+      // let referralCode: string | null = null;
+      const initDataRaw = "user=%7B%22id%22%3A909990269%2C%22first_name%22%3A%22Kamran%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22latipov_kama%22%2C%22language_code%22%3A%22ru%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FJgo_S36x4Mww1tqsAYlTU4q-Eh4U4NjScTy0jANiS8Q.svg%22%7D&chat_instance=8180690052102929318&chat_type=sender&auth_date=1740226396&signature=qnVCYIQ5sSuFULCHu5knoB39xOkJu4FW97pqy2QVYuJ6oMPFLzVI0glwgoHxIFXeuYuXQ-LMB2lXDGwl0B3DDg&hash=706ccae8aa0eabf6964d035bbf1579cbabec900e0acabd2a5f6f6b6684b9549a"
 
       // 1️⃣ Получаем параметры Telegram SDK
-      const { initDataRaw, startParam } = retrieveLaunchParams();
-      console.log("Запуск Mini App:", { initDataRaw, startParam });
+      // const { initDataRaw, startParam } = retrieveLaunchParams();
 
       // 2️⃣ Проверяем startParam
-      if (startParam) {
-        referralCode = startParam;
-      } else {
-        const initParams = new URLSearchParams(Telegram.WebApp.initData);
-        referralCode = initParams.get("start") || null;
-      }
-
-      console.log("Реферальный код:", referralCode);
+      // if (startParam) {
+      //   referralCode = startParam;
+      // } else {
+      //   const initParams = new URLSearchParams(Telegram.WebApp.initData);
+      //   referralCode = initParams.get("start") || null;
+      // }
 
       // 4️⃣ Проверяем initDataRaw
       if (!initDataRaw) {
@@ -40,7 +38,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       }
 
       // 5️⃣ Отправляем данные на сервер
-      const response = await sendAuthData(initDataRaw, referralCode);
+      const response = await sendAuthData(initDataRaw);
       console.log("Ответ сервера:", response);
 
       if (response?.userId) {

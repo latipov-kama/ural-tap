@@ -29,8 +29,6 @@ export const updateEnergy = async (userId: number, amount: number) => {
   try {
     const res = await makeRequest.post(`/taps/use?userId=${userId}`, { amount })
 
-    console.log(res);
-
     return res
   } catch (error) {
     console.error(error);

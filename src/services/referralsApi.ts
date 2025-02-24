@@ -1,15 +1,5 @@
+import { IReferral } from "../types/referral";
 import makeRequest from "./api"
-
-interface IReferral {
-  id: number
-  invitedId: number
-  inviteeId: number
-  invitee: {
-    id: 54,
-    firstName: string
-  }
-  rewardEarned: 0
-}
 
 export const fetchReferralLink = async (userId: number) => {
   if (!userId) throw new Error("User ID отсутствует");
