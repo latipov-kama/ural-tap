@@ -9,14 +9,9 @@ export const useTapsQuery = (userId: number) => {
   })
 }
 
-interface UpdateParams {
-  userId: number,
-  balance: number
-}
-
 export const useUpdateBalance = () => {
   return useMutation({
-    mutationFn: ({ userId, balance }: UpdateParams) => updateBalance(userId, balance),
+    mutationFn: ({ userId, balance }: { userId: number, balance: number }) => updateBalance(userId, balance),
     onError: (error) => {
       console.error("Ошибка обновления баланса:", error);
     },

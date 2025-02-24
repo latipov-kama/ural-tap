@@ -7,10 +7,10 @@ import { ChevronRight } from "lucide-react";
 import Toggle from "../../components/ui/toggle/Toggle";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useScoreStore } from "../../stores/score";
 import LevelProgress from "../../components/level-progress/LevelProgress";
 import { useAuthStore } from "../../stores/auth";
 import profile from "../../assets/friend.svg"
+import { useLevelQuery } from "../../hooks/query/levels";
 
 const Profile = () => {
   const arr = [
@@ -32,7 +32,7 @@ const Profile = () => {
   ];
   // const { user } = useTelegramAuth()
   const { user } = useAuthStore()
-  const { balance, level, levels } = useScoreStore();
+  const { data: level } = useLevelQuery(user?.id ?? 0)
   const [notificationOn, setNotificationOn] = useState(false);
 
   const handleToggle = () => {
@@ -46,15 +46,15 @@ const Profile = () => {
           <img src={profile} alt="friend" className="w-full h-full object-cover" />
         </div>
         <h2 className="mt-3 text-lg font-medium">{user?.firstName}</h2>
-        <p className="text-secondary mt-1 text-sm">Уровень {level}</p>
+        <p className="text-secondary mt-1 text-sm">Уровень {level?.level}</p>
 
         <div className="max-w-72 w-full mt-3">
-          <LevelProgress coins={balance} level={level} levels={levels} />
+          <LevelProgress xp={level?.xp ?? 1} xpToNextLevel={level?.xpToNextLevel ?? 500} />
         </div>
 
         <div className="flex items-center gap-4 mt-6">
           <img src={sparkles} alt="sparkles" className="" />
-          <p className="text-3xl font-semibold">{balance.toLocaleString()}</p>
+          <p className="text-3xl font-semibold">{user?.balance.toLocaleString()}</p>
         </div>
       </div>
 

@@ -1,14 +1,19 @@
 import React from 'react'
 import LevelProgress from '../level-progress/LevelProgress'
-import { useScoreStore } from '../../stores/score'
+import { useLevelQuery } from '../../hooks/query/levels'
 
 interface props {
   firstName?: string
+  userId: number
   photoUrl?: string
 }
 
-const HomeProfile: React.FC<props> = ({ firstName }) => {
-  const { balance, level, levels } = useScoreStore();
+const HomeProfile: React.FC<props> = ({ firstName, userId }) => {
+  const { data } = useLevelQuery(userId)
+
+  const level = data?.level ?? 1;
+  const xp = data?.xp ?? 0;
+  const xpToNextLevel = data?.xpToNextLevel ?? 500;
 
   return (
     <div className="px-4 pt-4 rounded-xl gradient_bg bg-red-500">
@@ -20,7 +25,7 @@ const HomeProfile: React.FC<props> = ({ firstName }) => {
                 alt="Avatar"
                 className="w-full h-full rounded-full object-cover"
               />
-            ) : ( */} 
+            ) : ( */}
           <span className="text-xl">👤</span>
           {/* )} */}
         </div>
@@ -32,7 +37,8 @@ const HomeProfile: React.FC<props> = ({ firstName }) => {
         </div>
       </div>
       <div className="w-full h-1.5 mt-3 bg-[#E2ECFF35] rounded-3xl overflow-hidden">
-        <LevelProgress coins={balance} level={level} levels={levels} />
+        {/* <LevelProgress coins={balance} level={level} levels={levels} /> */}
+        <LevelProgress xp={xp} xpToNextLevel={xpToNextLevel} />
       </div>
     </div>
   )
