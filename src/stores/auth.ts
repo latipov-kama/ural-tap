@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { fetchUserData, sendAuthData } from "../services/authApi";
 import { User } from "../types/user";
-// import { retrieveLaunchParams } from "@telegram-apps/sdk";
+import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 interface AuthState {
   user: User | null;
@@ -17,19 +17,19 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   initAuth: async () => {
     try {
-      // let referralCode: string | null = null;
-      const initDataRaw = "user=%7B%22id%22%3A909990269%2C%22first_name%22%3A%22Kamran%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22latipov_kama%22%2C%22language_code%22%3A%22ru%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FJgo_S36x4Mww1tqsAYlTU4q-Eh4U4NjScTy0jANiS8Q.svg%22%7D&chat_instance=1151556967749259022&chat_type=private&auth_date=1740389577&signature=z1h1OlRrugONVvjn1eGQVYjtd5xhwcDEdtFh3X08iHZznHXncGJcuNvpOBc6IGFTUavtr_BKqA1xcRdmt2OmBg&hash=05d2d67d79f4b38ac106f68c02ab9bc89d100ef4781593236427e00f15930898"
+      let referralCode: string | null = null;
+      // const initDataRaw = "user=%7B%22id%22%3A909990269%2C%22first_name%22%3A%22Kamran%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22latipov_kama%22%2C%22language_code%22%3A%22ru%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FJgo_S36x4Mww1tqsAYlTU4q-Eh4U4NjScTy0jANiS8Q.svg%22%7D&chat_instance=1151556967749259022&chat_type=private&auth_date=1740389577&signature=z1h1OlRrugONVvjn1eGQVYjtd5xhwcDEdtFh3X08iHZznHXncGJcuNvpOBc6IGFTUavtr_BKqA1xcRdmt2OmBg&hash=05d2d67d79f4b38ac106f68c02ab9bc89d100ef4781593236427e00f15930898"
 
       // 1️⃣ Получаем параметры Telegram SDK
-      // const { initDataRaw, startParam } = retrieveLaunchParams();
+      const { initDataRaw, startParam } = retrieveLaunchParams();
 
       // 2️⃣ Проверяем startParam
-      // if (startParam) {
-      //   referralCode = startParam;
-      // } else {
-      //   const initParams = new URLSearchParams(Telegram.WebApp.initData);
-      //   referralCode = initParams.get("start") || null;
-      // }
+      if (startParam) {
+        referralCode = startParam;
+      } else {
+        const initParams = new URLSearchParams(Telegram.WebApp.initData);
+        referralCode = initParams.get("start") || null;
+      }
 
       // 4️⃣ Проверяем initDataRaw
       if (!initDataRaw) {
