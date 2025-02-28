@@ -6,13 +6,10 @@ import { ChevronRight } from "lucide-react"
 import TaskSheet from "../task-sheet/TaskSheet"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { Task } from "../../types/tasks"
 
 interface props {
-  task: {
-    title: string
-    description: string
-    price: number
-  }
+  task: Task
 }
 
 const TaskItem: React.FC<props> = ({ task }) => {
@@ -36,7 +33,7 @@ const TaskItem: React.FC<props> = ({ task }) => {
           <div className="mt-3 flex items-center gap-3">
             <Badge>
               <img src={sparkles} alt="sparkles" className="w-6 h-6" />
-              {task.price.toLocaleString()}
+              {task.reward.toLocaleString()}
             </Badge>
             <Button onClick={(e) => {
               e.stopPropagation()
@@ -54,7 +51,7 @@ const TaskItem: React.FC<props> = ({ task }) => {
         setIsShow={setIsOpen}
         title={task.title}
         description={task.description}
-        price={task.price} />
+        reward={task.reward} />
     </>
   )
 }

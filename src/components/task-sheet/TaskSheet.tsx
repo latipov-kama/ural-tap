@@ -11,10 +11,10 @@ interface props {
   setIsShow: Dispatch<SetStateAction<boolean>>
   title: string
   description: string
-  price: number
+  reward: number
 }
 
-const TaskSheet: React.FC<props> = ({ isShow, setIsShow, price, description, title }) => {
+const TaskSheet: React.FC<props> = ({ isShow, setIsShow, reward, description, title }) => {
   return (
     <AnimatePresence>
       {isShow && (
@@ -47,7 +47,7 @@ const TaskSheet: React.FC<props> = ({ isShow, setIsShow, price, description, tit
 
               <Badge>
                 <img src={sparkles} alt="sparkles" className="w-6 h-6" />
-                {price.toLocaleString()}
+                {reward.toLocaleString()}
               </Badge>
 
               <Button className='px-7'>
