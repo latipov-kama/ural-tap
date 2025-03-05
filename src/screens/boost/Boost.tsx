@@ -1,59 +1,97 @@
 import { useState } from 'react';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import Confetti from 'react-confetti';
+
 import Badge from '../../components/ui/badge/Badge';
 import Button from '../../components/ui/button/Button';
-import { motion } from 'framer-motion';
 
 import repeat from "../../assets/repeat.svg";
 import sparkles from "../../assets/sparkles.svg";
 import voltage from "../../assets/voltage.svg";
 
-const data = {
-  title: "Обнуление счётчика тапов",
-  price: 100,
-  completed: false
-};
+import { useBoostById } from '../../hooks/query/boosts';
+import { useAuthStore } from '../../stores/auth';
 
 const Boost = () => {
-  // const { id } = useParams();
-  const [isActive, setIsActive] = useState(false); // состояние активности
+  const [isActive, setIsActive] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [confettiPieces, setConfettiPieces] = useState(300);
 
-  const handleClick = () => {
-    setIsActive(true); // устанавливаем блок активным
+  const { id } = useParams();
+  const { userId } = useAuthStore();
+  const boostId = id ? +id : 0;
+
+  const { data: boost } = useBoostById(boostId);
+  // const { mutate: applyBoost } = useApplyBoost();
+
+  const handleComplete = () => {
+    if (!boost || !userId) return;
+
+    setIsActive(true);
+    setShowConfetti(true);
+    setConfettiPieces(300);
+
+    setTimeout(() => {
+      let count = 200;
+      const interval = setInterval(() => {
+        count -= 10;
+        setConfettiPieces(count);
+        if (count <= 0) {
+          clearInterval(interval);
+          setShowConfetti(false);
+        }
+      }, 100);
+    }, 2000);
+    //   }
+    // });
+
   };
 
+  if (!boost) {
+    return <p>Буст не найден.</p>;
+  }
+
   return (
-    <div className="h-full flex items-center justify-center">
+    <div className="h-full flex items-center justify-center relative overflow-hidden">
+      {showConfetti && (
+        <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          numberOfPieces={confettiPieces} // Уменьшаем кол-во частиц перед скрытием
+          recycle={false} // Отключаем бесконечное появление
+          gravity={0.3} // Немного замедляем падение
+        />
+      )}
+
       <motion.div
-        className={`w-2/3 pb-7 flex flex-col items-center rounded-2xl`}
-        initial={{ opacity: 0 }} // начальная анимация
+        className="w-2/3 pb-7 flex flex-col items-center rounded-2xl"
+        initial={{ opacity: 0 }}
         animate={{
           opacity: 1,
           background: isActive
             ? "linear-gradient(90deg, #6788d5 0%, #937cef 100%)"
-            : "linear-gradient(360deg, rgba(226, 236, 255, 0.045) 0%, rgba(226, 236, 255, 0.15) 100%)", // цвет фона изменяется плавно
-        }} // анимация при активации
-        transition={{
-          duration: 0.5, // продолжительность анимации фона
-          ease: "easeInOut", // плавность перехода
+            : "linear-gradient(360deg, rgba(226, 236, 255, 0.045) 0%, rgba(226, 236, 255, 0.15) 100%)",
         }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
       >
         <div className="gradient_circle w-[72px] h-[72px] rounded-full flex items-center justify-center relative -top-4">
           <img src={repeat} alt="repeat" className="w-11" />
         </div>
 
         <h2 className="mb-3 text-2xl text-center text-balance leading-7">
-          {data.title}
+          {boost.title}
         </h2>
+
         <Badge className="mb-4 w-fit !bg-none !shadow-none">
           <img src={sparkles} alt="sparkles" className="w-6 h-6" />
-          {isActive ? `-${data.price}` : data.price}
+          {isActive ? `-${boost.cost}` : boost.cost}
         </Badge>
 
         <Button
-          onClick={handleClick}
+          onClick={handleComplete}
           disabled={isActive}
-          className={`${isActive ? "gradient_btn_active disabled:opacity-90" : ""}`}
+          className={isActive ? "gradient_btn_active disabled:opacity-90" : ""}
         >
           <img src={voltage} alt="sparkles" className="w-5 h-5" />
           {isActive ? "Буст применён" : "Прокачать"}

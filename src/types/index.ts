@@ -15,22 +15,3 @@ export interface IFriend {
   username: string
   bonus: number
 }
-
-export interface ITask {
-  id: IdType
-  title: string
-  desciption: string
-  price: number
-  completed: boolean
-  userId?: IdType
-}
-
-export interface IBoost {
-  id: IdType
-  title: string
-  descritpion: string
-  price: number
-  completed: boolean
-  userId?: number
-}
-
