@@ -1,4 +1,3 @@
-import taskIcon from "../../assets/task-icon.svg"
 import sparkles from "../../assets/sparkles.svg"
 import Badge from "../ui/badge/Badge"
 import Button from "../ui/button/Button"
@@ -8,13 +7,15 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Task } from "../../types/tasks"
 import { useStartTask } from "../../hooks/query/tasks"
+import toast from "react-hot-toast"
 
 interface props {
   task: Task
   userId: number
   disabled?: boolean;
+  refetch: () => void
 }
-const TaskItem: React.FC<props> = ({ task, disabled, userId }) => {
+const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
   const [completed, setCompleted] = useState(disabled);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
@@ -31,9 +32,10 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId }) => {
     if (!disabled) {
       startTask({ taskId: task.id, userId }, {
         onSuccess: () => {
-          alert("Task done!")
+          refetch()
           setCompleted(true)
           setIsOpen(false)
+          toast.success("Награда получена")
         }
       })
     };
@@ -46,7 +48,7 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId }) => {
         onClick={() => !completed && navigate(`/tasks/${task.id}`)}
       >
         <div className="w-12 h-12 rounded-full gradient_btn flex items-center justify-center">
-          <img src={taskIcon} alt="task" />
+          <img src={task.image?.url} alt="task" />
         </div>
 
         <div>

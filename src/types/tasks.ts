@@ -1,3 +1,5 @@
+import { Image } from "."
+
 export enum TaskType {
   CLICK = 'click',
   SUBSCRIBE = 'subscribe',
@@ -11,6 +13,8 @@ export interface Task {
   taskType: TaskType
   link: string
   reward: number
+  imageId: number
+  image: Image
   createdAt?: string
   updatedAt?: string
 }

@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import Navbar from './navbar'
+import Toaster from '../components/ui/toaster/Toaster'
 // import { Header } from './header'
 
 function Layout({ children }: { children: ReactNode }) {
@@ -12,6 +13,8 @@ function Layout({ children }: { children: ReactNode }) {
         </main>
         <Navbar />
       </div>
+
+      <Toaster />
     </div>
   )
 }
