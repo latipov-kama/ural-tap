@@ -70,7 +70,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="p-5 py-8 h-full flex flex-col justify-between">
-      {initDataRaw}
+      {initDataRaw }
       {user && (
         <>
           <HomeProfile firstName={user.firstName} userId={user.id} />
