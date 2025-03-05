@@ -5,7 +5,7 @@ export enum TaskType {
 }
 
 export interface Task {
-  id: string
+  id: number
   title: string
   description: string
   taskType: TaskType
@@ -13,4 +13,12 @@ export interface Task {
   reward: number
   createdAt?: string
   updatedAt?: string
+}
+
+export interface UserTask {
+  id: number
+  userId: number
+  taskId: number
+  status: string
+  completedAt?: string
 }

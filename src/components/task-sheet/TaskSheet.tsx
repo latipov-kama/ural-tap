@@ -12,9 +12,10 @@ interface props {
   title: string
   description: string
   reward: number
+  onComplete: () => void
 }
 
-const TaskSheet: React.FC<props> = ({ isShow, setIsShow, reward, description, title }) => {
+const TaskSheet: React.FC<props> = ({ isShow, setIsShow, reward, description, title, onComplete }) => {
   return (
     <AnimatePresence>
       {isShow && (
@@ -50,7 +51,9 @@ const TaskSheet: React.FC<props> = ({ isShow, setIsShow, reward, description, ti
                 {reward.toLocaleString()}
               </Badge>
 
-              <Button className='px-7'>
+              <Button
+                className='px-7'
+                onClick={onComplete}>
                 Выполнить
               </Button>
             </div>
@@ -65,8 +68,9 @@ const TaskSheet: React.FC<props> = ({ isShow, setIsShow, reward, description, ti
             </button>
           </motion.div>
         </>
-      )}
-    </AnimatePresence>
+      )
+      }
+    </AnimatePresence >
   )
 }
 
