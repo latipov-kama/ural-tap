@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom"
 import { Task } from "../../types/tasks"
 import { useStartTask } from "../../hooks/query/tasks"
 import toast from "react-hot-toast"
+import { useScoreStore } from "../../stores/score"
 
 interface props {
   task: Task
@@ -20,6 +21,7 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { mutate: startTask } = useStartTask();
+  const { balance, updateBalance } = useScoreStore();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -36,6 +38,10 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
           setCompleted(true)
           setIsOpen(false)
           toast.success("Награда получена")
+
+          if (task.reward) {
+            updateBalance(balance + task.reward);
+          }
         }
       })
     };

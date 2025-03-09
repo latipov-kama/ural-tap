@@ -22,10 +22,11 @@ export const useInterpolatedTaps = (userId: number) => {
     setTaps(lastTapsRef.current);
     lastUpdate.current = Date.now();
 
-    const regenInterval = 3600 * 1000; // 1 час в миллисекундах
-    // const regenEndTime = Date.now() + nextRegen * 1000;
+    const regenInterval = 1200 * 1000; // 20 мин в миллисекундах
 
     const updateTaps = () => {
+      // if (serverTaps === 0) return; // ❌ Не обновляем, если тапов нет
+
       const now = Date.now();
       const elapsed = now - lastUpdate.current;
       const progressFraction = Math.min((regenInterval - nextRegen * 1000 + elapsed) / regenInterval, 1);

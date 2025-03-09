@@ -5,12 +5,14 @@ import Badge from '../../components/ui/badge/Badge';
 import { useStartTask, useTask, useUserTasks } from "../../hooks/query/tasks";
 import { useAuthStore } from "../../stores/auth";
 import toast from "react-hot-toast";
+import { useScoreStore } from "../../stores/score";
 
 const TaskInfo = () => {
   const { id } = useParams();
   const { userId } = useAuthStore();
   const navigate = useNavigate();
   const taskId = id ? +id : 0;
+  const { balance, updateBalance } = useScoreStore();
 
   const { data: task, isLoading } = useTask(taskId);
   const { data: userTasks, refetch } = useUserTasks(userId ?? 0);
@@ -27,6 +29,10 @@ const TaskInfo = () => {
         refetch()
         navigate("/tasks")
         toast.success("Награда получена")
+
+        if (task.reward) {
+          updateBalance(balance + task.reward);
+        }
       }
     });
   };

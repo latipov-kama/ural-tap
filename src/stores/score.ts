@@ -8,7 +8,6 @@ interface ScoreState {
   addTaps: (taps: number) => void;
   updateBalance: (balance: number) => void;
   resetPendingTaps: () => void;
-  // applyPendingTaps: () => void;
 }
 
 const baseLevelScore = 0;
@@ -32,9 +31,4 @@ export const useScoreStore = create<ScoreState>((set) => ({
       level: levels.findIndex((score) => balance < score) + 1 || levels.length,
     })),
   resetPendingTaps: () => set({ pendingTaps: 0 }),
-
-  // applyPendingTaps: () =>
-  //   set((state) => ({
-  //     pendingTaps: 0, // После отправки обнуляем pendingTaps
-  //   })),
 }));

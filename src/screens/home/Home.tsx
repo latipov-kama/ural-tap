@@ -10,7 +10,7 @@ import { useLevelQuery, useUpdateXp } from "../../hooks/query/levels";
 
 const Home: React.FC = () => {
   const { user } = useAuthStore();
-  const { balance, addTaps, updateBalance, resetPendingTaps } = useScoreStore();
+  const { balance, addTaps, resetPendingTaps } = useScoreStore();
 
   const { mutate: updateBalanceMutation } = useUpdateBalance();
   const { mutate: updateEnergyMutation } = useUpdateEnergy();
@@ -20,12 +20,6 @@ const Home: React.FC = () => {
   const { taps: interpolatedTaps, debouncedTaps, tap } = useInterpolatedTaps(user?.id ?? 0);
 
   const prevTapsRef = useRef<number>(debouncedTaps);
-
-  useEffect(() => {
-    if (user?.balance !== undefined) {
-      updateBalance(user.balance);
-    }
-  }, [user?.balance, updateBalance]);
 
   useEffect(() => {
     if (!user || debouncedTaps <= 0 || debouncedTaps === prevTapsRef.current) return;

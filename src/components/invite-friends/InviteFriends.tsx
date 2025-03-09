@@ -2,6 +2,7 @@ import { Copy } from "lucide-react";
 import Button from "../../components/ui/button/Button";
 import man_raising_hand from "../../assets/man-raising-hand.svg";
 import { useReferralLink } from "../../hooks/query/referrals";
+import toast from "react-hot-toast";
 
 interface props {
   referralCode: string
@@ -15,7 +16,7 @@ const InviteFriends: React.FC<props> = ({ userId }) => {
     if (!referralLink) return
     try {
       await navigator.clipboard.writeText(referralLink)
-      alert("Ссылка скопирована")
+      toast("Ссылка скопирована", { position: "top-center" })
     } catch (error) {
       console.error("Ошибка при копировании:", error);
     }
