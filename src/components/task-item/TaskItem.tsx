@@ -54,7 +54,7 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
         onClick={() => !completed && navigate(`/tasks/${task.id}`)}
       >
         <div className="w-12 h-12 rounded-full gradient_btn flex items-center justify-center">
-          <img src={task.image?.url} alt="task" />
+          {task.image && <img src={task.image?.url} alt="task" />}
         </div>
 
         <div>
@@ -86,9 +86,7 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
       <TaskSheet
         isShow={isOpen}
         setIsShow={setIsOpen}
-        title={task.title}
-        description={task.description}
-        reward={task.reward}
+        task={task}
         onComplete={handleComplete}
       />
     </>

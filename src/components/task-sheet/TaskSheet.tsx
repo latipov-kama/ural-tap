@@ -3,19 +3,17 @@ import Badge from '../ui/badge/Badge'
 import Button from '../ui/button/Button'
 import { X } from 'lucide-react'
 import { motion, AnimatePresence } from "framer-motion";
-import task from "../../assets/task-icon.svg"
 import sparkles from "../../assets/sparkles.svg"
+import { Task } from '../../types/tasks';
 
 interface props {
   isShow: boolean
   setIsShow: Dispatch<SetStateAction<boolean>>
-  title: string
-  description: string
-  reward: number
+  task: Task
   onComplete: () => void
 }
 
-const TaskSheet: React.FC<props> = ({ isShow, setIsShow, reward, description, title, onComplete }) => {
+const TaskSheet: React.FC<props> = ({ isShow, setIsShow, task, onComplete }) => {
   return (
     <AnimatePresence>
       {isShow && (
@@ -38,17 +36,17 @@ const TaskSheet: React.FC<props> = ({ isShow, setIsShow, reward, description, ti
           >
             <div className='h-full flex flex-col items-center justify-between'>
               <div className="w-[72px] h-[72px] rounded-full gradient_btn flex items-center justify-center">
-                <img src={task} alt="task" className='w-11' />
+                {task.image && <img src={task.image?.url} alt="task" className='w-11' />}
               </div>
 
               <div>
-                <h3 className="text-xl font-medium mb-2">{title}</h3>
-                <p className="text-sm text-secondary">{description}</p>
+                <h3 className="text-xl font-medium mb-2">{task.title}</h3>
+                <p className="text-sm text-secondary">{task.description}</p>
               </div>
 
               <Badge>
                 <img src={sparkles} alt="sparkles" className="w-6 h-6" />
-                {reward.toLocaleString()}
+                {task.reward.toLocaleString()}
               </Badge>
 
               <Button
