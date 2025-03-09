@@ -10,7 +10,7 @@ import repeat from "../../assets/repeat.svg";
 import sparkles from "../../assets/sparkles.svg";
 import voltage from "../../assets/voltage.svg";
 
-import { useBoostById } from '../../hooks/query/boosts';
+import { useApplyBoost, useBoostById } from '../../hooks/query/boosts';
 import { useAuthStore } from '../../stores/auth';
 
 const Boost = () => {
@@ -23,29 +23,30 @@ const Boost = () => {
   const boostId = id ? +id : 0;
 
   const { data: boost } = useBoostById(boostId);
-  // const { mutate: applyBoost } = useApplyBoost();
+  const { mutate: applyBoost } = useApplyBoost();
 
   const handleComplete = () => {
     if (!boost || !userId) return;
 
-    setIsActive(true);
-    setShowConfetti(true);
-    setConfettiPieces(300);
+    applyBoost({ boostId: boost.id, userId }, {
+      onSuccess: () => {
+        setIsActive(true);
+        setShowConfetti(true);
+        setConfettiPieces(300);
 
-    setTimeout(() => {
-      let count = 200;
-      const interval = setInterval(() => {
-        count -= 10;
-        setConfettiPieces(count);
-        if (count <= 0) {
-          clearInterval(interval);
-          setShowConfetti(false);
-        }
-      }, 100);
-    }, 2000);
-    //   }
-    // });
-
+        setTimeout(() => {
+          let count = 200;
+          const interval = setInterval(() => {
+            count -= 10;
+            setConfettiPieces(count);
+            if (count <= 0) {
+              clearInterval(interval);
+              setShowConfetti(false);
+            }
+          }, 100);
+        }, 2000);
+      }
+    })
   };
 
   if (!boost) {
