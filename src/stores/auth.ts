@@ -31,6 +31,8 @@ export const useAuthStore = create<AuthState>((set) => ({
         referralCode = initParams.get("start") || null;
       }
 
+      console.log(referralCode);
+
       // 4️⃣ Проверяем initDataRaw
       if (!initDataRaw) {
         alert("initDataRaw не найдено, авторизация невозможна");
