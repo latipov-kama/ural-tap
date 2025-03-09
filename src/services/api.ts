@@ -7,12 +7,4 @@ const makeRequest = axios.create({
   }
 })
 
-// apiClient.interceptors.request.use((config) => {
-//   const id = localStorage.getItem("id");
-//   if (id) {
-//     config.headers.Authorization = `${id}`;
-//   }
-//   return config;
-// });
-
 export default makeRequest
