@@ -2,7 +2,7 @@ import axios from "axios";
 
 const makeRequest = axios.create({
   // baseURL: import.meta.env.VITE_SERVER_URL,
-  baseURL: "http://localhost:4000",
+  baseURL: "https://api.uraltap.ru",
   headers: {
     'Content-Type': 'application/json',
   }
