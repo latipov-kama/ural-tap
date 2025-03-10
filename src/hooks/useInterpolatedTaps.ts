@@ -6,11 +6,11 @@ export const useInterpolatedTaps = (userId: number) => {
   const { data, refetch } = useTapsQuery(userId);
   const [taps, setTaps] = useState(0);
   const [pendingTaps, setPendingTaps] = useState(0);
+  const [debouncedTaps] = useDebounce(pendingTaps, 500);
+  const [max, setMax] = useState(0);
   const lastUpdate = useRef(Date.now());
   const lastTapsRef = useRef(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  const [debouncedTaps] = useDebounce(pendingTaps, 500);
 
   useEffect(() => {
     if (!data) return;
@@ -20,6 +20,7 @@ export const useInterpolatedTaps = (userId: number) => {
     // Начинаем отсчет от текущего значения клиента
     lastTapsRef.current = serverTaps - pendingTaps;
     setTaps(lastTapsRef.current);
+    setMax(maxTaps)
     lastUpdate.current = Date.now();
 
     const regenInterval = 1200 * 1000; // 20 мин в миллисекундах
@@ -58,5 +59,5 @@ export const useInterpolatedTaps = (userId: number) => {
     }
   }, [taps]);
 
-  return { taps, pendingTaps, debouncedTaps, tap };
+  return { taps, pendingTaps, debouncedTaps, tap, maxTaps: max };
 };

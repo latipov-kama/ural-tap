@@ -6,16 +6,17 @@ import Badge from '../ui/badge/Badge';
 
 interface props {
   taps: number
+  maxTaps: number
 }
 
-const TapsIndicator: React.FC<props> = ({ taps }) => {
+const TapsIndicator: React.FC<props> = ({ taps, maxTaps }) => {
 
   return (
     <div className="mt-8 flex justify-between items-center">
       <Badge>
         <img src={point_up} alt="pointer" className="w-4 h-4" />
         <span className="text-sm text-white">{taps}</span>
-        <span className="text-sm text-[#B7B7B7]">/500</span>
+        <span className="text-sm text-[#B7B7B7]">/{maxTaps}</span>
       </Badge>
       <Button>
         <img src={voltage} className="w-4 h-4" />

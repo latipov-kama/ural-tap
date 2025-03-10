@@ -1,12 +1,13 @@
 import { useEffect, useRef, useCallback } from "react";
 import { useScoreStore } from "../../stores/score";
 import { useAuthStore } from "../../stores/auth";
-import HomeProfile from "../../components/home-profile/HomeProfile";
-import CoinsTap from "../../components/coins-tap/CoinsTap";
-import TapsIndicator from "../../components/taps-indicator/TapsIndicator";
 import { useInterpolatedTaps } from "../../hooks/useInterpolatedTaps";
 import { useUpdateBalance, useUpdateEnergy } from "../../hooks/query/taps";
 import { useLevelQuery, useUpdateXp } from "../../hooks/query/levels";
+
+import HomeProfile from "../../components/home-profile/HomeProfile";
+import CoinsTap from "../../components/coins-tap/CoinsTap";
+import TapsIndicator from "../../components/taps-indicator/TapsIndicator";
 
 const Home: React.FC = () => {
   const { user } = useAuthStore();
@@ -17,7 +18,7 @@ const Home: React.FC = () => {
   const { mutate: updateXPMutation } = useUpdateXp();
   const { refetch } = useLevelQuery(user?.id ?? 0)
 
-  const { taps: interpolatedTaps, debouncedTaps, tap } = useInterpolatedTaps(user?.id ?? 0);
+  const { taps: interpolatedTaps, debouncedTaps, maxTaps, tap } = useInterpolatedTaps(user?.id ?? 0);
 
   const prevTapsRef = useRef<number>(debouncedTaps);
 
@@ -66,7 +67,7 @@ const Home: React.FC = () => {
         <>
           <HomeProfile firstName={user.firstName} userId={user.id} />
           <CoinsTap onTap={handleTap} balance={balance} isDisabled={interpolatedTaps < 5} />
-          <TapsIndicator taps={Math.ceil(interpolatedTaps)} />
+          <TapsIndicator taps={Math.ceil(interpolatedTaps)} maxTaps={maxTaps} />
         </>
       )}
     </div>
