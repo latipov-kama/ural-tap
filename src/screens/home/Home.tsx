@@ -7,6 +7,7 @@ import TapsIndicator from "../../components/taps-indicator/TapsIndicator";
 import { useInterpolatedTaps } from "../../hooks/useInterpolatedTaps";
 import { useUpdateBalance, useUpdateEnergy } from "../../hooks/query/taps";
 import { useLevelQuery, useUpdateXp } from "../../hooks/query/levels";
+import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 const Home: React.FC = () => {
   const { user } = useAuthStore();
@@ -16,6 +17,7 @@ const Home: React.FC = () => {
   const { mutate: updateEnergyMutation } = useUpdateEnergy();
   const { mutate: updateXPMutation } = useUpdateXp();
   const { refetch } = useLevelQuery(user?.id ?? 0)
+  const { initDataRaw } = retrieveLaunchParams()
 
   const { taps: interpolatedTaps, debouncedTaps, tap } = useInterpolatedTaps(user?.id ?? 0);
 
@@ -62,6 +64,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="p-5 py-8 h-full flex flex-col justify-between">
+      {initDataRaw}
       {user && (
         <>
           <HomeProfile firstName={user.firstName} userId={user.id} />
