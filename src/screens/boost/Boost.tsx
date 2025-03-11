@@ -12,7 +12,6 @@ import voltage from "../../assets/voltage.svg";
 
 import { useApplyBoost, useBoostById } from '../../hooks/query/boosts';
 import { useAuthStore } from '../../stores/auth';
-import toast from 'react-hot-toast';
 import { useScoreStore } from '../../stores/score';
 
 const Boost = () => {
