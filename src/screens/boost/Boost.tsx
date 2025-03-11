@@ -12,6 +12,8 @@ import voltage from "../../assets/voltage.svg";
 
 import { useApplyBoost, useBoostById } from '../../hooks/query/boosts';
 import { useAuthStore } from '../../stores/auth';
+import toast from 'react-hot-toast';
+import { useScoreStore } from '../../stores/score';
 
 const Boost = () => {
   const [isActive, setIsActive] = useState(false);
@@ -19,7 +21,9 @@ const Boost = () => {
   const [confettiPieces, setConfettiPieces] = useState(300);
 
   const { id } = useParams();
+  const { balance, updateBalance } = useScoreStore();
   const { userId } = useAuthStore();
+
   const boostId = id ? +id : 0;
 
   const { data: boost } = useBoostById(boostId);
@@ -33,6 +37,10 @@ const Boost = () => {
         setIsActive(true);
         setShowConfetti(true);
         setConfettiPieces(300);
+
+        if (boost.cost) {
+          updateBalance(balance - boost.cost);
+        }
 
         setTimeout(() => {
           let count = 200;
