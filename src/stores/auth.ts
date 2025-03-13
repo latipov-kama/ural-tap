@@ -31,7 +31,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         referralCode = initParams.get("start") || null;
       }
 
-      alert(referralCode)
+      console.log(referralCode);
 
       // 4️⃣ Проверяем initDataRaw
       if (!initDataRaw) {
