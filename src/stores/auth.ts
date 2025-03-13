@@ -18,7 +18,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   initAuth: async () => {
     try {
       let referralCode: string | null = null;
-      // const initDataRaw = "user=%7B%22id%22%3A909990269%2C%22first_name%22%3A%22Kamran%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22latipov_kama%22%2C%22language_code%22%3A%22ru%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FJgo_S36x4Mww1tqsAYlTU4q-Eh4U4NjScTy0jANiS8Q.svg%22%7D&chat_instance=-1537647949971518884&chat_type=private&auth_date=1741514654&signature=UTujlUoj2FltVHB5LFF-qAKTNmujSv4KMEaF6TvjffUnyBGTHJkOazgnWXUebt69oXSoC6OP70M6FnqXMcptAA&hash=79d1efbc0f974ee1b2f5e0eae96087b541683aba3ebe31ac316f8ae1ec54de4c"
+      // const initDataRaw = "user=%7B%22id%22%3A909990269%2C%22first_name%22%3A%22Kamran%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22latipov_kama%22%2C%22language_code%22%3A%22ru%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FJgo_S36x4Mww1tqsAYlTU4q-Eh4U4NjScTy0jANiS8Q.svg%22%7D&chat_instance=8180690052102929318&chat_type=sender&auth_date=1741893708&signature=2ZGd9TAqA3xlA8OudILAgZy-t2GJ7f6x7pc3UUfJpjOXJ6mZT2bPBPsJpi-ZWsXHiLFYqQLXRfkcsra_5s56Cg&hash=0098d527aff48475b5de7bd47c8e81699d6c13959826265080d5dc47d3213016"
 
       // 1️⃣ Получаем параметры Telegram SDK
       const { initDataRaw, startParam } = retrieveLaunchParams();
@@ -31,7 +31,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         referralCode = initParams.get("start") || null;
       }
 
-      console.log(referralCode);
+      alert(referralCode)
 
       // 4️⃣ Проверяем initDataRaw
       if (!initDataRaw) {
