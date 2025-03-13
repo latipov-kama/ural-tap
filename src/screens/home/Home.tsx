@@ -8,12 +8,10 @@ import { useLevelQuery, useUpdateXp } from "../../hooks/query/levels";
 import HomeProfile from "../../components/home-profile/HomeProfile";
 import CoinsTap from "../../components/coins-tap/CoinsTap";
 import TapsIndicator from "../../components/taps-indicator/TapsIndicator";
-import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 const Home: React.FC = () => {
   const { user } = useAuthStore();
   const { balance, addTaps, resetPendingTaps } = useScoreStore();
-  const { initDataRaw } = retrieveLaunchParams()
 
   const { mutate: updateBalanceMutation } = useUpdateBalance();
   const { mutate: updateEnergyMutation } = useUpdateEnergy();
@@ -65,7 +63,6 @@ const Home: React.FC = () => {
 
   return (
     <div className="p-5 py-8 h-full flex flex-col justify-between">
-      {initDataRaw}
       {user && (
         <>
           <HomeProfile firstName={user.firstName} userId={user.id} />
