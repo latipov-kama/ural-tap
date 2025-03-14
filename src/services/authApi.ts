@@ -6,6 +6,7 @@ export const sendAuthData = async (initDataRaw: string, referralCode: string | n
     const url = referralCode ? `/auth/login?startapp=${referralCode}` : "/auth/login";
 
     const response = await makeRequest.post(url, { data: initDataRaw });
+    console.log(response)
     return response.data;
   } catch (error) {
     alert(`${error}`);
