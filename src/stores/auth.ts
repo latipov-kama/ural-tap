@@ -40,7 +40,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       }
 
       // 5️⃣ Отправляем данные на сервер
-      const response = await sendAuthData(initDataRaw);
+      const response = await sendAuthData(initDataRaw, referralCode);
       console.log("Ответ сервера:", response);
 
       if (response?.userId) {
