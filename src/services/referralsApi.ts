@@ -3,7 +3,7 @@ import makeRequest from "./api"
 
 export const fetchReferralLink = async (userId: number) => {
   if (!userId) throw new Error("User ID отсутствует");
-  const response = await makeRequest.get<{ link: string }>(`/referrals/referral-link?${userId}`);
+  const response = await makeRequest.get<{ link: string }>(`/referrals/referral-link?userId=${userId}`);
   return response.data.link;
 };
 

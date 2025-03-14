@@ -6,7 +6,7 @@ export const useReferralLink = (userId?: number) => {
     queryKey: ["referralLink", userId],
     queryFn: () => fetchReferralLink(userId!),
     enabled: !!userId
-  }); 
+  });
 };
 
 export const useReferrals = (userId: number) => {
