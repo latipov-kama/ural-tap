@@ -3,7 +3,7 @@ import makeRequest from "./api";
 
 export const sendAuthData = async (initDataRaw: string, referralCode: string | null = null) => {
   try {
-    const url = referralCode ? `/auth/login?startapp=${encodeURIComponent(referralCode)}` : "/auth/login";
+    const url = referralCode ? `/auth/login?startapp=${referralCode}` : "/auth/login";
 
     const response = await makeRequest.post(url, { data: initDataRaw });
     return response.data;
