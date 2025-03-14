@@ -3,11 +3,13 @@ import makeRequest from "./api";
 
 export const sendAuthData = async (initDataRaw: string, referralCode: string | null = null) => {
   try {
-    const url = referralCode ? `/auth/login?startapp=${encodeURIComponent(referralCode)}` : "/auth/login";
+    console.log(referralCode)
+    const url = referralCode ? `/auth/login?startapp=${referralCode}` : "/auth/login";
 
     alert(url);
 
     const response = await makeRequest.post(url, { data: initDataRaw });
+    console.log(response)
     return response.data;
   } catch (error) {
     alert(`${error}`);
