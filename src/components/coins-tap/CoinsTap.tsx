@@ -58,7 +58,7 @@ const CoinsTap: React.FC<CoinsTapProps> = ({ balance, onTap, isDisabled }) => {
           src={coinImg}
           alt="Coin"
           ref={coinRef}
-          className="w-full h-full object-contain"
+          className="w-full h-full object-contain select-none"
         />
       </div>
     </div>
