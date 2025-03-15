@@ -2,62 +2,72 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { useTapsQuery } from "./query/taps";
 import { useDebounce } from "use-debounce";
 
-export const useInterpolatedTaps = (userId: number) => {
+export const useInterpolatedTaps = (userId: number, tapCount: number) => {
   const { data, refetch } = useTapsQuery(userId);
   const [taps, setTaps] = useState(0);
   const [pendingTaps, setPendingTaps] = useState(0);
   const [debouncedTaps] = useDebounce(pendingTaps, 500);
-  const [max, setMax] = useState(0);
+  const [maxTaps, setMaxTaps] = useState(0);
+  const [timeLeft, setTimeLeft] = useState("");
+  const [isRegenerating, setIsRegenerating] = useState(false);
+
   const lastUpdate = useRef(Date.now());
-  const lastTapsRef = useRef(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (!data) return;
 
-    const { taps: serverTaps, maxTaps, nextRegen, energyIncrement } = data;
+    const { taps: serverTaps, maxTaps, nextRegen } = data;
+    const currentTaps = serverTaps - pendingTaps;
 
-    // Начинаем отсчет от текущего значения клиента
-    lastTapsRef.current = serverTaps - pendingTaps;
-    setTaps(lastTapsRef.current);
-    setMax(maxTaps)
+    setTaps(currentTaps);
+    setMaxTaps(maxTaps);
     lastUpdate.current = Date.now();
 
-    const regenInterval = 1200 * 1000; // 20 мин в миллисекундах
-
-    const updateTaps = () => {
-      // if (serverTaps === 0) return; // ❌ Не обновляем, если тапов нет
-
-      const now = Date.now();
-      const elapsed = now - lastUpdate.current;
-      const progressFraction = Math.min((regenInterval - nextRegen * 1000 + elapsed) / regenInterval, 1);
-      const interpolatedTaps = Math.min(lastTapsRef.current + progressFraction * energyIncrement, maxTaps);
-
-      setTaps(interpolatedTaps);
-
-      if (progressFraction >= 1) {
-        clearInterval(intervalRef.current!);
-        setTaps(Math.min(lastTapsRef.current + energyIncrement, maxTaps));
-        refetch();
-      }
-    };
-
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    intervalRef.current = setInterval(updateTaps, 1000);
-
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, [data, refetch]);
-
-  const tap = useCallback((amount: number) => {
-    if (taps >= amount) {
-      setTaps((prev) => prev - amount);
-      setPendingTaps((prev) => prev + amount);
-      lastTapsRef.current -= amount; // ✅ Корректируем референс
-      lastUpdate.current = Date.now(); // ✅ Обновляем время последнего изменения
+    if (currentTaps < tapCount) {
+      startRegenTimer(nextRegen);
     }
-  }, [taps]);
+  }, [data, pendingTaps, tapCount]);
 
-  return { taps, pendingTaps, debouncedTaps, tap, maxTaps: max };
+  const startRegenTimer = useCallback((nextRegen: number) => {
+    if (isRegenerating) return;
+
+    setIsRegenerating(true);
+    clearInterval(intervalRef.current!);
+
+    intervalRef.current = setInterval(() => {
+      const elapsedTime = Date.now() - lastUpdate.current;
+      const remainingTime = nextRegen * 1000 - elapsedTime;
+
+      if (remainingTime <= 0) {
+        clearInterval(intervalRef.current!);
+        setTimeLeft("");
+        setIsRegenerating(false);
+        refetch();
+      } else {
+        setTimeLeft(`${Math.floor(remainingTime / 60000)}:${String(Math.floor((remainingTime % 60000) / 1000)).padStart(2, "0")}`);
+      }
+    }, 1000);
+  }, [isRegenerating, refetch]);
+
+  const tap = useCallback(() => {
+    if (taps >= tapCount) {
+      setTaps((prev) => prev - tapCount);
+      setPendingTaps((prev) => prev + tapCount);
+      lastUpdate.current = Date.now();
+
+      if (taps - tapCount < tapCount) startRegenTimer(data?.nextRegen || 0);
+    }
+  }, [taps, tapCount, data, startRegenTimer]);
+
+  return {
+    taps,
+    pendingTaps,
+    debouncedTaps,
+    tap,
+    maxTaps,
+    isRegenerating,
+    timeLeft,
+    isTapDisabled: taps < tapCount,
+  };
 };
