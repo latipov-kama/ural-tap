@@ -13,6 +13,7 @@ import voltage from "../../assets/voltage.svg";
 import { useApplyBoost, useBoostById } from '../../hooks/query/boosts';
 import { useAuthStore } from '../../stores/auth';
 import { useScoreStore } from '../../stores/score';
+import toast from 'react-hot-toast';
 
 const Boost = () => {
   const [isActive, setIsActive] = useState(false);
@@ -30,6 +31,11 @@ const Boost = () => {
 
   const handleComplete = () => {
     if (!boost || !userId) return;
+
+    if (balance < boost.cost) {
+      toast.error("Недостаточно монет!")
+      return;
+    }
 
     applyBoost({ boostId: boost.id, userId }, {
       onSuccess: () => {
