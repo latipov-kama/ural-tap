@@ -29,7 +29,10 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
       const completedTask = sessionStorage.getItem(`completedTask-${task.id}`);
       if (completedTask) {
         sessionStorage.removeItem(`completedTask-${task.id}`);
-        handleComplete();
+
+        setTimeout(() => {
+          handleComplete();
+        }, 1500);
       }
     };
 
@@ -39,6 +42,7 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
       document.removeEventListener("visibilitychange", checkCompletion);
     };
   }, []);
+
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -62,7 +66,7 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
           onSuccess: () => {
             refetch();
             setCompleted(true);
-            toast.success("Награда получена");
+            toast.success("Награда получена", { duration: 3000 });
 
             if (task.reward) {
               updateBalance(balance + task.reward);

@@ -29,7 +29,10 @@ const TaskInfo = () => {
 
       if (completedTask && !isCompleted) {
         sessionStorage.removeItem(`completedTask-${taskId}`);
-        handleComplete();
+
+        setTimeout(() => {
+          handleComplete();
+        }, 1500);
       }
     };
 
@@ -55,8 +58,8 @@ const TaskInfo = () => {
 
     startTask({ taskId: task.id, userId }, {
       onSuccess: async () => {
-        await refetch(); // Дождаться обновления списка заданий
-        toast.success("Награда получена");
+        await refetch();
+        toast.success("Награда получена", { duration: 3000 });
 
         if (task.reward) {
           updateBalance(balance + task.reward);
