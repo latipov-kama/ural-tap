@@ -36,10 +36,10 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
       }
     };
 
-    document.addEventListener("visibilitychange", checkCompletion);
+    window.addEventListener("focus", checkCompletion); // Используем focus вместо visibilitychange
 
     return () => {
-      document.removeEventListener("visibilitychange", checkCompletion);
+      window.removeEventListener("focus", checkCompletion);
     };
   }, []);
 
