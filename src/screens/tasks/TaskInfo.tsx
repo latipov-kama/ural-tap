@@ -22,15 +22,24 @@ const TaskInfo = () => {
   const isCompleted = userTasks?.some(userTask => userTask.taskId === taskId);
 
   useEffect(() => {
-    if (!taskId || isLoading || !userTasks) return;
+    const checkCompletion = () => {
+      if (!taskId || !userTasks) return;
 
-    const completedTask = sessionStorage.getItem(`completedTask-${taskId}`);
+      const completedTask = sessionStorage.getItem(`completedTask-${taskId}`);
 
-    if (completedTask && !isCompleted) {
-      sessionStorage.removeItem(`completedTask-${taskId}`);
-      handleComplete();
-    }
-  }, [isLoading, userTasks, taskId]);
+      if (completedTask && !isCompleted) {
+        sessionStorage.removeItem(`completedTask-${taskId}`);
+        handleComplete();
+      }
+    };
+
+    document.addEventListener("visibilitychange", checkCompletion);
+
+    return () => {
+      document.removeEventListener("visibilitychange", checkCompletion);
+    };
+  }, [taskId, userTasks]);
+
 
   const handleStartTask = () => {
     if (!task) return;
@@ -38,11 +47,6 @@ const TaskInfo = () => {
     // Сохраняем в sessionStorage, что задание начато
     sessionStorage.setItem(`completedTask-${taskId}`, "true");
 
-    // Открываем ссылку
-    // if (/Mobi|Android/i.test(navigator.userAgent)) {
-    //   window.location.href = task.link;
-    // } else {
-    // }
     window.open(task.link, "_blank");
   };
 
