@@ -25,11 +25,19 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
 
   // Проверяем, вернулся ли юзер после клика по ссылке
   useEffect(() => {
-    const completedTask = sessionStorage.getItem(`completedTask-${task.id}`);
-    if (completedTask) {
-      sessionStorage.removeItem(`completedTask-${task.id}`);
-      handleComplete();
-    }
+    const checkCompletion = () => {
+      const completedTask = sessionStorage.getItem(`completedTask-${task.id}`);
+      if (completedTask) {
+        sessionStorage.removeItem(`completedTask-${task.id}`);
+        handleComplete();
+      }
+    };
+
+    document.addEventListener("visibilitychange", checkCompletion);
+
+    return () => {
+      document.removeEventListener("visibilitychange", checkCompletion);
+    };
   }, []);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -41,10 +49,6 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
     if (task.link) {
       sessionStorage.setItem(`completedTask-${task.id}`, "true");
 
-      // if (/Mobi|Android/i.test(navigator.userAgent)) {
-      //   window.location.href = task.link;
-      // } else {
-      // }
       window.open(task.link, "_blank");
     }
     setIsOpen(false);
