@@ -20,7 +20,7 @@ const Profile = () => {
     {
       title: "Политика конфиденциальности",
       icon: privacy_policy,
-      route: "/"
+      route: "/policy"
     },
     {
       title: "О приложении",

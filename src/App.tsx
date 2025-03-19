@@ -10,6 +10,7 @@ import Boost from './screens/boost/Boost'
 import Questions from './screens/questions/Questions'
 import { useAuthStore } from './stores/auth'
 import { useEffect } from 'react'
+import Policy from './screens/policy/Policy'
 // import { useInitDataQuery } from "@telegram-apps/sdk-react";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path="/friends" element={<Friends />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/questions" element={<Questions />} />
+        <Route path="/policy" element={<Policy />} />
       </Routes>
     </Layout>
   )
