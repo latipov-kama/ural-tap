@@ -41,11 +41,11 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
     if (task.link) {
       sessionStorage.setItem(`completedTask-${task.id}`, "true");
 
-      if (/Mobi|Android/i.test(navigator.userAgent)) {
-        window.location.href = task.link;
-      } else {
-        window.open(task.link, "_blank");
-      }
+      // if (/Mobi|Android/i.test(navigator.userAgent)) {
+      //   window.location.href = task.link;
+      // } else {
+      // }
+      window.open(task.link, "_blank");
     }
     setIsOpen(false);
   };

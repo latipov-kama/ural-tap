@@ -39,11 +39,11 @@ const TaskInfo = () => {
     sessionStorage.setItem(`completedTask-${taskId}`, "true");
 
     // Открываем ссылку
-    if (/Mobi|Android/i.test(navigator.userAgent)) {
-      window.location.href = task.link;
-    } else {
-      window.open(task.link, "_blank");
-    }
+    // if (/Mobi|Android/i.test(navigator.userAgent)) {
+    //   window.location.href = task.link;
+    // } else {
+    // }
+    window.open(task.link, "_blank");
   };
 
   const handleComplete = () => {
