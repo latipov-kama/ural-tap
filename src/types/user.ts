@@ -18,9 +18,15 @@ export interface User {
   id: number,
   username: string,
   firstName?: string,
-  telegramId: number,
+  avatar: string | null
+  telegramId: string,
   balance: number,
   referralCode: string,
+  level: number
+  xp: number
+  taps: number
+  maxTaps: number
   createdAt?: string,
   updatedAt?: string,
+  // ActiveBoost: {}
 }

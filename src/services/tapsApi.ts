@@ -14,17 +14,6 @@ export const fetchTaps = async (userId: number) => {
   }
 }
 
-export const updateBalance = async (userId: number, balance: number) => {
-  try {
-    const res = await makeRequest.put(`/users/${userId}`, { balance: balance })
-
-    return res
-  } catch (error) {
-    console.error(error);
-    throw error
-  }
-}
-
 export const updateEnergy = async (userId: number, amount: number) => {
   try {
     const res = await makeRequest.post(`/taps/use?userId=${userId}`, { amount })

@@ -2,7 +2,7 @@ import { useEffect, useRef, useCallback, useState } from "react";
 import { useScoreStore } from "../../stores/score";
 import { useAuthStore } from "../../stores/auth";
 import { useInterpolatedTaps } from "../../hooks/useInterpolatedTaps";
-import { useUpdateBalance, useUpdateEnergy } from "../../hooks/query/taps";
+import { useUpdateEnergy } from "../../hooks/query/taps";
 import { useLevelQuery, useUpdateXp } from "../../hooks/query/levels";
 
 import HomeProfile from "../../components/home-profile/HomeProfile";
@@ -17,7 +17,6 @@ const Home: React.FC = () => {
   const { user } = useAuthStore();
   const { balance, addTaps, resetPendingTaps } = useScoreStore();
 
-  const { mutate: updateBalanceMutation } = useUpdateBalance();
   const { mutate: updateEnergyMutation } = useUpdateEnergy();
   const { mutate: updateXPMutation } = useUpdateXp();
   const { data: level, refetch } = useLevelQuery(user?.id ?? 0);
@@ -49,21 +48,17 @@ const Home: React.FC = () => {
 
     prevTapsRef.current = debouncedTaps;
 
-    updateBalanceMutation({ userId: user.id, balance: debouncedTaps }, {
+    updateEnergyMutation({ userId: user.id, amount: debouncedTaps }, {
       onSuccess: () => {
-        updateEnergyMutation({ userId: user.id, amount: debouncedTaps }, {
+        updateXPMutation({ userId: user.id, xp: debouncedTaps }, {
           onSuccess: () => {
-            updateXPMutation({ userId: user.id, xp: debouncedTaps }, {
-              onSuccess: () => {
-                resetPendingTaps();
-                refetch();
-              },
-            });
+            resetPendingTaps();
+            refetch();
           },
         });
       },
     });
-  }, [debouncedTaps, updateBalanceMutation, updateEnergyMutation, updateXPMutation, user]);
+  }, [debouncedTaps, updateEnergyMutation, updateXPMutation, user]);
 
   const handleTap = useCallback(() => {
     if (!isTapDisabled) {

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import sparkles from "../../assets/sparkles.svg";
 import Button from '../../components/ui/button/Button';
@@ -16,34 +17,53 @@ const TaskInfo = () => {
 
   const { data: task, isLoading } = useTask(taskId);
   const { data: userTasks, refetch } = useUserTasks(userId ?? 0);
-
   const { mutate: startTask, isPending } = useStartTask();
 
-  // Проверяем, выполнена ли задача
   const isCompleted = userTasks?.some(userTask => userTask.taskId === taskId);
 
+  useEffect(() => {
+    const completedTask = sessionStorage.getItem(`completedTask-${taskId}`);
+    console.log(completedTask);
+
+    if (completedTask) {
+      sessionStorage.removeItem(`completedTask-${taskId}`);
+      handleComplete();
+    }
+  }, []);
+
+  const handleStartTask = () => {
+    if (!task) return;
+
+    // Сохраняем в sessionStorage, что задание начато
+    sessionStorage.setItem(`completedTask-${taskId}`, "true");
+
+    // Открываем ссылку
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+      window.location.href = task.link;
+    } else {
+      window.open(task.link, "_blank");
+    }
+  };
+
   const handleComplete = () => {
-    if (!task || !userId || isCompleted) return;
+    if (!task || !userId) return;
+
     startTask({ taskId: task.id, userId }, {
       onSuccess: () => {
-        refetch()
-        navigate("/tasks")
-        toast.success("Награда получена")
+        refetch();
+        toast.success("Награда получена");
 
         if (task.reward) {
           updateBalance(balance + task.reward);
         }
+
+        navigate("/tasks"); // Перенаправляем юзера на список заданий
       }
     });
   };
 
-  if (isLoading) {
-    return <p>Загрузка...</p>;
-  }
-
-  if (!task) {
-    return <p>Задача не найдена.</p>;
-  }
+  if (isLoading) return <p>Загрузка...</p>;
+  if (!task) return <p>Задача не найдена.</p>;
 
   return (
     <div className='py-8'>
@@ -55,6 +75,7 @@ const TaskInfo = () => {
         <div>
           <h3 className="text-2xl font-medium mb-2">{task.title}</h3>
           <p className="text-base text-secondary">{task.description}</p>
+
           <div className="mt-10">
             <p className='mb-3 text-primary text-sm uppercase'>Награда</p>
             <Badge className={`w-fit ${isCompleted ? "opacity-60" : ""}`}>
@@ -63,16 +84,9 @@ const TaskInfo = () => {
             </Badge>
           </div>
 
-          <div className='mt-10'>
-            <p className='mb-3 text-primary text-sm uppercase'>Дополнительно</p>
-            <p className='text-secondary text-base'>
-              На канале UralTap публикуются самые важные, самые свежие, самые крутые новости, акции. Подпишись, чтобы быть в курсе.
-            </p>
-          </div>
-
           <Button
             className={`mt-10 duration-150 ease-in-out ${isCompleted ? "opacity-60 cursor-not-allowed" : ""}`}
-            onClick={handleComplete}
+            onClick={handleStartTask}
             disabled={isCompleted}
           >
             {isCompleted ? "Выполнено" : isPending ? "Loading..." : "Выполнить"}

@@ -3,7 +3,7 @@ import Badge from "../ui/badge/Badge"
 import Button from "../ui/button/Button"
 import { ChevronRight } from "lucide-react"
 import TaskSheet from "../task-sheet/TaskSheet"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Task } from "../../types/tasks"
 import { useStartTask } from "../../hooks/query/tasks"
@@ -23,29 +23,51 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
   const { mutate: startTask } = useStartTask();
   const { balance, updateBalance } = useScoreStore();
 
+  // Проверяем, вернулся ли юзер после клика по ссылке
+  useEffect(() => {
+    const completedTask = sessionStorage.getItem(`completedTask-${task.id}`);
+    if (completedTask) {
+      sessionStorage.removeItem(`completedTask-${task.id}`);
+      handleComplete();
+    }
+  }, []);
+
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    if (!disabled) {
-      setIsOpen(true)
-    };
-  }
+    setIsOpen(true);
+  };
+
+  const startTaskAndOpenLink = () => {
+    if (task.link) {
+      sessionStorage.setItem(`completedTask-${task.id}`, "true");
+
+      if (/Mobi|Android/i.test(navigator.userAgent)) {
+        window.location.href = task.link;
+      } else {
+        window.open(task.link, "_blank");
+      }
+    }
+    setIsOpen(false);
+  };
 
   const handleComplete = () => {
-    if (!disabled) {
-      startTask({ taskId: task.id, userId }, {
-        onSuccess: () => {
-          refetch()
-          setCompleted(true)
-          setIsOpen(false)
-          toast.success("Награда получена")
+    if (!completed) {
+      startTask(
+        { taskId: task.id, userId },
+        {
+          onSuccess: () => {
+            refetch();
+            setCompleted(true);
+            toast.success("Награда получена");
 
-          if (task.reward) {
-            updateBalance(balance + task.reward);
-          }
+            if (task.reward) {
+              updateBalance(balance + task.reward);
+            }
+          },
         }
-      })
-    };
-  }
+      );
+    }
+  };
 
   return (
     <>
@@ -87,7 +109,7 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
         isShow={isOpen}
         setIsShow={setIsOpen}
         task={task}
-        onComplete={handleComplete}
+        onComplete={startTaskAndOpenLink}
       />
     </>
   );
