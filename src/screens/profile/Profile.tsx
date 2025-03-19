@@ -25,7 +25,7 @@ const Profile = () => {
     {
       title: "О приложении",
       icon: book,
-      route: "/"
+      route: "/about"
     },
   ];
   // const { user } = useTelegramAuth()

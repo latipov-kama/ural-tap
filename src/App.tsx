@@ -11,7 +11,7 @@ import Questions from './screens/questions/Questions'
 import { useAuthStore } from './stores/auth'
 import { useEffect } from 'react'
 import Policy from './screens/policy/Policy'
-// import { useInitDataQuery } from "@telegram-apps/sdk-react";
+import About from './screens/about/About'
 
 function App() {
   const { initAuth } = useAuthStore()
@@ -32,6 +32,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/questions" element={<Questions />} />
         <Route path="/policy" element={<Policy />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </Layout>
   )

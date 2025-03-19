@@ -32,9 +32,23 @@ const Questions = () => {
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                   className="overflow-hidden"
                 >
-                  <span className="inline-block text-sm text-secondary leading-4">
+                  <span className="inline-block  text-sm text-secondary leading-4">
                     {item.answer}
                   </span>
+
+                  {item.info && (
+                    <>
+                      <p className="mt-4 mb-2">Примеры розыгрышей:</p>
+                      <ul className="list-decimal text-sm">
+                        {item.info.map((item) => {
+                          return <li>
+                            <span className="font-semibold">{item.title}</span>
+                            <span className="font-light text-secondary"> – {item.value}</span>
+                          </li>
+                        })}
+                      </ul>
+                    </>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>

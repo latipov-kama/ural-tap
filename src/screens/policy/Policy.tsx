@@ -1,37 +1,78 @@
-
 const Policy = () => {
   return (
     <div className='p-5 py-8 h-full text-secondary text-sm'>
       <span className='block mb-4 text-base'>
-        Terms of Service for Mini Apps
+        Политика конфиденциальности для мобильного приложения "Урал тап Бизнес"
       </span>
       <span className='block mb-4'>
-        Mini Apps (“MA”) on Telegram allow you to connect to third-party Service Providers (“SP”) in their mini app environment and access services or purchase goods directly from such Service Providers using Telegram apps.
+        Настоящая Политика конфиденциальности регулирует порядок сбора, хранения, использования и защиты персональных данных пользователей мобильного приложения "Урал тап Бизнес" (далее — "Приложение"). Используя Приложение, вы соглашаетесь с условиями данной Политики.
       </span>
-
+      <span className='block mb-4 text-base'>1. Какие данные мы собираем?</span>
       <span className='block mb-4'>
-        These Terms of Service for Mini Apps (“MA Terms”) govern your usage of the Telegram Mini App Feature (“MAF”) provided by Telegram Messenger Inc. (“Telegram”) and constitute a legally binding agreement between you and Telegram.  For the purposes of these terms, ‘we’, ‘us’ and ‘our’ refers to  Telegram, and ‘you’ refers to you, the user of the MAF.
+        Приложение "Урал тап Бизнес" собирает минимальный объем данных, необходимый для обеспечения функциональности и улучшения пользовательского опыта:
       </span>
-
+      <ul className='list-disc pl-5 mb-4'>
+        <li>Никнейм (имя пользователя): Указывается вами при регистрации для идентификации в игре.</li>
+        <li>Игровые данные: Ваши очки, уровни, достижения и активность в игре.</li>
+        <li>Технические данные: Информация об устройстве (модель, ОС, версия приложения) для оптимизации работы Приложения.</li>
+      </ul>
+      <span className='block mb-4'>Мы не собираем и не храним:</span>
+      <ul className='list-disc pl-5 mb-4'>
+        <li>Номера телефонов.</li>
+        <li>Паспортные данные.</li>
+        <li>Адреса электронной почты (если не предоставлены вами добровольно для обратной связи).</li>
+        <li>Геолокационные данные (если не включены вами в настройках устройства).</li>
+      </ul>
+      <span className='block mb-4 text-base'>2. Как мы используем ваши данные?</span>
       <span className='block mb-4'>
-        When you connect to a Mini App (“MA”), you may be further subject to  its SP terms as agreed between you and the SP. Such terms are to be  considered in addition to this document.
+        Собранные данные используются исключительно для следующих целей:
       </span>
-
-      <span className='block mb-4 text-base'>
-        1. Acceptance of MA Terms
-      </span>
+      <ul className='list-disc pl-5 mb-4'>
+        <li>Обеспечение работы Приложения (учет очков, уровней, достижений).</li>
+        <li>Улучшение функциональности и пользовательского опыта.</li>
+        <li>Проведение розыгрышей, акций и заданий.</li>
+        <li>Анализ статистики для улучшения Приложения.</li>
+      </ul>
+      <span className='block mb-4'>Ваши данные не передаются третьим лицам, за исключением случаев, предусмотренных законодательством РФ.</span>
+      <span className='block mb-4 text-base'>3. Видимость данных для других пользователей</span>
       <span className='block mb-4'>
-        By using the MAF, you agree that you have read in full, understood  and accepted to be legally bound by the terms contained herein, in  addition to Telegram’s Terms of Service, Telegram’s Privacy Policy and the respective Terms of Service of each MA you access, if any. All  of the aforementioned terms may be amended from time to time without  notice. Should you decide to purchase goods through a MA, you may  further be subject to the Terms of Service of the provider that will  process your payment, as agreed between you and the payment provider.
+        Приложение "Урал тап Бизнес" разработано с учетом конфиденциальности:
       </span>
+      <ul className='list-disc pl-5 mb-4'>
+        <li>Другие пользователи не видят ваши данные (никнейм, очки, уровни и т.д.).</li>
+        <li>Все игровые действия (розыгрыши, задания) происходят в рамках вашего аккаунта без публичного отображения.</li>
+      </ul>
+      <span className='block mb-4 text-base'>4. Защита данных</span>
       <span className='block mb-4'>
-        For clarity, your continued access to and use of MAF shall constitute your acceptance of these MA Terms and all other terms that are  incorporated herein, including any updates or modifications to them from time to time.
+        Мы принимаем все необходимые меры для защиты ваших данных от несанкционированного доступа, изменения, раскрытия или уничтожения:
       </span>
-      <span className='block mb-4 text-base'>
-        2. Mini Apps
+      <ul className='list-disc pl-5 mb-4'>
+        <li>Данные хранятся на защищенных серверах.</li>
+        <li>Используются современные технологии шифрования.</li>
+        <li>Доступ к данным имеют только уполномоченные сотрудники, связанные обязательством о неразглашении.</li>
+      </ul>
+      <span className='block mb-4 text-base'>5. Ваши права</span>
+      <ul className='list-disc pl-5 mb-4'>
+        <li>Запросить информацию о том, какие ваши данные мы обрабатываем.</li>
+        <li>Потребовать удаления ваших данных (за исключением случаев, когда их хранение требуется по закону).</li>
+        <li>Отозвать согласие на обработку данных, написав нам на support@uraltapbusiness.ru.</li>
+      </ul>
+      <span className='block mb-4 text-base'>6. Изменения в Политике конфиденциальности</span>
+      <span className='block mb-4'>
+        Мы оставляем за собой право вносить изменения в настоящую Политику. Все изменения будут опубликованы в Приложении. Продолжение использования Приложения после внесения изменений означает ваше согласие с новой версией Политики.
       </span>
-      All products and services offered via MAF are offered and managed by  third-party SP. These SP are also responsible for any continued  operation and maintenance for their MA on the Telegram platform. We are  not affiliated with any of these SP, and they operate independently of  Telegram. By using MAF on the Telegram platform, you acknowledge and  agree that:
+      <span className='block mb-4 text-base'>7. Контакты</span>
+      <span className='block mb-4'>
+        Если у вас есть вопросы или замечания по поводу Политики конфиденциальности, вы можете связаться с нами:
+      </span>
+      <ul className='list-disc pl-5 mb-4'>
+        <li>Электронная почта: support@uraltap.ru</li>
+        <li>Telegram: @uraltap_support</li>
+      </ul>
+      <span className='block'>Дата вступления в силу: 19.03.2025</span>
+      <span className='block mb-4'>Последнее обновление: 19.03.2025</span>
     </div>
   )
 }
 
-export default Policy
+export default Policy;
