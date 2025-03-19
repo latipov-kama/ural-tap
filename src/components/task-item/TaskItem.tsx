@@ -25,7 +25,7 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
 
   // Проверяем, вернулся ли юзер после клика по ссылке
   useEffect(() => {
-    const checkCompletion = () => {
+    const interval = setInterval(() => {
       const completedTask = sessionStorage.getItem(`completedTask-${task.id}`);
       if (completedTask) {
         sessionStorage.removeItem(`completedTask-${task.id}`);
@@ -34,13 +34,9 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
           handleComplete();
         }, 1500);
       }
-    };
+    }, 1000); // Проверяем каждую секунду
 
-    window.addEventListener("focus", checkCompletion); // Используем focus вместо visibilitychange
-
-    return () => {
-      window.removeEventListener("focus", checkCompletion);
-    };
+    return () => clearInterval(interval);
   }, []);
 
 

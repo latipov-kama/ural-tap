@@ -22,7 +22,7 @@ const TaskInfo = () => {
   const isCompleted = userTasks?.some(userTask => userTask.taskId === taskId);
 
   useEffect(() => {
-    const checkCompletion = () => {
+    const interval = setInterval(() => {
       if (!taskId || !userTasks) return;
 
       const completedTask = sessionStorage.getItem(`completedTask-${taskId}`);
@@ -30,28 +30,12 @@ const TaskInfo = () => {
       if (completedTask && !isCompleted) {
         sessionStorage.removeItem(`completedTask-${taskId}`);
 
-        setTimeout(() => {
-          handleComplete();
-        }, 1500);
+        handleComplete();
       }
-    };
+    }, 1000); // Проверяем каждую секунду
 
-    window.addEventListener("focus", checkCompletion); // Используем focus вместо visibilitychange
-
-    return () => {
-      window.removeEventListener("focus", checkCompletion);
-    };
+    return () => clearInterval(interval);
   }, [taskId, userTasks]);
-
-
-  const handleStartTask = () => {
-    if (!task) return;
-
-    // Сохраняем в sessionStorage, что задание начато
-    sessionStorage.setItem(`completedTask-${taskId}`, "true");
-
-    window.open(task.link, "_blank");
-  };
 
   const handleComplete = () => {
     if (!task || !userId) return;
@@ -65,9 +49,20 @@ const TaskInfo = () => {
           updateBalance(balance + task.reward);
         }
 
-        navigate("/tasks"); // Перенаправляем пользователя
+        setTimeout(() => {
+          navigate("/tasks"); // Даем время на показ тоста перед редиректом
+        }, 1000);
       }
     });
+  };
+
+  const handleStartTask = () => {
+    if (!task) return;
+
+    // Сохраняем в sessionStorage, что задание начато
+    sessionStorage.setItem(`completedTask-${taskId}`, "true");
+
+    window.open(task.link, "_blank");
   };
 
   if (isLoading) return <p>Загрузка...</p>;
