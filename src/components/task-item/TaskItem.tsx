@@ -23,7 +23,6 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
   const { mutate: startTask } = useStartTask();
   const { balance, updateBalance } = useScoreStore();
 
-  // Проверяем, вернулся ли юзер после клика по ссылке
   useEffect(() => {
     const interval = setInterval(() => {
       const completedTask = sessionStorage.getItem(`completedTask-${task.id}`);
@@ -34,7 +33,7 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
           handleComplete();
         }, 1500);
       }
-    }, 1000); // Проверяем каждую секунду
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);

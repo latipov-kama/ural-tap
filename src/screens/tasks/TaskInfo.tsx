@@ -32,7 +32,7 @@ const TaskInfo = () => {
 
         handleComplete();
       }
-    }, 1000); // Проверяем каждую секунду
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [taskId, userTasks]);
@@ -50,7 +50,7 @@ const TaskInfo = () => {
         }
 
         setTimeout(() => {
-          navigate("/tasks"); // Даем время на показ тоста перед редиректом
+          navigate("/tasks");
         }, 1000);
       }
     });
@@ -59,7 +59,6 @@ const TaskInfo = () => {
   const handleStartTask = () => {
     if (!task) return;
 
-    // Сохраняем в sessionStorage, что задание начато
     sessionStorage.setItem(`completedTask-${taskId}`, "true");
 
     window.open(task.link, "_blank");
