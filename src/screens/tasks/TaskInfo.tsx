@@ -22,14 +22,15 @@ const TaskInfo = () => {
   const isCompleted = userTasks?.some(userTask => userTask.taskId === taskId);
 
   useEffect(() => {
-    const completedTask = sessionStorage.getItem(`completedTask-${taskId}`);
-    console.log(completedTask);
+    if (!taskId || isLoading || !userTasks) return;
 
-    if (completedTask) {
+    const completedTask = sessionStorage.getItem(`completedTask-${taskId}`);
+
+    if (completedTask && !isCompleted) {
       sessionStorage.removeItem(`completedTask-${taskId}`);
       handleComplete();
     }
-  }, []);
+  }, [isLoading, userTasks, taskId]);
 
   const handleStartTask = () => {
     if (!task) return;
@@ -49,15 +50,15 @@ const TaskInfo = () => {
     if (!task || !userId) return;
 
     startTask({ taskId: task.id, userId }, {
-      onSuccess: () => {
-        refetch();
+      onSuccess: async () => {
+        await refetch(); // Дождаться обновления списка заданий
         toast.success("Награда получена");
 
         if (task.reward) {
           updateBalance(balance + task.reward);
         }
 
-        navigate("/tasks"); // Перенаправляем юзера на список заданий
+        navigate("/tasks"); // Перенаправляем пользователя
       }
     });
   };
