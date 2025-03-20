@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 const tapCount = 5;
 
 const Home: React.FC = () => {
-  const { user } = useAuthStore();
+  const { user, photoUrl } = useAuthStore();
   const { balance, addTaps, resetPendingTaps } = useScoreStore();
 
   const { mutate: updateEnergyMutation } = useUpdateEnergy();
@@ -77,7 +77,7 @@ const Home: React.FC = () => {
 
       {user && (
         <>
-          <HomeProfile firstName={user.firstName} userId={user.id} />
+          <HomeProfile firstName={user.firstName} userId={user.id} photoUrl={photoUrl ?? ""} />
           <CoinsTap onTap={handleTap} balance={balance} isDisabled={isTapDisabled} />
           {isTapDisabled && <p className="text-center text-sm text-primary">Восстановление энергии... {timeLeft}</p>}
           <TapsIndicator taps={Math.ceil(taps)} maxTaps={maxTaps} isRegenerating={isRegenerating} />
