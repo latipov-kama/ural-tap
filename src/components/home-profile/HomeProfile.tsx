@@ -42,7 +42,6 @@ const HomeProfile: React.FC<props> = ({ firstName, userId, photoUrl }) => {
         </div>
       </div>
       <div className="w-full h-1.5 mt-3 bg-[#E2ECFF35] rounded-3xl overflow-hidden">
-        {/* <LevelProgress coins={balance} level={level} levels={levels} /> */}
         <LevelProgress xp={xp} xpToNextLevel={xpToNextLevel} />
       </div>
     </div>
