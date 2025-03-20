@@ -10,6 +10,7 @@ import CoinsTap from "../../components/coins-tap/CoinsTap";
 import TapsIndicator from "../../components/taps-indicator/TapsIndicator";
 import Confetti from "react-confetti";
 import toast from "react-hot-toast";
+import { useTelegramAuth } from "../../hooks/useTelegramUser";
 
 const tapCount = 5;
 

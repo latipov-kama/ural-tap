@@ -2,6 +2,7 @@ import React from 'react'
 import LevelProgress from '../level-progress/LevelProgress'
 import { useLevelQuery } from '../../hooks/query/levels'
 import { useNavigate } from 'react-router-dom'
+import { useTelegramAuth } from '../../hooks/useTelegramUser'
 
 interface props {
   firstName?: string
@@ -12,6 +13,7 @@ interface props {
 const HomeProfile: React.FC<props> = ({ firstName, userId }) => {
   const navigate = useNavigate()
   const { data } = useLevelQuery(userId)
+  const { user } = useTelegramAuth()
 
   const level = data?.level ?? 1;
   const xp = data?.xp ?? 0;
@@ -24,15 +26,15 @@ const HomeProfile: React.FC<props> = ({ firstName, userId }) => {
           className="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[#6788D5] to-[#937CEF]"
           onClick={() => navigate("/profile")}
         >
-          {/* {user?.photoUrl ? (
-              <img
-                src={""}
-                alt="Avatar"
-                className="w-full h-full rounded-full object-cover"
-              />
-            ) : ( */}
-          <span className="text-xl">👤</span>
-          {/* )} */}
+          {user?.photoUrl ? (
+            <img
+              src={""}
+              alt="Avatar"
+              className="w-full h-full rounded-full object-cover"
+            />
+          ) : (
+            <span className="text-xl">👤</span>
+          )}
         </div>
         <div>
           <h2>{firstName}</h2>
