@@ -10,6 +10,7 @@ import CoinsTap from "../../components/coins-tap/CoinsTap";
 import TapsIndicator from "../../components/taps-indicator/TapsIndicator";
 import Confetti from "react-confetti";
 import toast from "react-hot-toast";
+import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 const tapCount = 5;
 
@@ -20,6 +21,7 @@ const Home: React.FC = () => {
   const { mutate: updateEnergyMutation } = useUpdateEnergy();
   const { mutate: updateXPMutation } = useUpdateXp();
   const { data: level, refetch } = useLevelQuery(user?.id ?? 0);
+  const { initDataRaw } = retrieveLaunchParams()
 
   const { taps, debouncedTaps, maxTaps, isRegenerating, timeLeft, tap, isTapDisabled } =
     useInterpolatedTaps(user?.id ?? 0, tapCount);
@@ -74,6 +76,7 @@ const Home: React.FC = () => {
           <Confetti width={window.innerWidth} height={window.innerHeight} numberOfPieces={200} recycle={false} gravity={0.3} />
         </div>
       )}
+      {initDataRaw}
 
       {user && (
         <>
