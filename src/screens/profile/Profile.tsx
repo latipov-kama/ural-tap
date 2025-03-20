@@ -29,7 +29,7 @@ const Profile = () => {
     },
   ];
   // const { user } = useTelegramAuth()
-  const { user } = useAuthStore()
+  const { user, photoUrl } = useAuthStore()
   const { balance } = useScoreStore();
   const { data: level } = useLevelQuery(user?.id ?? 0)
 
@@ -37,7 +37,7 @@ const Profile = () => {
     <div className="p-5 py-8 h-full">
       <div className="flex flex-col items-center justify-center">
         <div className="w-16 h-16 rounded-full overflow-clip">
-          <img src={profile} alt="friend" className="w-full h-full object-cover" />
+          <img src={photoUrl ?? profile} alt="friend" className="w-full h-full object-cover" />
         </div>
         <h2 className="mt-3 text-lg font-medium">{user?.firstName}</h2>
         <p className="text-secondary mt-1 text-sm">Уровень {level?.level}</p>
