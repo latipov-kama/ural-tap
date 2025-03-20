@@ -17,9 +17,15 @@
 body {
 	margin: 0;
 	min-width: 320px;
-	min-height: 100vh;
 	font-family: "Inter", serif;
 	background-color: var(--background);
+}
+
+html,
+body {
+	height: 100dvh; /* Используем динамическую высоту */
+	overflow: hidden; /* Запрещаем прокрутку */
+	-webkit-overflow-scrolling: touch; /* Улучшаем плавность на iOS */
 }
 
 h1 {
