@@ -3,4 +3,5 @@ export interface ILevel {
   xp: number,
   xpToNextLevel: number,
   maxTaps: number
+  tapCount: number
 }

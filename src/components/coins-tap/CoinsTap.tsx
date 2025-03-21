@@ -6,16 +6,16 @@ type CoinsTapProps = {
   balance: number
   onTap: (tapCount: number) => void;
   isDisabled: boolean;
+  tapCount: number
 };
 
-const CoinsTap: React.FC<CoinsTapProps> = ({ balance, onTap, isDisabled }) => {
+const CoinsTap: React.FC<CoinsTapProps> = ({ balance, onTap, isDisabled, tapCount }) => {
   const coinRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleTap = (event: React.TouchEvent<HTMLDivElement>) => {
     if (isDisabled) return;
 
-    const tapCount = 5;
     onTap(tapCount);
 
     if (coinRef.current) {
@@ -31,7 +31,7 @@ const CoinsTap: React.FC<CoinsTapProps> = ({ balance, onTap, isDisabled }) => {
 
         const plusOne = document.createElement("div");
         plusOne.className = "plus-one";
-        plusOne.textContent = "+1";
+        plusOne.textContent = `+${tapCount}`;
         plusOne.style.left = `${offsetX}px`;
         plusOne.style.top = `${offsetY}px`;
 

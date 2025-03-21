@@ -11,8 +11,6 @@ import TapsIndicator from "../../components/taps-indicator/TapsIndicator";
 import Confetti from "react-confetti";
 import toast from "react-hot-toast";
 
-const tapCount = 5;
-
 const Home: React.FC = () => {
   const { user, photoUrl } = useAuthStore();
   const { balance, addTaps, resetPendingTaps } = useScoreStore();
@@ -20,6 +18,7 @@ const Home: React.FC = () => {
   const { mutate: updateEnergyMutation } = useUpdateEnergy();
   const { mutate: updateXPMutation } = useUpdateXp();
   const { data: level, refetch } = useLevelQuery(user?.id ?? 0);
+  const tapCount = level?.tapCount ?? 0
 
   const { taps, debouncedTaps, maxTaps, isRegenerating, timeLeft, tap, isTapDisabled } =
     useInterpolatedTaps(user?.id ?? 0, tapCount);
@@ -27,6 +26,7 @@ const Home: React.FC = () => {
   const prevTapsRef = useRef<number>(debouncedTaps);
   const prevLevelRef = useRef<number | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
+
 
   useEffect(() => {
     if (!user || !level) return;
@@ -78,7 +78,7 @@ const Home: React.FC = () => {
       {user && (
         <>
           <HomeProfile firstName={user.firstName} userId={user.id} photoUrl={photoUrl ?? ""} />
-          <CoinsTap onTap={handleTap} balance={balance} isDisabled={isTapDisabled} />
+          <CoinsTap onTap={handleTap} balance={balance} isDisabled={isTapDisabled} tapCount={tapCount} />
           {isTapDisabled && <p className="text-center text-sm text-primary">Восстановление энергии... {timeLeft}</p>}
           <TapsIndicator taps={Math.ceil(taps)} maxTaps={maxTaps} isRegenerating={isRegenerating} />
         </>
