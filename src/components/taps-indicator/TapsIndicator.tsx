@@ -8,15 +8,14 @@ import { useNavigate } from 'react-router-dom';
 interface props {
   taps: number
   maxTaps: number
-  isRegenerating: boolean
 }
 
-const TapsIndicator: React.FC<props> = ({ taps, maxTaps, isRegenerating }) => {
+const TapsIndicator: React.FC<props> = ({ taps, maxTaps }) => {
   const navigate = useNavigate()
 
   return (
     <div className="mt-8 flex justify-between items-center">
-      <Badge disabled={isRegenerating}>
+      <Badge>
         <img src={point_up} alt="pointer" className="w-4 h-4" />
         <span className="text-sm text-white">{taps}</span>
         <span className="text-sm text-[#B7B7B7]">/{maxTaps}</span>

@@ -20,13 +20,12 @@ const Home: React.FC = () => {
   const { data: level, refetch } = useLevelQuery(user?.id ?? 0);
   const tapCount = level?.tapCount ?? 0
 
-  const { taps, debouncedTaps, maxTaps, isRegenerating, timeLeft, tap, isTapDisabled } =
+  const { taps, debouncedTaps, maxTaps, tap, isTapDisabled } =
     useInterpolatedTaps(user?.id ?? 0, tapCount);
 
   const prevTapsRef = useRef<number>(debouncedTaps);
   const prevLevelRef = useRef<number | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
-
 
   useEffect(() => {
     if (!user || !level) return;
@@ -48,16 +47,23 @@ const Home: React.FC = () => {
 
     prevTapsRef.current = debouncedTaps;
 
-    updateEnergyMutation({ userId: user.id, amount: debouncedTaps }, {
-      onSuccess: () => {
-        updateXPMutation({ userId: user.id, xp: debouncedTaps }, {
-          onSuccess: () => {
-            resetPendingTaps();
-            refetch();
-          },
-        });
-      },
-    });
+    updateEnergyMutation(
+      { userId: user.id, amount: debouncedTaps },
+      {
+        onSuccess: () => {
+          updateXPMutation(
+            { userId: user.id, xp: debouncedTaps },
+            {
+              onSuccess: () => {
+                prevTapsRef.current = debouncedTaps;
+                resetPendingTaps();
+                refetch();
+              },
+            }
+          );
+        },
+      }
+    );
   }, [debouncedTaps, updateEnergyMutation, updateXPMutation, user]);
 
   const handleTap = useCallback(() => {
@@ -79,8 +85,7 @@ const Home: React.FC = () => {
         <>
           <HomeProfile firstName={user.firstName} userId={user.id} photoUrl={photoUrl ?? ""} />
           <CoinsTap onTap={handleTap} balance={balance} isDisabled={isTapDisabled} tapCount={tapCount} />
-          {isTapDisabled && <p className="text-center text-sm text-primary">Восстановление энергии... {timeLeft}</p>}
-          <TapsIndicator taps={Math.ceil(taps)} maxTaps={maxTaps} isRegenerating={isRegenerating} />
+          <TapsIndicator taps={Math.ceil(taps)} maxTaps={maxTaps} />
         </>
       )}
     </div>
