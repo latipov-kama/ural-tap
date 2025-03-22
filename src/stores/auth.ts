@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { fetchUserData, sendAuthData } from "../services/authApi";
 import { User } from "../types/user";
+import toast from "react-hot-toast";
 import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 interface AuthState {
@@ -19,7 +20,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   initAuth: async () => {
     try {
       let referralCode: string | null = null;
-      // const initDataRaw = "user=%7B%22id%22%3A909990269%2C%22first_name%22%3A%22Kamran%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22latipov_kama%22%2C%22language_code%22%3A%22ru%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FJgo_S36x4Mww1tqsAYlTU4q-Eh4U4NjScTy0jANiS8Q.svg%22%7D&chat_instance=-6139524046167966589&chat_type=private&auth_date=1742497462&signature=OOwPM3c05veWfi-VUUQb9XvNgbVj21niPwGIzzhwGNmxPWNNl7YfVCSX9DJAJZSH8YY8Zyo8Xjy69Urdu6g8Ag&hash=e00ce1b69619c609973aa1dec2b7354619efcc9bc4789c73b806792d4af3eff1"
+      // const initDataRaw = "user=%7B%22added_to_attachment_menu%22%3Afalse%2C%22allows_write_to_pm%22%3Afalse%2C%22first_name%22%3A%22user-first-name%22%2C%22id%22%3A8489985%2C%22is_bot%22%3Atrue%2C%22is_premium%22%3Afalse%2C%22language_code%22%3A%22en%22%2C%22last_name%22%3A%22user-last-name%22%2C%22photo_url%22%3A%22user-photo%22%2C%22username%22%3A%22user-username%22%7D&auth_date=1742655982&signature=&hash=8a4c8e35f300cdbf9a4d66da15e52f522d705fea91922e9e35459ff4e88883d9"
 
       // 1️⃣ Получаем параметры Telegram SDK
       const { initDataRaw, initData, startParam } = retrieveLaunchParams();
@@ -36,7 +37,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
       // 4️⃣ Проверяем initDataRaw
       if (!initDataRaw) {
-        alert("initDataRaw не найдено, авторизация невозможна");
+        toast.error("initDataRaw не найдено, авторизация невозможна")
         return;
       }
 
@@ -47,6 +48,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
       if (response?.userId) {
         set({ userId: response.userId, photoUrl: initData?.user?.photoUrl });
+        // set({ userId: response.userId });
 
         // 6️⃣ Загружаем данные пользователя
         const userData = await fetchUserData(response.userId);

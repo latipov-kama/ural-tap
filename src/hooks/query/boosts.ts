@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { Boost } from "../../types/boosts"
 import { applyBoostEffect, getBoostById, getBoosts } from "../../services/boostsApi"
+import toast from "react-hot-toast"
 
 export const useBoosts = () => {
   return useQuery<Boost[]>({
@@ -19,6 +20,7 @@ export const useBoostById = (id: number) => {
 
 export const useApplyBoost = () => {
   return useMutation({
-    mutationFn: ({ boostId, userId }: { boostId: number, userId: number }) => applyBoostEffect(boostId, userId)
+    mutationFn: ({ boostId, userId }: { boostId: number, userId: number }) => applyBoostEffect(boostId, userId),
+    onError: (error) => toast.error(error.message)
   })
 }

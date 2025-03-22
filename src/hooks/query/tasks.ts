@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { getTaskById, getTasks, getUserTasks, startTask } from "../../services/tasksApi"
 import { Task, UserTask } from "../../types/tasks"
+import toast from "react-hot-toast"
 
 // Получение задач
 export const useTasks = () => {
@@ -27,6 +28,7 @@ export const useUserTasks = (userId: number) => {
 
 export const useStartTask = () => {
   return useMutation({
-    mutationFn: ({ taskId, userId }: { taskId: number, userId: number }) => startTask(taskId, userId)
+    mutationFn: ({ taskId, userId }: { taskId: number, userId: number }) => startTask(taskId, userId),
+    onError: (error) => toast.error(error.message)
   })
 }

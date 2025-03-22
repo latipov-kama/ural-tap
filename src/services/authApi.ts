@@ -1,6 +1,7 @@
 import { AxiosError } from "axios";
 import { User } from "../types/user";
 import makeRequest from "./api";
+import toast from "react-hot-toast";
 
 interface AuthResponse {
   userId: number
@@ -27,7 +28,7 @@ export const sendAuthData = async (
       return sendAuthData(initDataRaw, null); // Пробуем без реферального кода
     }
 
-    alert(`${error}`);
+    toast.error(`${error}`);
     throw error;
   }
 };
@@ -37,7 +38,7 @@ export const fetchUserData = async (userId: number) => {
     const response = await makeRequest.get<User>(`/users/${userId}`)
     return response.data
   } catch (error) {
-    alert("Ошибка в получении");
+    toast.error("Ошибка в получении пользователя")
     throw error;
   }
 }

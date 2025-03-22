@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { fetchTaps, updateEnergy } from "../../services/tapsApi"
+import toast from "react-hot-toast"
 
 export const useTapsQuery = (userId: number) => {
   return useQuery({
@@ -12,5 +13,6 @@ export const useTapsQuery = (userId: number) => {
 export const useUpdateEnergy = () => {
   return useMutation({
     mutationFn: async ({ userId, amount }: { userId: number, amount: number }) => updateEnergy(userId, amount),
+    onError: (error) => toast.error(error.message)
   })
 }
