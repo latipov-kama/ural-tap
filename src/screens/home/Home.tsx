@@ -10,12 +10,10 @@ import CoinsTap from "../../components/coins-tap/CoinsTap";
 import TapsIndicator from "../../components/taps-indicator/TapsIndicator";
 import Confetti from "react-confetti";
 import toast from "react-hot-toast";
-import { retrieveLaunchParams } from "@telegram-apps/sdk";
 
 const Home: React.FC = () => {
   const { user, photoUrl } = useAuthStore();
   const { balance, addTaps, resetPendingTaps } = useScoreStore();
-  const { initDataRaw } = retrieveLaunchParams()
 
   const { mutate: updateEnergyMutation } = useUpdateEnergy();
   const { mutate: updateXPMutation } = useUpdateXp();
@@ -77,7 +75,6 @@ const Home: React.FC = () => {
 
   return (
     <div className="p-5 py-8 h-full flex flex-col justify-between relative">
-      {initDataRaw}
       {showConfetti && (
         <div className="absolute inset-0 pointer-events-none">
           <Confetti width={window.innerWidth} height={window.innerHeight} numberOfPieces={200} recycle={false} gravity={0.3} />
