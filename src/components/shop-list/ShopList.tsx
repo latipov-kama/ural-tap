@@ -11,8 +11,6 @@ const ShopList = () => {
   const { user } = useAuthStore();
   const activeBoosts = user?.ActiveBoost;
 
-  console.log(activeBoosts);
-
   return (
     <div className="py-8 grid grid-cols-2 gap-3">
       {boosts?.map((item, idx) => {

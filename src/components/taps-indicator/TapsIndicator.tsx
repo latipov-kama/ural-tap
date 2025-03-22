@@ -14,7 +14,7 @@ const TapsIndicator: React.FC<props> = ({ taps, maxTaps }) => {
   const navigate = useNavigate()
 
   return (
-    <div className="mt-8 flex justify-between items-center">
+    <div className="mt-6 flex justify-between items-center">
       <Badge>
         <img src={point_up} alt="pointer" className="w-4 h-4" />
         <span className="text-sm text-white">{taps}</span>

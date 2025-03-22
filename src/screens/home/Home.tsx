@@ -10,6 +10,8 @@ import CoinsTap from "../../components/coins-tap/CoinsTap";
 import TapsIndicator from "../../components/taps-indicator/TapsIndicator";
 import Confetti from "react-confetti";
 import toast from "react-hot-toast";
+import Badge from "../../components/ui/badge/Badge";
+import { ActiveBoost, EffectType } from "../../types/boosts";
 
 const Home: React.FC = () => {
   const { user, photoUrl } = useAuthStore();
@@ -85,6 +87,16 @@ const Home: React.FC = () => {
         <>
           <HomeProfile firstName={user.firstName} userId={user.id} photoUrl={photoUrl ?? ""} />
           <CoinsTap onTap={handleTap} balance={balance} isDisabled={isTapDisabled} tapCount={tapCount} />
+          <div className="flex gap-1 justify-center flex-col items-center">
+            {user?.ActiveBoost.map((item: ActiveBoost) => (
+              <Badge className="py-1 text-xs text-secondary" key={item.id}>
+                <div className="">
+                  {item.effectType == EffectType.DOUBLE_TAP ? "x2 начисление монет" : null}
+                  {item.effectType == EffectType.INCREASE_REGEN ? "x2 восстанволение энергии" : null}
+                </div>
+              </Badge>
+            ))}
+          </div>
           <TapsIndicator taps={Math.ceil(taps)} maxTaps={maxTaps} />
         </>
       )}
