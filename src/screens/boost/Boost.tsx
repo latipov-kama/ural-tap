@@ -22,18 +22,20 @@ const Boost = () => {
 
   const { id } = useParams();
   const { balance, updateBalance } = useScoreStore();
-  const { userId } = useAuthStore();
+  const { user, userId } = useAuthStore();
 
   const boostId = id ? +id : 0;
 
   const { data: boost } = useBoostById(boostId);
   const { mutate: applyBoost } = useApplyBoost();
 
+  const isAlreadyActive = user?.ActiveBoost?.some(activeBoost => activeBoost.effectType === boost?.effectType);
+
   const handleComplete = () => {
     if (!boost || !userId) return;
 
     if (balance < boost.cost) {
-      toast.error("Недостаточно монет!")
+      toast.error("Недостаточно монет!");
       return;
     }
 
@@ -59,7 +61,7 @@ const Boost = () => {
           }, 100);
         }, 2000);
       }
-    })
+    });
   };
 
   if (!boost) {
@@ -72,9 +74,9 @@ const Boost = () => {
         <Confetti
           width={window.innerWidth}
           height={window.innerHeight}
-          numberOfPieces={confettiPieces} // Уменьшаем кол-во частиц перед скрытием
-          recycle={false} // Отключаем бесконечное появление
-          gravity={0.3} // Немного замедляем падение
+          numberOfPieces={confettiPieces}
+          recycle={false}
+          gravity={0.3}
         />
       )}
 
@@ -83,7 +85,7 @@ const Boost = () => {
         initial={{ opacity: 0 }}
         animate={{
           opacity: 1,
-          background: isActive
+          background: isActive || isAlreadyActive
             ? "linear-gradient(90deg, #6788d5 0%, #937cef 100%)"
             : "linear-gradient(360deg, rgba(226, 236, 255, 0.045) 0%, rgba(226, 236, 255, 0.15) 100%)",
         }}
@@ -99,16 +101,16 @@ const Boost = () => {
 
         <Badge className="mb-4 w-fit !bg-none !shadow-none">
           <img src={sparkles} alt="sparkles" className="w-6 h-6" />
-          {isActive ? `-${boost.cost}` : boost.cost}
+          {isActive || isAlreadyActive ? `-${boost.cost}` : boost.cost}
         </Badge>
 
         <Button
           onClick={handleComplete}
-          disabled={isActive}
-          className={isActive ? "gradient_btn_active disabled:opacity-90" : ""}
+          disabled={isActive || isAlreadyActive}
+          className={isActive || isAlreadyActive ? "gradient_btn_active disabled:opacity-90" : ""}
         >
           <img src={voltage} alt="sparkles" className="w-5 h-5" />
-          {isActive ? "Буст применён" : "Прокачать"}
+          {isActive || isAlreadyActive ? "Буст применён" : "Прокачать"}
         </Button>
       </motion.div>
     </div>

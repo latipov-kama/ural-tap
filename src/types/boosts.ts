@@ -14,3 +14,11 @@ export interface Boost {
   effectValue: number
   createdAt?: string
 }
+
+export interface ActiveBoost {
+  id: number
+  userId: number
+  effectType: EffectType
+  createdAt: string
+  expiresAt: string
+}

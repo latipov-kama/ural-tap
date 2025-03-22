@@ -1,3 +1,5 @@
+import { ActiveBoost } from "./boosts";
+
 export interface TelegramInitData {
   user?: TelegramUser;
   auth_date: number;
@@ -28,5 +30,5 @@ export interface User {
   maxTaps: number
   createdAt?: string,
   updatedAt?: string,
-  // ActiveBoost: {}
+  ActiveBoost: ActiveBoost[]
 }
