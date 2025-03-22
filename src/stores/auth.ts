@@ -10,6 +10,7 @@ interface AuthState {
   isAuthenticated: boolean;
   photoUrl: string | null
   initAuth: () => Promise<void>;
+  fetchUser: (userId: number) => Promise<void>
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -58,6 +59,18 @@ export const useAuthStore = create<AuthState>((set) => ({
       }
     } catch (error) {
       console.error("Ошибка авторизации:", error);
+    }
+  },
+  fetchUser: async (userId: number) => {
+    try {
+      if (!userId) return;
+
+      const userData = await fetchUserData(userId);
+      if (userData) {
+        set({ user: userData, isAuthenticated: true });
+      }
+    } catch (error) {
+      console.error("Ошибка при обновлении пользователя:", error);
     }
   },
 }));

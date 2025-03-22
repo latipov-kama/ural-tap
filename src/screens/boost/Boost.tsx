@@ -22,7 +22,7 @@ const Boost = () => {
 
   const { id } = useParams();
   const { balance, updateBalance } = useScoreStore();
-  const { user, userId } = useAuthStore();
+  const { user, userId, fetchUser } = useAuthStore();
 
   const boostId = id ? +id : 0;
 
@@ -48,6 +48,8 @@ const Boost = () => {
         if (boost.cost) {
           updateBalance(balance - boost.cost);
         }
+
+        fetchUser(userId);
 
         setTimeout(() => {
           let count = 200;
