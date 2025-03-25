@@ -19,11 +19,11 @@ const HomeProfile: React.FC<props> = ({ firstName, userId, photoUrl }) => {
 
   return (
     <div className="px-4 pt-4 rounded-xl gradient_bg bg-red-500">
-      <div className="flex items-center gap-4">
-        <div
-          className="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[#6788D5] to-[#937CEF]"
-          onClick={() => navigate("/profile")}
-        >
+      <div
+        className="flex items-center gap-4"
+        onClick={() => navigate("/profile")}
+      >
+        <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-r from-[#6788D5] to-[#937CEF]">
           {photoUrl ? (
             <img
               src={photoUrl}

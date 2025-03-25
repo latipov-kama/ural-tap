@@ -1,22 +1,23 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import Badge from '../ui/badge/Badge'
 import Button from '../ui/button/Button'
 import { X } from 'lucide-react'
 import { motion, AnimatePresence } from "framer-motion";
 import sparkles from "../../assets/sparkles.svg"
-import { Task } from '../../types/tasks';
+import { SheetItem } from '../../types';
 
-interface props {
+interface BottomSheetProps<T> {
   isShow: boolean
   setIsShow: Dispatch<SetStateAction<boolean>>
-  task: Task
+  item: T | null
+  actionLabel: string
   onComplete: () => void
 }
 
-const TaskSheet: React.FC<props> = ({ isShow, setIsShow, task, onComplete }) => {
+const BottomSheet = <T extends SheetItem>({ isShow, setIsShow, item, actionLabel, onComplete }: BottomSheetProps<T>) => {
   return (
     <AnimatePresence>
-      {isShow && (
+      {isShow && item && (
         <>
           <motion.div
             className='wrapper w-full h-full bg-[#090c1a80] absolute left-0 top-0'
@@ -36,23 +37,24 @@ const TaskSheet: React.FC<props> = ({ isShow, setIsShow, task, onComplete }) => 
           >
             <div className='h-full flex flex-col items-center justify-between'>
               <div className="w-[72px] h-[72px] rounded-full gradient_btn flex items-center justify-center">
-                {task.image && <img src={task.image?.url} alt="task" className='w-11' />}
+                {item.image && <img src={item.image?.url} alt={item.title} className='w-11' />}
               </div>
 
               <div>
-                <h3 className="text-xl font-medium mb-2">{task.title}</h3>
-                <p className="text-sm text-secondary">{task.description}</p>
+                <h3 className="text-xl font-medium mb-2">{item.title}</h3>
+                <p className="text-sm text-secondary">{item.description}</p>
               </div>
 
               <Badge>
                 <img src={sparkles} alt="sparkles" className="w-6 h-6" />
-                {task.reward.toLocaleString()}
+                {item.reward && item.reward.toLocaleString()}
+                {item.cost && item.cost.toLocaleString()}
               </Badge>
 
               <Button
                 className='px-7'
                 onClick={onComplete}>
-                Выполнить
+                {actionLabel}
               </Button>
             </div>
 
@@ -72,4 +74,4 @@ const TaskSheet: React.FC<props> = ({ isShow, setIsShow, task, onComplete }) => 
   )
 }
 
-export default TaskSheet
+export default BottomSheet

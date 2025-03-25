@@ -17,7 +17,7 @@ const ActiveBoostBadge: React.FC<props> = ({ activeBoosts }) => {
     <div className="flex gap-1 justify-center flex-col items-center">
       {activeBoosts.map((item: ActiveBoost) => (
         <Badge className="py-1 text-xs text-secondary" key={item.id}>
-          <div className="">
+          <div>
             {EffectTypeMap[item.effectType]}
           </div>
         </Badge>

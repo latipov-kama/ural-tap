@@ -7,11 +7,11 @@ import profile from "../assets/profile.svg"
 
 function Navbar() {
   const navItems = [
-    { to: '/', icon: points, label: 'Баллы' },
+    { to: '/', icon: profile, label: 'Главная' },
     { to: '/tasks', icon: tasks, label: 'Задания' },
-    { to: '/shop', icon: shop, label: 'Магазин' },
+    { to: '/boosts', icon: shop, label: 'Бусты' },
     { to: '/friends', icon: friends, label: 'Друзья' },
-    { to: '/profile', icon: profile, label: 'Профиль' },
+    { to: '/shop', icon: points, label: 'Магазин' },
   ];
 
   return (

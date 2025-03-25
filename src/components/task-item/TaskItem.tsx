@@ -2,7 +2,7 @@ import sparkles from "../../assets/sparkles.svg"
 import Badge from "../ui/badge/Badge"
 import Button from "../ui/button/Button"
 import { ChevronRight } from "lucide-react"
-import TaskSheet from "../task-sheet/TaskSheet"
+import BottomSheet from "../bottom-sheet/BottomSheet"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Task } from "../../types/tasks"
@@ -16,6 +16,7 @@ interface props {
   disabled?: boolean;
   refetch: () => void
 }
+
 const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
   const [completed, setCompleted] = useState(disabled);
   const [isOpen, setIsOpen] = useState(false);
@@ -108,10 +109,11 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
         </div>
       </div>
 
-      <TaskSheet
+      <BottomSheet<Task>
         isShow={isOpen}
         setIsShow={setIsOpen}
-        task={task}
+        item={task}
+        actionLabel="Выполнить"
         onComplete={startTaskAndOpenLink}
       />
     </>

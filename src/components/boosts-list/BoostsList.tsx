@@ -6,7 +6,7 @@ import Button from "../ui/button/Button";
 import { useBoosts } from "../../hooks/query/boosts";
 import { useAuthStore } from "../../stores/auth";
 
-const ShopList = () => {
+const BoostsList = () => {
   const { data: boosts } = useBoosts();
   const { user } = useAuthStore();
   const activeBoosts = user?.ActiveBoost;
@@ -45,4 +45,4 @@ const ShopList = () => {
   );
 };
 
-export default ShopList;
+export default BoostsList;

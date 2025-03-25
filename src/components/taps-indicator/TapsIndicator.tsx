@@ -20,7 +20,7 @@ const TapsIndicator: React.FC<props> = ({ taps, maxTaps }) => {
         <span className="text-sm text-white">{taps}</span>
         <span className="text-sm text-[#B7B7B7]">/{maxTaps}</span>
       </Badge>
-      <Button onClick={() => navigate("/shop")}>
+      <Button onClick={() => navigate("/boosts")}>
         <img src={voltage} className="w-4 h-4" />
         Улучшить
       </Button>
