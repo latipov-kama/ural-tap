@@ -34,7 +34,6 @@ const ShopItem: React.FC<props> = ({ item, handleOpen }) => {
         <span className="text-sm">{item.cost.toLocaleString()}</span>
       </div>
 
-
       <Button
         className="mt-3 py-1.5 flex justify-center text-xs"
         onClick={() => handleOpen(item)}
