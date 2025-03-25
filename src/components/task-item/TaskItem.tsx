@@ -2,7 +2,6 @@ import sparkles from "../../assets/sparkles.svg"
 import Badge from "../ui/badge/Badge"
 import Button from "../ui/button/Button"
 import { ChevronRight } from "lucide-react"
-import BottomSheet from "../bottom-sheet/BottomSheet"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Task } from "../../types/tasks"
@@ -14,12 +13,12 @@ interface props {
   task: Task
   userId: number
   disabled?: boolean;
-  refetch: () => void
+  handleOpen: (task: Task) => void
+  handleClose: () => void
 }
 
-const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
+const TaskItem: React.FC<props> = ({ task, disabled, userId, handleOpen, handleClose }) => {
   const [completed, setCompleted] = useState(disabled);
-  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { mutate: startTask } = useStartTask();
   const { balance, updateBalance } = useScoreStore();
@@ -42,16 +41,7 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    setIsOpen(true);
-  };
-
-  const startTaskAndOpenLink = () => {
-    if (task.link) {
-      sessionStorage.setItem(`completedTask-${task.id}`, "true");
-
-      window.open(task.link, "_blank");
-    }
-    setIsOpen(false);
+    handleOpen(task)
   };
 
   const handleComplete = () => {
@@ -60,7 +50,7 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
         { taskId: task.id, userId },
         {
           onSuccess: () => {
-            refetch();
+            handleClose()
             setCompleted(true);
             toast.success("Награда получена", { duration: 3000 });
 
@@ -108,14 +98,6 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, refetch }) => {
           </div>
         </div>
       </div>
-
-      <BottomSheet<Task>
-        isShow={isOpen}
-        setIsShow={setIsOpen}
-        item={task}
-        actionLabel="Выполнить"
-        onComplete={startTaskAndOpenLink}
-      />
     </>
   );
 };
