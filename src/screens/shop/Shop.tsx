@@ -2,17 +2,33 @@ import { useState } from "react"
 import BottomSheet from "../../components/bottom-sheet/BottomSheet"
 import ShopItem from "../../components/shop-item/ShopItem"
 import toast from "react-hot-toast"
-import { useRaffles } from "../../hooks/query/raffles"
+import { useJoinToRaffle, useRaffles } from "../../hooks/query/raffles"
 import { Raffle } from "../../types/raffles"
+import { useAuthStore } from "../../stores/auth"
 
 const Shop = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState<Raffle | null>(null)
+  const { userId } = useAuthStore();
+
   const { data: raffles } = useRaffles()
+  const { mutate: joinToRaffle } = useJoinToRaffle()
 
   const handleOpen = (item: Raffle) => {
     setSelectedItem(item)
     setIsOpen(true)
+  }
+
+  const handleJoin = () => {
+    if (!selectedItem || !userId) return
+
+    joinToRaffle({ raffleId: selectedItem.id, userId: userId }, {
+      onSuccess: async ({ data }) => {
+        toast.success(data.message)
+      }
+    })
+
+    setIsOpen(false)
   }
 
   return (
@@ -37,7 +53,7 @@ const Shop = () => {
         setIsShow={setIsOpen}
         actionLabel="Учавствовать"
         item={selectedItem}
-        onComplete={() => toast.success("Вы в списке участников!")}
+        onComplete={handleJoin}
       />
     </div>
   )

@@ -10,8 +10,6 @@ interface props {
 }
 
 const ShopItem: React.FC<props> = ({ raffle, handleOpen }) => {
-
-
   return (
     <div className="gradient_bg p-4 flex flex-col rounded-2xl">
 
