@@ -5,11 +5,13 @@ import toast from "react-hot-toast"
 import { useJoinToRaffle, useRaffles } from "../../hooks/query/raffles"
 import { Raffle } from "../../types/raffles"
 import { useAuthStore } from "../../stores/auth"
+import { useScoreStore } from "../../stores/score"
 
 const Shop = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState<Raffle | null>(null)
   const { userId } = useAuthStore();
+  const { balance, updateBalance } = useScoreStore();
 
   const { data: raffles } = useRaffles()
   const { mutate: joinToRaffle } = useJoinToRaffle()
@@ -24,6 +26,9 @@ const Shop = () => {
 
     joinToRaffle({ raffleId: selectedItem.id, userId: userId }, {
       onSuccess: async ({ data }) => {
+        if (selectedItem.price) {
+          updateBalance(balance + selectedItem.price);
+        }
         toast.success(data.message)
       }
     })
