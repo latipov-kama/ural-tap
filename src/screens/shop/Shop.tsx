@@ -1,32 +1,16 @@
 import { useState } from "react"
 import BottomSheet from "../../components/bottom-sheet/BottomSheet"
 import ShopItem from "../../components/shop-item/ShopItem"
-import { Image } from "../../types"
 import toast from "react-hot-toast"
-
-export interface Item {
-  title: string
-  description: string
-  cost: number
-  image: Image
-  createdAt?: string
-  expiresAt: string
-}
-
-const data: Item[] = [{
-  title: "Iphone 16 Pro",
-  description: "Lorem ipsum dolor sit amet.",
-  cost: 10000,
-  image: { id: 1, url: "" },
-  expiresAt: "",
-  createdAt: ""
-}]
+import { useRaffles } from "../../hooks/query/raffles"
+import { Raffle } from "../../types/raffles"
 
 const Shop = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedItem, setSelectedItem] = useState<Item | null>(null)
+  const [selectedItem, setSelectedItem] = useState<Raffle | null>(null)
+  const { data: raffles } = useRaffles()
 
-  const handleOpen = (item: Item) => {
+  const handleOpen = (item: Raffle) => {
     setSelectedItem(item)
     setIsOpen(true)
   }
@@ -38,17 +22,17 @@ const Shop = () => {
 
       <div className="py-8 grid grid-cols-2 gap-3">
         {
-          data.map((item, idx) => (
+          raffles?.map((item, idx) => (
             <ShopItem
               key={idx}
-              item={item}
+              raffle={item}
               handleOpen={handleOpen}
             />
           ))
         }
       </div>
 
-      <BottomSheet<Item>
+      <BottomSheet<Raffle>
         isShow={isOpen}
         setIsShow={setIsOpen}
         actionLabel="Учавствовать"

@@ -14,4 +14,5 @@ export interface SheetItem {
   image: Image
   reward?: number
   cost?: number
+  price?: number
 }

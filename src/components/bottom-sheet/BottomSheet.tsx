@@ -49,6 +49,7 @@ const BottomSheet = <T extends SheetItem>({ isShow, setIsShow, item, actionLabel
                 <img src={sparkles} alt="sparkles" className="w-6 h-6" />
                 {item.reward && item.reward.toLocaleString()}
                 {item.cost && item.cost.toLocaleString()}
+                {item.price && item.price.toLocaleString()}
               </Badge>
 
               <Button

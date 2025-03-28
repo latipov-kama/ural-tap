@@ -11,7 +11,7 @@ function Navbar() {
     { to: '/tasks', icon: tasks, label: 'Задания' },
     { to: '/boosts', icon: shop, label: 'Бусты' },
     { to: '/friends', icon: friends, label: 'Друзья' },
-    { to: '/shop', icon: points, label: 'Магазин' },
+    { to: '/shop', icon: points, label: 'Розыгрыши' },
   ];
 
   return (
