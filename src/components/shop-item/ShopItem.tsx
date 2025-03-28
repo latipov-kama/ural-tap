@@ -1,7 +1,6 @@
 import Button from "../../components/ui/button/Button"
 import voltage from "../../assets/voltage.svg";
 import sparkles from "../../assets/sparkles.svg";
-import repeat from "../../assets/repeat.svg";
 import Badge from "../../components/ui/badge/Badge";
 import { Raffle } from "../../types/raffles";
 
