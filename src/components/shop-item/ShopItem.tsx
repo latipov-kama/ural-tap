@@ -6,14 +6,13 @@ import { Raffle } from "../../types/raffles";
 
 interface props {
   raffle: Raffle
-  handleOpen: (item: Raffle) => void
+  handleOpen: (item: Raffle, isParticipant: boolean) => void
+  isParticipant?: boolean
 }
 
-const ShopItem: React.FC<props> = ({ raffle, handleOpen }) => {
-  
+const ShopItem: React.FC<props> = ({ raffle, handleOpen, isParticipant }) => {
   return (
     <div className="gradient_bg p-4 flex flex-col rounded-2xl">
-
       <div className="flex items-center justify-between gap-2">
         <div className="gradient_circle w-10 h-10 rounded-lg flex items-center justify-center">
           {raffle.image?.url && <img src={raffle.image?.url} alt="repeat" className="w-7 h-7" />}
@@ -35,13 +34,12 @@ const ShopItem: React.FC<props> = ({ raffle, handleOpen }) => {
       </div>
 
       <Button
-        className="mt-3 py-1.5 flex justify-center text-xs"
-        onClick={() => handleOpen(raffle)}
-      // disabled={isActive}
+        className={`mt-3 py-1.5 px-2 flex justify-center text-xs ${isParticipant ? "opacity-60 cursor-not-allowed" : ""
+          }`}
+        onClick={() => handleOpen(raffle, isParticipant!)}
       >
         <img src={voltage} alt="voltage" className="w-5 h-5" />
-        Учавствовать
-        {/* {isActive ? "Активен" : "Учавствовать"} */}
+        {!isParticipant ? "Учавствовать" : "Вы в игре!"}
       </Button>
     </div>
   )

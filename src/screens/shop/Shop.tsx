@@ -10,15 +10,20 @@ import { useScoreStore } from "../../stores/score"
 const Shop = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState<Raffle | null>(null)
-  const { userId } = useAuthStore();
+  const { userId, user } = useAuthStore();
   const { balance, updateBalance } = useScoreStore();
 
   const { data: raffles } = useRaffles()
   const { mutate: joinToRaffle } = useJoinToRaffle()
+  const raffleParticipant = user?.RaffleParticipant
 
-  const handleOpen = (item: Raffle) => {
-    setSelectedItem(item)
-    setIsOpen(true)
+  const handleOpen = (item: Raffle, isParticipant: boolean) => {
+    if (!isParticipant) {
+      setSelectedItem(item)
+      setIsOpen(true)
+    } else {
+      toast.error(`Вы уже учавствуете!`)
+    }
   }
 
   const handleJoin = () => {
@@ -43,13 +48,18 @@ const Shop = () => {
 
       <div className="py-8 grid grid-cols-2 gap-3">
         {
-          raffles?.map((item, idx) => (
-            <ShopItem
-              key={idx}
-              raffle={item}
-              handleOpen={handleOpen}
-            />
-          ))
+          raffles?.map((item, idx) => {
+            const isParticipant = raffleParticipant?.some(participant => participant.raffle.id == item.id);
+            return (
+
+              <ShopItem
+                key={idx}
+                raffle={item}
+                handleOpen={handleOpen}
+                isParticipant={isParticipant}
+              />
+            )
+          })
         }
       </div>
 

@@ -12,3 +12,11 @@ export interface Raffle {
   createdAt?: string
   updatedAt?: string
 }
+
+export interface RaffleParticipant {
+  raffle: {
+    id: number
+    endDate: string
+    status: string
+  }
+}

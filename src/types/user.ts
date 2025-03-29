@@ -1,4 +1,5 @@
 import { ActiveBoost } from "./boosts";
+import { RaffleParticipant } from "./raffles";
 
 export interface TelegramInitData {
   user?: TelegramUser;
@@ -31,4 +32,5 @@ export interface User {
   createdAt?: string,
   updatedAt?: string,
   ActiveBoost: ActiveBoost[]
+  RaffleParticipant: RaffleParticipant[]
 }
