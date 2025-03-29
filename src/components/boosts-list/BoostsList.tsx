@@ -11,9 +11,11 @@ const BoostsList = () => {
   const { user } = useAuthStore();
   const activeBoosts = user?.ActiveBoost;
 
+  const filteredBoosts = boosts?.filter((boost) => boost.active);
+
   return (
     <div className="py-8 grid grid-cols-2 gap-3">
-      {boosts?.map((item, idx) => {
+      {filteredBoosts?.map((item, idx) => {
         const isActive = activeBoosts?.some(boost => boost.effectType === item.effectType);
 
         return (
