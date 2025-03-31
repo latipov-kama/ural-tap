@@ -13,7 +13,6 @@ export const getRaffles = async () => {
 export const joinToRaffle = async (raffleId: number, userId: number) => {
   try {
     const res = await makeRequest.post(`/raffles/${raffleId}/join`, { userId: userId })
-    console.log(res);
 
     return res
   } catch (error) {
