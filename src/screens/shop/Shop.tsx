@@ -10,7 +10,7 @@ import { useScoreStore } from "../../stores/score"
 const Shop = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState<Raffle | null>(null)
-  const { userId, user } = useAuthStore();
+  const { userId, user, fetchUser } = useAuthStore();
   const { balance, updateBalance } = useScoreStore();
 
   const { data: raffles } = useRaffles()
@@ -34,6 +34,7 @@ const Shop = () => {
         if (selectedItem.price) {
           updateBalance(balance + selectedItem.price);
         }
+        fetchUser(userId);
         toast.success(data.message)
       }
     })
