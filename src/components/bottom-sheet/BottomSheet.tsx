@@ -20,7 +20,7 @@ const BottomSheet = <T extends SheetItem>({ isShow, setIsShow, item, actionLabel
       {isShow && item && (
         <>
           <motion.div
-            className='wrapper w-full h-full bg-[#090c1a80] absolute left-0 top-0'
+            className='wrapper w-full h-full bg-[#090c1a80] absolute left-0 top-0 z-50'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
