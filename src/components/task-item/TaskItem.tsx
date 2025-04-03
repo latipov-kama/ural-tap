@@ -69,7 +69,7 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, handleOpen, handleC
         className={`flex gap-5 w-full p-4 rounded-2xl gradient_bg ${completed ? "opacity-60 cursor-not-allowed" : ""}`}
         onClick={() => !completed && navigate(`/tasks/${task.id}`)}
       >
-        <div className="w-12 h-12 rounded-full gradient_btn flex items-center justify-center">
+        <div className="w-12 h-12 rounded-full gradient_btn flex items-center justify-center ">
           {task.image && <img src={task.image?.url} alt="task" />}
         </div>
 
