@@ -29,7 +29,7 @@ const BottomSheet = <T extends SheetItem>({ isShow, setIsShow, item, actionLabel
           />
 
           <motion.div
-            className='gradient_sheet w-full h-1/2 py-8 px-5 rounded-t-2xl absolute bottom-0 left-0 z-50 bg-red-300'
+            className='gradient_sheet w-full h-1/2 py-8 px-5 rounded-t-2xl fixed bottom-0 left-0 z-50 bg-red-300'
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
