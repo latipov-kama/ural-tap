@@ -39,7 +39,7 @@ const ShopItem: React.FC<props> = ({ raffle, handleOpen, isParticipant }) => {
         onClick={() => handleOpen(raffle, isParticipant!)}
       >
         <img src={voltage} alt="voltage" className="w-5 h-5" />
-        {!isParticipant ? "Учавствовать" : "Вы в игре!"}
+        {!isParticipant ? "Участвовать" : "Вы в игре!"}
       </Button>
     </div>
   )
