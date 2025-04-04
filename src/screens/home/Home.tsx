@@ -46,7 +46,10 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (!user || debouncedTaps <= 0 || debouncedTaps === prevTapsRef.current) return;
 
-    prevTapsRef.current = debouncedTaps;
+    console.log("Updating energy and XP:", debouncedTaps);
+    setTimeout(() => {
+      prevTapsRef.current = debouncedTaps;
+    }, 100);
 
     updateEnergyMutation(
       { userId: user.id, amount: debouncedTaps },
@@ -56,7 +59,6 @@ const Home: React.FC = () => {
             { userId: user.id, xp: debouncedTaps },
             {
               onSuccess: () => {
-                // prevTapsRef.current = debouncedTaps;
                 refetch();
               },
             }

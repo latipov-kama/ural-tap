@@ -33,7 +33,7 @@ export const useInterpolatedTaps = (userId: number, tapCount: number) => {
   const tap = useCallback(() => {
     if (taps >= tapCount) {
       setTaps((prev) => prev - tapCount);
-      setPendingTaps((prev) => prev + tapCount);
+      setPendingTaps((prev) => prev + 1);
     }
   }, [taps, tapCount]);
 
