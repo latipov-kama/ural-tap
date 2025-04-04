@@ -20,7 +20,7 @@ const BottomSheet = <T extends SheetItem>({ isShow, setIsShow, item, actionLabel
       {isShow && item && (
         <>
           <motion.div
-            className='wrapper w-full h-full bg-[#090c1a80] absolute left-0 top-0 z-40'
+            className='wrapper w-full h-full bg-[#090c1a80] absolute left-0 top-0'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -29,9 +29,9 @@ const BottomSheet = <T extends SheetItem>({ isShow, setIsShow, item, actionLabel
           />
 
           <motion.div
-            className='gradient_sheet w-full h-1/2 py-8 px-5 rounded-t-2xl fixed bottom-0 left-0 z-50 bg-red-300'
+            className='gradient_sheet w-full h-1/2 py-8 px-5 rounded-t-2xl fixed bottom-0 left-0 z-50'
             initial={{ y: "100%" }}
-            animate={{ y: 0 }}
+            animate={{ y: 0, zIndex: 100 }}
             exit={{ y: "100%" }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
           >
