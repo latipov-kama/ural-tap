@@ -3,6 +3,7 @@ import { useTasks, useUserTasks } from "../../hooks/query/tasks";
 import TaskItem from "../task-item/TaskItem";
 import BottomSheet from "../bottom-sheet/BottomSheet";
 import { Task } from "../../types/tasks";
+import NotFound from "../ui/not-found/NotFound";
 
 interface Props {
   userId: number;
@@ -32,6 +33,8 @@ const TasksList: React.FC<Props> = ({ userId }) => {
       window.open(selectedTask.link, "_blank");
     }
   };
+
+  if (!safeTasks.length) return <NotFound title="Таски временно не доступны" />
 
   return (
     <div className="py-8 flex flex-col gap-3">

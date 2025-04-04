@@ -5,6 +5,7 @@ import voltage from "../../assets/voltage.svg";
 import Button from "../ui/button/Button";
 import { useBoosts } from "../../hooks/query/boosts";
 import { useAuthStore } from "../../stores/auth";
+import NotFound from "../ui/not-found/NotFound";
 
 const BoostsList = () => {
   const { data: boosts } = useBoosts();
@@ -12,6 +13,8 @@ const BoostsList = () => {
   const activeBoosts = user?.ActiveBoost;
 
   const filteredBoosts = boosts?.filter((boost) => boost.active);
+
+  if (!filteredBoosts?.length) return <NotFound title="Бусты временно не доступны" />
 
   return (
     <div className="py-8 grid grid-cols-2 gap-3">

@@ -6,6 +6,7 @@ import { useJoinToRaffle, useRaffles } from "../../hooks/query/raffles"
 import { Raffle } from "../../types/raffles"
 import { useAuthStore } from "../../stores/auth"
 import { useScoreStore } from "../../stores/score"
+import NotFound from "../../components/ui/not-found/NotFound"
 
 const Shop = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -41,6 +42,8 @@ const Shop = () => {
 
     setIsOpen(false)
   }
+
+  if (!raffles?.length) return <NotFound title="Нет активных розыгрышей" />
 
   return (
     <div className='p-5 py-8 h-full'>
