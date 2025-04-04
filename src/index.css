@@ -19,8 +19,6 @@ body {
 	min-width: 320px;
 	font-family: "Inter", serif;
 	background-color: var(--background);
-	position: relative;
-	z-index: 0;
 }
 
 html,

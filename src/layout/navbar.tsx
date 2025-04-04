@@ -15,7 +15,7 @@ function Navbar() {
   ];
 
   return (
-    <nav className="gradient_bg px-4 py-4 rounded-t-2xl relative !-z-0">
+    <nav className="gradient_bg px-4 py-4 rounded-t-2xl relative z-50">
       <ul className="flex justify-between items-center">
         {navItems.map((item) => (
           <li key={item.label}>

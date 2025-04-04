@@ -29,9 +29,9 @@ const BottomSheet = <T extends SheetItem>({ isShow, setIsShow, item, actionLabel
           />
 
           <motion.div
-            className='gradient_sheet w-full h-1/2 py-8 px-5 rounded-t-2xl fixed bottom-0 left-0 z-50'
+            className='gradient_sheet w-full h-[58%] py-8 px-5 pb-28 rounded-t-2xl fixed bottom-0 left-0 z-30'
             initial={{ y: "100%" }}
-            animate={{ y: 0, zIndex: 100 }}
+            animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
           >
@@ -40,7 +40,7 @@ const BottomSheet = <T extends SheetItem>({ isShow, setIsShow, item, actionLabel
                 {item.image && <img src={item.image?.url} alt={item.title} className='w-11' />}
               </div>
 
-              <div>
+              <div className='text-center'>
                 <h3 className="text-xl font-medium mb-2">{item.title}</h3>
                 <p className="text-sm text-secondary">{item.description}</p>
               </div>
@@ -53,7 +53,7 @@ const BottomSheet = <T extends SheetItem>({ isShow, setIsShow, item, actionLabel
               </Badge>
 
               <Button
-                className='px-7'
+                className='px-7 relative z-0'
                 onClick={onComplete}>
                 {actionLabel}
               </Button>
