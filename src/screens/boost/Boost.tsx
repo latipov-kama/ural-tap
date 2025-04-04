@@ -97,7 +97,7 @@ const Boost = () => {
           <img src={repeat} alt="repeat" className="w-11" />
         </div>
 
-        <h2 className="mb-3 text-2xl text-center text-balance leading-7">
+        <h2 className="mb-3 text-[22px] text-center text-balance leading-7 px-4">
           {boost.title}
         </h2>
 
