@@ -6,6 +6,8 @@ import Button from "../ui/button/Button";
 import { useBoosts } from "../../hooks/query/boosts";
 import { useAuthStore } from "../../stores/auth";
 import NotFound from "../ui/not-found/NotFound";
+import toast from "react-hot-toast";
+import { MouseEvent } from "react";
 
 const BoostsList = () => {
   const { data: boosts } = useBoosts();
@@ -13,6 +15,13 @@ const BoostsList = () => {
   const activeBoosts = user?.ActiveBoost;
 
   const filteredBoosts = boosts?.filter((boost) => boost.active);
+
+  const handleClick = (e: MouseEvent, isActive: boolean) => {
+    if (isActive) {
+      e.preventDefault()
+      toast.error(`Буст уже был применён!`)
+    }
+  }
 
   if (!filteredBoosts?.length) return <NotFound title="Бусты временно не доступны" />
 
@@ -39,7 +48,10 @@ const BoostsList = () => {
               <span className="text-sm">{item.cost}</span>
             </div>
 
-            <Button disabled={isActive}>
+            <Button
+              className={`${isActive ? "opacity-60 cursor-not-allowed" : ""}`}
+              onClick={(e) => handleClick(e, isActive ?? false)}
+            >
               <img src={voltage} alt="voltage" className="w-5 h-5" />
               {isActive ? "Активен" : "Прокачать"}
             </Button>
