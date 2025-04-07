@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import coinImg from "../../assets/coin.svg";
 import sparkles from "../../assets/sparkles.svg";
 
@@ -10,6 +10,7 @@ type CoinsTapProps = {
 };
 
 const CoinsTap: React.FC<CoinsTapProps> = ({ balance, onTap, isDisabled, tapCount }) => {
+  const [isLogoLoaded, setLogoLoaded] = useState(false);
   const coinRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -42,6 +43,10 @@ const CoinsTap: React.FC<CoinsTapProps> = ({ balance, onTap, isDisabled, tapCoun
     }
   };
 
+  const handleLogoLoad = () => {
+    setLogoLoaded(true);
+  };
+
   return (
     <div className="mt-8">
       <div className="flex items-center gap-3 justify-center mb-4">
@@ -58,7 +63,8 @@ const CoinsTap: React.FC<CoinsTapProps> = ({ balance, onTap, isDisabled, tapCoun
           src={coinImg}
           alt="Coin"
           ref={coinRef}
-          className="w-full h-full object-contain select-none"
+          onLoad={handleLogoLoad}
+          className={`w-full h-full object-contain select-none ${isLogoLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
         />
       </div>
     </div>
