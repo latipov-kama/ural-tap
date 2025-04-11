@@ -59,7 +59,7 @@ const BoostsList = () => {
             </div>
 
             <Button
-              className={`${isActive ? "opacity-60 cursor-not-allowed" : ""}`}
+              className={`my-auto ${isActive ? "opacity-60 cursor-not-allowed" : ""}`}
               onClick={(e) => handleClick(e, item.effectType, isActive ?? false)}
             >
               <img src={voltage} alt="voltage" className="w-5 h-5" />
