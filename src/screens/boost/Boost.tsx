@@ -121,7 +121,7 @@ const Boost = () => {
 
         <Button
           onClick={handleComplete}
-          // disabled={isAlreadyActive || isResetTapsLimitReached || isActive}
+          disabled={isAlreadyActive || isResetTapsLimitReached || isActive}
           className={
             isAlreadyActive || isResetTapsLimitReached || isActive
               ? "gradient_btn_active disabled:opacity-90"

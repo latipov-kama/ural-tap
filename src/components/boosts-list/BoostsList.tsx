@@ -8,6 +8,7 @@ import { useAuthStore } from "../../stores/auth";
 import NotFound from "../ui/not-found/NotFound";
 import toast from "react-hot-toast";
 import { MouseEvent } from "react";
+import { Boost } from "../../types/boosts";
 
 const BoostsList = () => {
   const { data: boosts } = useBoosts();
@@ -16,21 +17,18 @@ const BoostsList = () => {
 
   const filteredBoosts = boosts?.filter((boost) => boost.active);
 
-  const handleClick = (e: MouseEvent, effectType: string, isActive: boolean) => {
-    const sameTypeBoostsCount = activeBoosts?.filter(boost => boost.effectType === effectType).length || 0;
-
-    if (sameTypeBoostsCount >= 6) {
+  const handleClick = (e: MouseEvent, item: Boost, isActive: boolean, isLimitReached: boolean) => {
+    if (isLimitReached) {
       e.preventDefault();
       toast.error("Вы достигли лимита на сегодня");
-      return
+      return;
     }
 
-    if (isActive) {
+    if (item.effectType !== "resetTaps" && isActive) {
       e.preventDefault();
       toast.error("Буст уже был применён!");
       return;
     }
-
   };
 
   if (!filteredBoosts?.length) return <NotFound title="Бусты временно не доступны" />
@@ -39,6 +37,16 @@ const BoostsList = () => {
     <div className="py-8 grid grid-cols-2 gap-3">
       {filteredBoosts?.map((item, idx) => {
         const isActive = activeBoosts?.some(boost => boost.effectType === item.effectType);
+        const sameTypeBoostsCount = activeBoosts?.filter(boost => boost.effectType === item.effectType).length || 0;
+        const isLimitReached = sameTypeBoostsCount >= 6;
+
+        // Для resetTaps специальная логика
+        const isResetTaps = item.effectType === "resetTaps";
+        const shouldDisable = isResetTaps ? isLimitReached : isActive;
+
+        let buttonText = "Прокачать";
+        if (isResetTaps && isLimitReached) buttonText = "Лимит";
+        else if (!isResetTaps && isActive) buttonText = "Активен";
 
         return (
           <Link
@@ -59,11 +67,11 @@ const BoostsList = () => {
             </div>
 
             <Button
-              className={`my-auto ${isActive ? "opacity-60 cursor-not-allowed" : ""}`}
-              onClick={(e) => handleClick(e, item.effectType, isActive ?? false)}
+              className={`my-auto ${shouldDisable ? "opacity-60 cursor-not-allowed" : ""}`}
+              onClick={(e) => handleClick(e, item, isActive ?? false, isLimitReached)}
             >
               <img src={voltage} alt="voltage" className="w-5 h-5" />
-              {isActive ? "Активен" : "Прокачать"}
+              {buttonText}
             </Button>
           </Link>
         );
