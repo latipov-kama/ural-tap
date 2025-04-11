@@ -1,7 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { Boost } from "../../types/boosts"
 import { applyBoostEffect, getBoostById, getBoosts } from "../../services/boostsApi"
-import toast from "react-hot-toast"
 
 export const useBoosts = () => {
   return useQuery<Boost[]>({
