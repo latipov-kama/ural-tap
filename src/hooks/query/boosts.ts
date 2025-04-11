@@ -20,7 +20,6 @@ export const useBoostById = (id: number) => {
 
 export const useApplyBoost = () => {
   return useMutation({
-    mutationFn: ({ boostId, userId }: { boostId: number, userId: number }) => applyBoostEffect(boostId, userId),
-    onError: (error) => toast.error(error.message)
+    mutationFn: ({ boostId, userId }: { boostId: number, userId: number }) => applyBoostEffect(boostId, userId)
   })
 }

@@ -16,12 +16,22 @@ const BoostsList = () => {
 
   const filteredBoosts = boosts?.filter((boost) => boost.active);
 
-  const handleClick = (e: MouseEvent, isActive: boolean) => {
-    if (isActive) {
-      e.preventDefault()
-      toast.error(`Буст уже был применён!`)
+  const handleClick = (e: MouseEvent, effectType: string, isActive: boolean) => {
+    const sameTypeBoostsCount = activeBoosts?.filter(boost => boost.effectType === effectType).length || 0;
+
+    if (sameTypeBoostsCount >= 6) {
+      e.preventDefault();
+      toast.error("Вы достигли лимита на сегодня");
+      return
     }
-  }
+
+    if (isActive) {
+      e.preventDefault();
+      toast.error("Буст уже был применён!");
+      return;
+    }
+
+  };
 
   if (!filteredBoosts?.length) return <NotFound title="Бусты временно не доступны" />
 
@@ -50,7 +60,7 @@ const BoostsList = () => {
 
             <Button
               className={`${isActive ? "opacity-60 cursor-not-allowed" : ""}`}
-              onClick={(e) => handleClick(e, isActive ?? false)}
+              onClick={(e) => handleClick(e, item.effectType, isActive ?? false)}
             >
               <img src={voltage} alt="voltage" className="w-5 h-5" />
               {isActive ? "Активен" : "Прокачать"}

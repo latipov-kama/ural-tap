@@ -14,6 +14,7 @@ import { useApplyBoost, useBoostById } from '../../hooks/query/boosts';
 import { useAuthStore } from '../../stores/auth';
 import { useScoreStore } from '../../stores/score';
 import toast from 'react-hot-toast';
+import { EffectType } from '../../types/boosts';
 
 const Boost = () => {
   const [isActive, setIsActive] = useState(false);
@@ -29,10 +30,22 @@ const Boost = () => {
   const { data: boost } = useBoostById(boostId);
   const { mutate: applyBoost } = useApplyBoost();
 
-  const isAlreadyActive = user?.ActiveBoost?.some(activeBoost => activeBoost.effectType === boost?.effectType);
+  const resetTapsTodayCount = user?.ActiveBoost?.filter(
+    (boost) => boost.effectType === EffectType.RESET_TAPS
+  ).length || 0;
+
+  const isResetTaps = boost?.effectType === EffectType.RESET_TAPS;
+  const isResetTapsLimitReached = isResetTaps && resetTapsTodayCount >= 6;
+
+  const isAlreadyActive = !isResetTaps && user?.ActiveBoost?.some((activeBoost) => activeBoost.effectType === boost?.effectType);
 
   const handleComplete = () => {
     if (!boost || !userId) return;
+
+    if (isResetTapsLimitReached) {
+      toast.error("Вы достигли лимита на сегодня");
+      return;
+    }
 
     if (balance < boost.cost) {
       toast.error("Недостаточно монет!");
@@ -108,11 +121,17 @@ const Boost = () => {
 
         <Button
           onClick={handleComplete}
-          disabled={isActive || isAlreadyActive}
-          className={isActive || isAlreadyActive ? "gradient_btn_active disabled:opacity-90" : ""}
+          // disabled={isAlreadyActive || isResetTapsLimitReached || isActive}
+          className={
+            isAlreadyActive || isResetTapsLimitReached || isActive
+              ? "gradient_btn_active disabled:opacity-90"
+              : ""
+          }
         >
           <img src={voltage} alt="sparkles" className="w-5 h-5" />
-          {isActive || isAlreadyActive ? "Буст применён" : "Прокачать"}
+          {isAlreadyActive || isResetTapsLimitReached || isActive
+            ? "Буст применён"
+            : "Прокачать"}
         </Button>
       </motion.div>
     </div>

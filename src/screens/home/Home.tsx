@@ -28,6 +28,10 @@ const Home: React.FC = () => {
   const prevLevelRef = useRef<number | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
 
+  const filteredBoosts = useMemo(() => {
+    return user?.ActiveBoost?.filter(boost => boost.effectType !== "resetTaps") || [];
+  }, [user]);
+
   useEffect(() => {
     if (!user || !level) return;
 
@@ -89,7 +93,7 @@ const Home: React.FC = () => {
         <>
           <HomeProfile firstName={user.firstName} userId={user.id} photoUrl={photoUrl ?? ""} />
           <CoinsTap onTap={handleTap} balance={balance} isDisabled={isTapDisabled} tapCount={tapCount} />
-          <ActiveBoostBadge activeBoosts={user.ActiveBoost} />
+          <ActiveBoostBadge activeBoosts={filteredBoosts} />
           <TapsIndicator taps={Math.ceil(taps)} maxTaps={maxTaps} />
         </>
       )}
