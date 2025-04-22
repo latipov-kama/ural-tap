@@ -70,8 +70,8 @@ const TaskInfo = () => {
   return (
     <div className='py-8'>
       <div className='flex gap-5 w-full p-4'>
-        <div className="min-w-12 h-12 rounded-full gradient_btn flex items-center justify-center">
-          {task.image && <img src={task.image?.url} alt="task" />}
+        <div className="min-w-12 max-w-12 h-12 rounded-full overflow-hidden gradient_btn flex items-center justify-center">
+          {task.image && <img src={task.image?.url} alt="task" className="w-full h-full object-cover" />}
         </div>
 
         <div>
