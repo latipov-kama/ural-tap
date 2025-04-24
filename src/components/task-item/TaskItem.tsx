@@ -3,7 +3,7 @@ import Badge from "../ui/badge/Badge"
 import Button from "../ui/button/Button"
 import { ChevronRight } from "lucide-react"
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 import { Task } from "../../types/tasks"
 import { useStartTask } from "../../hooks/query/tasks"
 import toast from "react-hot-toast"
@@ -19,7 +19,7 @@ interface props {
 
 const TaskItem: React.FC<props> = ({ task, disabled, userId, handleOpen, handleClose }) => {
   const [completed, setCompleted] = useState(disabled);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { mutate: startTask } = useStartTask();
   const { balance, updateBalance } = useScoreStore();
 
