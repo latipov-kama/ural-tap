@@ -70,7 +70,7 @@ const TaskItem: React.FC<props> = ({ task, disabled, userId, handleOpen, handleC
         // onClick={() => !completed && navigate(`/tasks/${task.id}`)}
       >
         <div className="w-12 h-12 rounded-full overflow-hidden gradient_btn flex items-center justify-center aspect-square">
-          {task.image && <img src={task.image?.url} alt="task" />}
+          {task.image && <img src={task.image?.url} alt="task" className="w-full h-full object-cover"/>}
         </div>
 
         <div>
