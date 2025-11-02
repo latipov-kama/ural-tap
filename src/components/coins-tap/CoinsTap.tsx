@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import coinImg from "../../assets/coin.svg";
+import coinImg from "../../assets/coin.PNG";
 import sparkles from "../../assets/sparkles.svg";
 
 type CoinsTapProps = {
